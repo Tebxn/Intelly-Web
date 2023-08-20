@@ -163,14 +163,14 @@
                             <a href="javascript:void(0);" class="waves-effect"><i class="icon-mail-open"></i><span> Marketing y Correos <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
                             <ul class="submenu">
                                 <li><a href=" Home/Correos.cshtml">Capañas de marketing</a></li>
-                                <li><a href=" Home/Correos.cshtml">Enviar email</a></li>
+                                <li><a href="@Url.Action("Emails", "Mail")">Enviar email</a></li>
                             </ul>
                         </li>
 
                         <li>
                             <a href="javascript:void(0);" class="waves-effect"><i class="icon-profile"></i><span> Análisis de Clientes <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
                             <ul class="submenu">
-                                <li><a href=" Home/Correos.cshtml">Buyer Persona</a></li>
+                                <li><a href="@Url.Action("BuyerPersonaMain", "TargetAnalysis")">Buyer Persona</a></li>
                                 <li><a href=" Home/Correos.cshtml">Compras en comercios</a></li>
                                 <li><a href=" Home/Correos.cshtml">Análisis de ventas</a></li>
                             </ul>
@@ -183,19 +183,18 @@
                         <li>
                             <a href="javascript:void(0);" class="waves-effect"><i class="icon-paper-sheet"></i><span> Reportes <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
                             <ul class="submenu">
-                                <li><a href="pages-pricing.html">Pricing</a></li>
-                                <li><a href="pages-invoice.html">Invoice</a></li>
-                                <li><a href="pages-timeline.html">Timeline</a></li>
-                                <li><a href="pages-faqs.html">FAQs</a></li>
-                                <li><a href="pages-maintenance.html">Maintenance</a></li>
-                                <li><a href="pages-comingsoon.html">Coming Soon</a></li>
-                                <li><a href="pages-starter.html">Starter Page</a></li>
-                                <li><a href="pages-login.html">Login</a></li>
-                                <li><a href="pages-register.html">Register</a></li>
-                                <li><a href="pages-recoverpw.html">Recover Password</a></li>
-                                <li><a href="pages-lock-screen.html">Lock Screen</a></li>
-                                <li><a href="pages-404.html">Error 404</a></li>
-                                <li><a href="pages-500.html">Error 500</a></li>
+                                <li><a href="pages-pricing.html">Ventas</a></li>
+                                <li><a href="pages-invoice.html">Campañas</a></li>
+                                <li><a href="pages-timeline.html">Correos</a></li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="javascript:void(0);" class="waves-effect"><i class="icon-paper-sheet"></i><span> Administrativo <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
+                            <ul class="submenu">
+                                <li><a href="@Url.Action("Employees", "Employee")">Empleados</a></li>
+                                <li><a href="pages-invoice.html">Locales</a></li>
+                                <li><a href="pages-timeline.html">Clientes</a></li>
                             </ul>
                         </li>
                     </ul>
