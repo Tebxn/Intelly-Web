@@ -1,102 +1,94 @@
-﻿
+﻿@model Intelly_Web.Entities.UserEntitie
+
 @{
-     ViewData["Title"] = "AgregarEmpleado";
+    ViewData["Title"] = "AddUser";
 }
-    <body>
+<body>
 
-            <!-- ============================================================== -->
-            <!-- Start right Content here -->
-            <!-- ============================================================== -->
-            <div class="content-page">
-                <!-- Start content -->
-                <div class="content">
-                    <div class="container-fluid">
-                        <div class="page-title-box">
-                            <div class="row align-items-center">
-                                <div class="col-sm-6">
-                                    <h4 class="page-title">Ingresar Nuevo Empleado</h4>
-                                </div>
-                                <div class="col-sm-6">
-                                    <ol class="breadcrumb float-right">
-                                        <li class="breadcrumb-item"><a href="javascript:void(0);">Intelly</a></li>
-                                        <li class="breadcrumb-item"><a href="javascript:void(0);">Data</a></li>
-                                        <li class="breadcrumb-item active">Ingresar Información</li>
-                                    </ol>
-                                </div>
-                            </div> <!-- end row -->
+    <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    <div class="content-page">
+        <!-- Start content -->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="page-title-box">
+                    <div class="row align-items-center">
+                        <div class="col-sm-6">
+                            <h4 class="page-title">Ingresar nuevo usuario</h4>
                         </div>
-                        <!-- end page-title -->
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-right">
+                                <li class="breadcrumb-item"><a href="javascript:void(0);">Intelly</a></li>
+                                <li class="breadcrumb-item"><a href="javascript:void(0);">Data</a></li>
+                                <li class="breadcrumb-item active">Ingresar información</li>
+                            </ol>
+                        </div>
+                    </div> <!-- end row -->
+                </div>
+                <!-- end page-title -->
+                @using (Html.BeginForm("AddUser", "User", FormMethod.Post, new { @class = "pt-3" }))
 
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="card m-b-30">
-                                    <div class="card-body">
+                {
+                    
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card m-b-30">
+                                <div class="card-body">
 
-                                        <h4 class="mt-0 header-title">Ingresar Información</h4>
-                                        <p class="sub-title">Ingrese los datos del nuevo empleado</p>
-
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-2 col-form-label">Nombre</label>
-                                            <div class="col-sm-10">
-                                                <input class="form-control" type="text" value="Nombre" id="example-text-input">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-2 col-form-label">Puesto</label>
-                                            <div class="col-sm-10">
-                                                <input class="form-control" type="text" value="Apellido" id="example-text-input">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="example-text-input" class="col-sm-2 col-form-label">Departamento</label>
-                                            <div class="col-sm-10">
-                                                <input class="form-control" type="email" value="Departamento" id="example-text-input">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="example-number-input" class="col-sm-2 col-form-label">Edad</label>
-                                            <div class="col-sm-10">
-                                                <input class="form-control" type="number" value="Edad" id="example-number-input">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label for="example-date-input" class="col-sm-2 col-form-label">Fecha de Contratación</label>
-                                            <div class="col-sm-10">
-                                                <input class="form-control" type="date" value="2011-08-19" id="example-date-input">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label for="example-number-input" class="col-sm-2 col-form-label">Salario</label>
-                                            <div class="col-sm-10">
-                                                <input class="form-control" type="number" value="Salario" id="example-number-input">
-                                            </div>
-                                        </div>
+                                    <h4 class="mt-0 header-title">Ingresar información</h4>
+                                    <p class="sub-title">Ingrese los datos del nuevo usuario</p>
 
 
-                                        <button type="button" class="btn btn-info btn-lg waves-effect waves-light">Ingresar Empleado</button>
+                                    <div class="form-group row">
+                                        @Html.TextBoxFor(m => m.User_Company_Id, new {@class="form-control form-control-lg", @type="number", @placeholder="Id Empleado"})
+                                    </div>
 
+                                    <div class="form-group row">
+                                        @Html.TextBoxFor(m => m.User_Name, new {@class="form-control form-control-lg", @type="text", @placeholder="Nombre"})
+                                    </div>
+
+                                    <div class="form-group row">
+                                        @Html.TextBoxFor(m => m.User_LastName, new {@class="form-control form-control-lg", @type="text", @placeholder="Apellido"})
+                                    </div>
+                                    <div class="form-group row">
+                                        @Html.TextBoxFor(m => m.User_Email, new {@class="form-control form-control-lg", @type="email", @placeholder="Correo Electronico"})
+                                    </div>
+                                    <div class="form-group row">
+                                        @Html.TextBoxFor(m => m.User_Password, new {@class="form-control form-control-lg", @type="password", @placeholder="Contraseña"})
 
                                     </div>
+
+                                    <div class="form-group row">
+                                        @Html.TextBoxFor(m => m.User_Type, new {@class="form-control form-control-lg", @type="text", @placeholder="Tipo de Usuario"})
+                                    </div>
+
+                                    <div class="form-group row">
+                                        @Html.TextBoxFor(m => m.User_State, new {@class="form-control form-control-lg", @type="text", @placeholder="Estado"})
+                                    </div>
+
+                                    <div class="mt-3">
+                                       <input type="submit" class="btn btn-block btn-primary btn-lg font-weigth-medium auth-form-btn" value="Añadir usuario"></input>
+                                    </div>
+
+
                                 </div>
-                            </div> <!-- end col -->
-                        </div> <!-- end row -->      
-
-
-                    </div>
-                    <!-- container-fluid -->
-
+                            </div>
+                        </div> <!-- end col -->
+                        
+                    </div> <!-- end row -->
+                }
                 </div>
-                <!-- content -->
-            </div>
-            <!-- ============================================================== -->
-            <!-- End Right content here -->
-            <!-- ============================================================== -->
+                <!-- container-fluid -->
 
+            </div>
+            <!-- content -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Right content here -->
+        <!-- ============================================================== -->
         </div>
         <!-- END wrapper -->
-
         <!-- jQuery  -->
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/js/bootstrap.bundle.min.js"></script>
@@ -109,4 +101,4 @@
 
     </body>
 
-</html>
+    </html>
