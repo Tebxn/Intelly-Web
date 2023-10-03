@@ -1,15 +1,17 @@
-﻿namespace Intelly_Web.Models
+﻿using Intelly_Web.Entities;
+
+namespace Intelly_Web.Models
 {
     public interface IUserModel
     {
 
-        public void AddUser();
+        public void AddUser(UserEntitie  entitie);
 
-        public void ShowUsers();
+        public void ShowUsers(UserEntitie entitie);
 
-        public void EditUser();
+        public void EditUser(UserEntitie entitie);
 
-        public void DeleteUser();
+        public void DeleteUser(UserEntitie entitie);
 
     }
 }
