@@ -11,4 +11,15 @@
         public int User_Type { get; set; }
         public bool User_State { get; set; }
     }
+
+    public class UserEntAnswer
+    {
+
+        public int Codigo { get; set; }
+        public string Mensaje { get; set; } = string.Empty;
+        public UserEntity Objet { get; set; } = null;
+        public List<UserEntity> Objets { get; set; } = new List<UserEntity>();
+        //public bool ResultadoTransaccion { get; set; }
+
+    }
 }

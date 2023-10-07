@@ -23,12 +23,18 @@ namespace Intelly_Web.Models
             var resp = _httpClient.PostAsync(url, obj).Result;
             return resp.Content.ReadFromJsonAsync<int>().Result;
         }
-        /*
-        public void ShowUsers(UserEntity entity)
 
+        public UserEntAnswer? GetAllUsers(UserEntity entity)
         {
-
+            string url = "/api/Usuario/GetAllUsers";
+            JsonContent obj = JsonContent.Create(entity);
+            var resp = _httpClient.PostAsync(url, obj).Result;
+            return resp.Content.ReadFromJsonAsync<UserEntAnswer>().Result;
         }
+
+
+
+        /*
 
         public void EditUser(UserEntity entity)
 
