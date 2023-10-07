@@ -17,10 +17,7 @@ namespace Intelly_Web.Controllers
             _logger = logger;
             _userModel = userModel;
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
+       
 
 
         [HttpGet]
@@ -74,14 +71,11 @@ namespace Intelly_Web.Controllers
          }
         */
 
-        [HttpGet]
-        public IActionResult Login()
-        {
-            return View();
-        }
+        /*
+       
 
         [HttpPost]
-        public IActionResult IniciarSesion(UserEntity entity)
+        public IActionResult Login(UserEntity entity)
         {
             var resp = _userModel.Login(entity);
 
@@ -93,7 +87,7 @@ namespace Intelly_Web.Controllers
                 return View();
             }
         }
-
+        */
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
             public IActionResult Error()
             {

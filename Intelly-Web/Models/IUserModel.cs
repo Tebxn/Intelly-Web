@@ -7,7 +7,7 @@ namespace Intelly_Web.Models
 
         public int AddUser(UserEntity  entity);
 
-        public UserEntAnswer? GetAllUsers();
+        public UserEntAnswer? GetAllUsers(UserEntAnswer entity);
 
         // public void EditUser(UserEntity entity);
 

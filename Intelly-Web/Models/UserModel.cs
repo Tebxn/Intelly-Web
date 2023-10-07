@@ -24,7 +24,7 @@ namespace Intelly_Web.Models
             return resp.Content.ReadFromJsonAsync<int>().Result;
         }
 
-        public UserEntAnswer? GetAllUsers(UserEntity entity)
+        public UserEntAnswer? GetAllUsers(UserEntAnswer entity)
         {
             string url = "/api/Usuario/GetAllUsers";
             JsonContent obj = JsonContent.Create(entity);
