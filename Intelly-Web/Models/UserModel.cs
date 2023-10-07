@@ -23,12 +23,11 @@ namespace Intelly_Web.Models
             var resp = _httpClient.PostAsync(url, obj).Result;
             return resp.Content.ReadFromJsonAsync<int>().Result;
         }
+        public UserEntAnswer? GetAllUsers()
 
-        public UserEntAnswer? GetAllUsers(UserEntAnswer entity)
         {
             string url = "/api/Usuario/GetAllUsers";
-            JsonContent obj = JsonContent.Create(entity);
-            var resp = _httpClient.PostAsync(url, obj).Result;
+            var resp = _httpClient.PostAsync(url, null).Result;
             return resp.Content.ReadFromJsonAsync<UserEntAnswer>().Result;
         }
 
