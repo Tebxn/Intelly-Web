@@ -1,7 +1,7 @@
 ﻿@model Intelly_Web.Entities.UserEntity
 
 @{
-    ViewData["Title"] = "NewUser";
+    ViewData["Title"] = "NewEmployee";
 }
 <div class="wrapper-page">
     
@@ -14,7 +14,7 @@
             </div>
             <h5 class="font-18 text-center">Agregar nuevo usuario</h5>
 
-             @using (Html.BeginForm("NewUser", "AddUser", FormMethod.Post, new { @class = "pt-3" })){
+             @using (Html.BeginForm("NewEmployee", "AddUser", FormMethod.Post, new { @class = "pt-3" })){
 
             <form class="form-horizontal m-t-30" action="index.html">
 
@@ -28,26 +28,37 @@
                     <div class="form-group">
                         <div class="col-12">
                             <label>Apellido</label>
-                            @Html.TextBoxFor(m => m.User_LastName, new { @class="form-control form-control-lg", @type="text", @placeholder="Nombre de Usuario" })
+                            @Html.TextBoxFor(m => m.User_LastName, new { @class="form-control form-control-lg", @type="text", @placeholder="Apellido" })
                         </div>
                     </div>
 
                 <div class="form-group">
                     <div class="col-12">
                         <label>Correo Electrónico</label>
-                            @Html.TextBoxFor(m => m.User_Email, new { @class="form-control form-control-lg", @type="text", @placeholder="Nombre de Usuario" })
+                            @Html.TextBoxFor(m => m.User_Email, new { @class="form-control form-control-lg", @type="text", @placeholder="Correo" })
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-12">
                         <label>Contraseña</label>
-                            @Html.TextBoxFor(m => m.User_Password, new { @class="form-control form-control-lg", @type="text", @placeholder="Nombre de Usuario" })
+                            @Html.TextBoxFor(m => m.User_Password, new { @class="form-control form-control-lg", @type="password", @placeholder="Contraseña" })
                     </div>
                 </div>
+                    <div class="form-group">
+                        <div class="col-12">
+                            <label>Empresa</label>
+                            @Html.TextBoxFor(m => m.User_Company_Id, new { @class="form-control form-control-lg", @type="number", @placeholder="Id de la Empresa" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-12">
+                            <label>Permisos</label>
+                            @Html.TextBoxFor(m => m.User_Type, new { @class="form-control form-control-lg", @type="number", @placeholder="Tipo de Usuario" })
+                        </div>
+                    </div>
 
-
-                    <!-- FALTA CARGAR EL DROPDOWN -->
+                    <!-- FALTA CARGAR EL DROPDOWN 
                     <div class="form-group">
                         <div class="col-12">
                             <label>Empresa</label>
@@ -55,15 +66,15 @@
                                 <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Seleccionar Opción
                                 </button>
-                                <!-- Contenido del menú desplegable -->
+                            
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="#">1</a>
-                                    <a class="dropdown-item" href="#">2</a>
+                                    <a class="dropdown-item" href="#">3</a>
+                                    <a class="dropdown-item" href="#">4</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- FALTA CARGAR EL DROPDOWN -->
+                   
 
                 <div class="form-group">
                     <div class="col-12">
@@ -72,7 +83,7 @@
                             <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Seleccionar Opción
                             </button>
-                            <!-- Contenido del menú desplegable -->
+                          
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item" href="#">Usuario</a>
                                 <a class="dropdown-item" href="#">Administrador</a>
@@ -80,7 +91,7 @@
                         </div>
                     </div>
                 </div>
-
+                -->
                 <div class="form-group text-center m-t-20">
                     <div class="col-12">
                         <button class="btn btn-primary btn-block btn-lg waves-effect waves-light" type="submit">Crear Usuario</button>

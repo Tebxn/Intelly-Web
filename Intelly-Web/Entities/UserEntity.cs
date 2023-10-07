@@ -18,7 +18,7 @@
         public int Codigo { get; set; }
         public string Mensaje { get; set; } = string.Empty;
         public UserEntity Objet { get; set; } = null;
-        public List<UserEntity> Objets { get; set; } = new List<UserEntity>();
+        public List<UserEntity> Objects { get; set; } = new List<UserEntity>();
         //public bool ResultadoTransaccion { get; set; }
 
     }

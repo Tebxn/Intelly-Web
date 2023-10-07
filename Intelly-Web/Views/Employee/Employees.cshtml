@@ -80,7 +80,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach (var user in Model.Objets)
+                                            @foreach (var user in Model.Objects)
                                             {
                                                 <tr>
                                                     <td>@user.User_Company_Id</td>
@@ -103,7 +103,7 @@
 
 
                     <div class="mt-3">
-                        <a href="/Employee/addEmployee" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">Añadir usuario</a>
+                        <a href="@Url.Action("NewEmployee", "AddUser")" class="btn btn-light">Editar</a>
                     </div>
 
 

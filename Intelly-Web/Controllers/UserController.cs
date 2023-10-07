@@ -33,7 +33,7 @@ namespace Intelly_Web.Controllers
             var resp = _userModel.AddUser(entity);
             if (resp == 1)
             {
-                return RedirectToAction("NewUser", "AddUser");
+                return RedirectToAction("NewEmployee", "AddUser");
             }
             else
             {
@@ -44,19 +44,15 @@ namespace Intelly_Web.Controllers
         }
 
 
-        /*[HttpGet]
-        public IActionResult ShowUsers()
+        [HttpGet]
+        public IActionResult GetAllUsers()
          {
-             return View();
-         }
-
-         [HttpPost]
-         public IActionResult ShowUsers()
-         {
-             return View();
+            var data = _userModel.GetAllUsers();
+            return View(data?.Objects);
+        }
 
 
-         }
+        /*
         public IActionResult EditUser()
 
          {
@@ -88,6 +84,8 @@ namespace Intelly_Web.Controllers
             }
         }
         */
+
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
             public IActionResult Error()
             {
