@@ -1,5 +1,7 @@
-﻿@{
-    ViewData["Title"] = "Crear nuevo Usuario";
+﻿@model Intelly_Web.Entities.UserEntity
+
+@{
+    ViewData["Title"] = "NewUser";
 }
 <div class="wrapper-page">
     
@@ -12,28 +14,56 @@
             </div>
             <h5 class="font-18 text-center">Agregar nuevo usuario</h5>
 
+             @using (Html.BeginForm("NewUser", "AddUser", FormMethod.Post, new { @class = "pt-3" })){
+
             <form class="form-horizontal m-t-30" action="index.html">
+
+                    <div class="form-group">
+                        <div class="col-12">
+                            <label>Nombre</label>
+                            @Html.TextBoxFor(m => m.User_Name, new { @class="form-control form-control-lg", @type="text", @placeholder="Nombre de Usuario" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-12">
+                            <label>Apellido</label>
+                            @Html.TextBoxFor(m => m.User_LastName, new { @class="form-control form-control-lg", @type="text", @placeholder="Nombre de Usuario" })
+                        </div>
+                    </div>
 
                 <div class="form-group">
                     <div class="col-12">
                         <label>Correo Electrónico</label>
-                        <input class="form-control" type="text" required="" placeholder="Correo Electrónico">
+                            @Html.TextBoxFor(m => m.User_Email, new { @class="form-control form-control-lg", @type="text", @placeholder="Nombre de Usuario" })
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-12">
-                        <label>Cédula o pasaporte</label>
-                        <input class="form-control" type="text" required="" placeholder="Cédula o pasaporte">
+                        <label>Contraseña</label>
+                            @Html.TextBoxFor(m => m.User_Password, new { @class="form-control form-control-lg", @type="text", @placeholder="Nombre de Usuario" })
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <div class="col-12">
-                        <label>Nombre</label>
-                        <input class="form-control" type="text" required="" placeholder="Nombre completo">
+
+                    <!-- FALTA CARGAR EL DROPDOWN -->
+                    <div class="form-group">
+                        <div class="col-12">
+                            <label>Empresa</label>
+                            <div class="dropdown">
+                                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Seleccionar Opción
+                                </button>
+                                <!-- Contenido del menú desplegable -->
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="#">1</a>
+                                    <a class="dropdown-item" href="#">2</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                    <!-- FALTA CARGAR EL DROPDOWN -->
 
                 <div class="form-group">
                     <div class="col-12">
@@ -56,7 +86,9 @@
                         <button class="btn btn-primary btn-block btn-lg waves-effect waves-light" type="submit">Crear Usuario</button>
                     </div>
                 </div>
+
             </form>
+            }
         </div>
 
     </div>

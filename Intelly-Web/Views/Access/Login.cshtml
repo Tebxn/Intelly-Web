@@ -1,6 +1,8 @@
-﻿@{
+﻿@model Intelly_Web.Entities.UserEntity
+
+@{
     Layout = "/Views/Shared/_Access.cshtml";
-    ViewData["Title"] = "Login";
+    ViewData["Title"] = "NewSession";
 }
 <div class="wrapper-page">
     <div class="card card-pages shadow-none">
@@ -11,19 +13,24 @@
             </div>
             <h5 class="font-18 text-center">Inicie Sesion para continuar</h5>
 
+            @using (Html.BeginForm("NewSession", "Login", FormMethod.Post, new { @class = "pt-3" })){
+
+                @ViewBag.MensajePantalla
+                
             <form class="form-horizontal m-t-30" action="index.html">
+
 
                 <div class="form-group">
                     <div class="col-12">
                         <label>Usuario</label>
-                        <input class="form-control" type="text" required="" placeholder="Usuario">
+                            @Html.TextBoxFor(m => m.User_Name, new { @class="form-control form-control-lg", @type="text", @placeholder="Nombre de Usuario" })
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-12">
                         <label>Contraseña</label>
-                        <input class="form-control" type="password" required="" placeholder="Contraseña">
+                            @Html.TextBoxFor(m => m.User_Password, new { @class="form-control form-control-lg", @type="text", @placeholder="Contraseña" })
                     </div>
                 </div>
 
@@ -43,13 +50,14 @@
                         <a class="btn btn-primary btn-block btn-lg waves-effect waves-light" href="@Url.Action("Index", "Home")">Iniciar Sesión </a>
                     </div>
                 </div>
-
+                    <!-- Hay que arreglar este redireccionamiento -->
                 <div class="form-group row m-t-30 m-b-0">
                     <div class="col-sm-7">
-                        <a href="pages-recoverpw.html" class="text-muted"><i class="fa fa-lock m-r-5"></i> Olvidé mi contraseña</a>
+                            ¿Olvidaste la contraseña? <a href="@Url.Action("RecuperarCuenta", "Login")" class="text-primary">Recuperar</a>
                     </div>
                 </div>
             </form>
+            }
         </div>
 
     </div>

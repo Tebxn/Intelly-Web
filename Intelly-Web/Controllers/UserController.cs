@@ -17,45 +17,90 @@ namespace Intelly_Web.Controllers
             _logger = logger;
             _userModel = userModel;
         }
-        
-
-        [HttpPost]
-        public IActionResult AddUser()
+        public IActionResult Index()
         {
-            _userModel.AddUser();
             return View();
         }
+
 
         [HttpGet]
-        public IActionResult AddUser(UserEntitie entitie)
+        public IActionResult AddUser()
         {
             return View();
         }
 
+
+        [HttpPost]
+        public IActionResult AddUser(UserEntity entity)
+        {
+            var resp = _userModel.AddUser(entity);
+            if (resp == 1)
+            {
+                return RedirectToAction("NewUser", "AddUser");
+            }
+            else
+            {
+                ViewBag.MensajePantalla = "No se realizaron cambios";
+                return View();
+
+            }
+        }
+
+
+        /*[HttpGet]
         public IActionResult ShowUsers()
+         {
+             return View();
+         }
+
+         [HttpPost]
+         public IActionResult ShowUsers()
+         {
+             return View();
+
+
+         }
+        public IActionResult EditUser()
+
+         {
+             _userModel.EditUser();
+             return View();
+         }
+
+         public IActionResult DeleteUser()
+         {
+             _userModel.DeleteUser();
+             return View();
+         }
+        */
+
+        [HttpGet]
+        public IActionResult Login()
         {
-            _userModel.ShowUsers();
             return View();
         }
 
-        public IActionResult EditUser() 
-        
-        { 
-            _userModel.EditUser();
-            return View();
-        }
-
-        public IActionResult DeleteUser() 
+        [HttpPost]
+        public IActionResult IniciarSesion(UserEntity entity)
         {
-            _userModel.DeleteUser();
-            return View();
-        }
+            var resp = _userModel.Login(entity);
 
+            if (resp != null)
+                return RedirectToAction("NewSession", "Login");
+            else
+            {
+                ViewBag.MensajePantalla = "No se pudo iniciar sesión";
+                return View();
+            }
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+            public IActionResult Error()
+            {
+                return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            }
+
+           
+        
     }
 }

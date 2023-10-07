@@ -1,6 +1,6 @@
 ﻿namespace Intelly_Web.Entities
 {
-    public class UserEntitie
+    public class UserEntity
     {
         public long User_Id { get; set; }
         public long User_Company_Id { get; set; }
