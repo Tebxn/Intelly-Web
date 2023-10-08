@@ -1,5 +1,6 @@
 ﻿using Intelly_Web.Entities;
 
+
 namespace Intelly_Web.Models
 {
     public class UserModel : IUserModel
@@ -23,12 +24,22 @@ namespace Intelly_Web.Models
             var resp = _httpClient.PostAsync(url, obj).Result;
             return resp.Content.ReadFromJsonAsync<int>().Result;
         }
-        public UserEntAnswer? GetAllUsers()
-
+        public List<UserEntity> GetAllUsers()
         {
             string url = "/api/Usuario/GetAllUsers";
-            var resp = _httpClient.PostAsync(url, null).Result;
-            return resp.Content.ReadFromJsonAsync<UserEntAnswer>().Result;
+            var resp = _httpClient.GetAsync(_urlApi + url).Result;
+
+            if (resp.IsSuccessStatusCode)
+            {
+                var userEntAnswer = resp.Content.ReadFromJsonAsync<UserEntAnswer>().Result;
+
+                if (userEntAnswer != null && userEntAnswer.Objects != null)
+                {
+                    return userEntAnswer.Objects;
+                }
+            }
+
+            return new List<UserEntity>(); // Return an empty list in case of an error
         }
 
 

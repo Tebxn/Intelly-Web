@@ -45,10 +45,12 @@ namespace Intelly_Web.Controllers
 
 
         [HttpGet]
-        public IActionResult GetAllUsers()
-         {
-            var data = _userModel.GetAllUsers();
-            return View(data?.Objects);
+        public ActionResult GetAllUsers()
+        {
+            IEnumerable<UserEntity> userEntities = _userModel.GetAllUsers();
+
+            // Pass userEntities to a view and return it
+            return View(userEntities);
         }
 
 

@@ -1,6 +1,6 @@
-﻿@model Intelly_Web.Entities.UserEntAnswer
+﻿@model IEnumerable<Intelly_Web.Entities.UserEntity>
 @{
-    ViewData["Title"] = "Empleados";
+    ViewData["Title"] = "Employees";
 }
 
 <!DOCTYPE html>
@@ -80,7 +80,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach (var user in Model.Objects)
+                                            @foreach (var user in Model)
                                             {
                                                 <tr>
                                                     <td>@user.User_Company_Id</td>
