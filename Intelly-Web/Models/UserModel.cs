@@ -20,7 +20,7 @@ namespace Intelly_Web.Models
 
         }
 
-        int IUserModel.AddUser(UserEntity entity)//REGISTRO
+        int IUserModel.AddUser(UserEnt entity)//REGISTRO
         {
             string url = _urlApi + "/api/Authentication/RegisterAccount";
             JsonContent obj = JsonContent.Create(entity);
@@ -49,28 +49,29 @@ namespace Intelly_Web.Models
           }*/
 
 
-        public async Task<List<UserEntity>> GetAllUsers()
+        public async Task<List<UserEnt>> GetAllUsers()
         {
-            HttpResponseMessage response = await _httpClient.GetAsync("GetAllUsers");
+            string url = _urlApi + "/api/Users/GetAllUsers";
+            HttpResponseMessage response = await _httpClient.GetAsync(url);
 
             if (response.IsSuccessStatusCode)
             {
                 string json = await response.Content.ReadAsStringAsync();
-                List<UserEntity> users = JsonConvert.DeserializeObject<List<UserEntity>>(json);
+                List<UserEnt> users = JsonConvert.DeserializeObject<List<UserEnt>>(json);
                 return users;
             }
 
             throw new Exception("Error al obtener usuarios del API.");
         }
 
-        UserEntity? IUserModel.Login(UserEntity entity)
+        UserEnt? IUserModel.Login(UserEnt entity)
         {
             string url = _urlApi + "/api/Authentication/Login";
             JsonContent obj = JsonContent.Create(entity);
             var resp = _httpClient.PostAsync(url, obj).Result;
 
             if (resp.IsSuccessStatusCode)
-                return resp.Content.ReadFromJsonAsync<UserEntity>().Result;
+                return resp.Content.ReadFromJsonAsync<UserEnt>().Result;
             else
                 return null;
         }

@@ -28,7 +28,7 @@ namespace Intelly_Web.Controllers
 
 
         [HttpPost]
-        public IActionResult AddUser(UserEntity entity)
+        public IActionResult AddUser(UserEnt entity)
         {
             var resp = _userModel.AddUser(entity);
             if (resp == 1)
@@ -43,23 +43,10 @@ namespace Intelly_Web.Controllers
             }
         }
 
-
-        [HttpGet("GetAllUsers")]
-        public async Task<IActionResult> GetAllUsers()
-        {
-            try
-            {
-                var users = await _userModel.GetAllUsers();
-                return Ok(users);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest($"Error: {ex.Message}");
-            }
-        }
+        
 
         [HttpPost]
-        public IActionResult Login(UserEntity entity)
+        public IActionResult Login(UserEnt entity)
         {
             var resp = _userModel.Login(entity);
 
@@ -71,7 +58,6 @@ namespace Intelly_Web.Controllers
                 return View();
             }
         }
-
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
             public IActionResult Error()

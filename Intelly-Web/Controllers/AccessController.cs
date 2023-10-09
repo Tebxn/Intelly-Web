@@ -28,7 +28,7 @@ namespace Intelly_Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(UserEntity entity)
+        public IActionResult Login(UserEnt entity)
         {
             var resp = _userModel.Login(entity);
 
