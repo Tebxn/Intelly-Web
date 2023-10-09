@@ -28,19 +28,19 @@ namespace Intelly_Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(UserEnt entity)
+        public async Task<IActionResult> Login(UserEnt entity)
         {
-            var resp = _userModel.Login(entity);
+            var resp = await _userModel.Login(entity);
 
             if (resp != null)
-                return RedirectToAction("NewSession", "Login");
+                return RedirectToAction("Index", "Home");
             else
             {
                 ViewBag.MensajePantalla = "No se pudo iniciar sesión";
                 return View();
             }
-
         }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

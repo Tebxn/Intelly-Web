@@ -9,7 +9,7 @@ namespace Intelly_Web.Models
 
         Task<List<UserEnt>> GetAllUsers();
 
-        public UserEnt? Login(UserEnt entity);
+        Task<UserEnt> Login(UserEnt entity);
 
 
     }
