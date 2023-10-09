@@ -15,11 +15,10 @@
     public class UserEntAnswer
     {
 
-        public int Codigo { get; set; }
-        public string Mensaje { get; set; } = string.Empty;
+       
         public UserEntity Object { get; set; } = null;
         public List<UserEntity> Objects { get; set; } = new List<UserEntity>();
-        //public bool ResultadoTransaccion { get; set; }
+    
 
     }
 }

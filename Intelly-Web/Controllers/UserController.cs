@@ -44,33 +44,19 @@ namespace Intelly_Web.Controllers
         }
 
 
-        [HttpGet]
-        public ActionResult GetAllUsers()
+        [HttpGet("GetAllUsers")]
+        public async Task<IActionResult> GetAllUsers()
         {
-            IEnumerable<UserEntity> userEntities = _userModel.GetAllUsers();
-
-            // Pass userEntities to a view and return it
-            return View(userEntities);
+            try
+            {
+                var users = await _userModel.GetAllUsers();
+                return Ok(users);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error: {ex.Message}");
+            }
         }
-
-
-        /*
-        public IActionResult EditUser()
-
-         {
-             _userModel.EditUser();
-             return View();
-         }
-
-         public IActionResult DeleteUser()
-         {
-             _userModel.DeleteUser();
-             return View();
-         }
-        */
-
-        /*
-       
 
         [HttpPost]
         public IActionResult Login(UserEntity entity)
@@ -85,7 +71,6 @@ namespace Intelly_Web.Controllers
                 return View();
             }
         }
-        */
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -7,4 +7,12 @@
     <RootNamespace>Intelly_Web</RootNamespace>
   </PropertyGroup>
 
+	<ItemGroup>
+		<!-- Las referencias a los paquetes NuGet se agregarán aquí. -->
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="System.Net.Http.Json" Version="7.0.1" />
+
+	</ItemGroup>
+
+
 </Project>

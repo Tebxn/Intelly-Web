@@ -1,4 +1,7 @@
 ﻿using Intelly_Web.Entities;
+using System.Net.Http.Json;
+using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 
 namespace Intelly_Web.Models
@@ -17,47 +20,50 @@ namespace Intelly_Web.Models
 
         }
 
-        public int AddUser(UserEntity entity)//REGISTRO
+        int IUserModel.AddUser(UserEntity entity)//REGISTRO
         {
             string url = _urlApi + "/api/Authentication/RegisterAccount";
             JsonContent obj = JsonContent.Create(entity);
             var resp = _httpClient.PostAsync(url, obj).Result;
             return resp.Content.ReadFromJsonAsync<int>().Result;
         }
-        public List<UserEntity> GetAllUsers()
+
+        /* public List<UserEntity> GetAllUsers()
+       {
+           string url = "/api/Usuario/GetAllUsers";
+           var resp = _httpClient.GetAsync(_urlApi + url).Result;
+
+           if (resp.IsSuccessStatusCode)
+           {
+               var userEntAnswer = resp.Content.ReadFromJsonAsync<UserEntAnswer>().Result;
+
+               if (userEntAnswer != null && userEntAnswer.Objects != null)
+               {
+                   return userEntAnswer.Objects;
+               }
+           }
+
+           return new List<UserEntity>(); // Return an empty list in case of an error
+       }
+
+          }*/
+
+
+        public async Task<List<UserEntity>> GetAllUsers()
         {
-            string url = "/api/Usuario/GetAllUsers";
-            var resp = _httpClient.GetAsync(_urlApi + url).Result;
+            HttpResponseMessage response = await _httpClient.GetAsync("GetAllUsers");
 
-            if (resp.IsSuccessStatusCode)
+            if (response.IsSuccessStatusCode)
             {
-                var userEntAnswer = resp.Content.ReadFromJsonAsync<UserEntAnswer>().Result;
-
-                if (userEntAnswer != null && userEntAnswer.Objects != null)
-                {
-                    return userEntAnswer.Objects;
-                }
+                string json = await response.Content.ReadAsStringAsync();
+                List<UserEntity> users = JsonConvert.DeserializeObject<List<UserEntity>>(json);
+                return users;
             }
 
-            return new List<UserEntity>(); // Return an empty list in case of an error
+            throw new Exception("Error al obtener usuarios del API.");
         }
 
-
-
-        /*
-
-        public void EditUser(UserEntity entity)
-
-        {
-
-        }
-
-        public void DeleteUser(UserEntity entity)
-
-        {
-
-        }*/
-        public UserEntity? Login(UserEntity entity)
+        UserEntity? IUserModel.Login(UserEntity entity)
         {
             string url = _urlApi + "/api/Authentication/Login";
             JsonContent obj = JsonContent.Create(entity);

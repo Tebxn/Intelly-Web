@@ -7,10 +7,7 @@ namespace Intelly_Web.Models
 
         public int AddUser(UserEntity  entity);
 
-        public List<UserEntity> GetAllUsers();
-        // public void EditUser(UserEntity entity);
-
-        // public void DeleteUser(UserEntity entity);
+        Task<List<UserEntity>> GetAllUsers();
 
         public UserEntity? Login(UserEntity entity);
 
