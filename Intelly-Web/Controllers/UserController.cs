@@ -28,7 +28,7 @@ namespace Intelly_Web.Controllers
 
 
         [HttpPost]
-        public IActionResult AddUser(UserEnt entity)
+        public IActionResult AddUser(UserEntity entity)
         {
             var resp = _userModel.AddUser(entity);
             if (resp == 1)
@@ -43,10 +43,36 @@ namespace Intelly_Web.Controllers
             }
         }
 
-        
+
+        [HttpGet]
+        public ActionResult GetAllUsers()
+        {
+            IEnumerable<UserEntity> userEntities = _userModel.GetAllUsers();
+
+            // Pass userEntities to a view and return it
+            return View(userEntities);
+        }
+
+
+        /*
+        public IActionResult EditUser()
+
+         {
+             _userModel.EditUser();
+             return View();
+         }
+
+         public IActionResult DeleteUser()
+         {
+             _userModel.DeleteUser();
+             return View();
+         }
+        */
+
+        /*
 
         [HttpPost]
-        public IActionResult Login(UserEnt entity)
+        public IActionResult Login(UserEntity entity)
         {
             var resp = _userModel.Login(entity);
 
@@ -58,6 +84,8 @@ namespace Intelly_Web.Controllers
                 return View();
             }
         }
+        */
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
             public IActionResult Error()

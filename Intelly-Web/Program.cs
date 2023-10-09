@@ -1,11 +1,14 @@
 using Intelly_Web.Models;
+using Intelly_Web.Services;
+using Intelly_Web.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpClient();
-builder.Services.AddSingleton<IUserModel, UserModel>(); //mapear la inyeccion de dependencias para cualquier controller
+builder.Services.AddSingleton<IUserModel, UserModel>();
+builder.Services.AddTransient<IEmailService, EmailService>();//mapear la inyeccion de dependencias para cualquier controller
 
 var app = builder.Build();
 

@@ -27,8 +27,23 @@ namespace Intelly_Web.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult PwdRecovery()
+        {
+            return View();
+        }
+
+
         [HttpPost]
-        public IActionResult Login(UserEnt entity)
+        public IActionResult PwdRecovery(string email)
+        {
+            _userModel.SendEmail(email);
+
+            return View("EmailSent");
+        }
+
+        [HttpPost]
+        public IActionResult Login(UserEntity entity)
         {
             var resp = _userModel.Login(entity);
 
