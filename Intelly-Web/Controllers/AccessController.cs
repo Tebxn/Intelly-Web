@@ -27,20 +27,20 @@ namespace Intelly_Web.Controllers
             return View();
         }
 
-        [HttpGet]
-        public IActionResult PwdRecovery()
-        {
-            return View();
-        }
+        //[HttpGet]
+        //public IActionResult PwdRecovery()
+        //{
+        //    return View();
+        //}
 
 
-        [HttpPost]
-        public IActionResult PwdRecovery(string email)
-        {
-            _userModel.SendEmail(email);
+        //[HttpPost]
+        //public IActionResult PwdRecovery(string email)
+        //{
+        //    _userModel.SendEmail(email);
 
-            return View("EmailSent");
-        }
+        //    return View("EmailSent");
+        //}
 
         [HttpPost]
  

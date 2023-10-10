@@ -7,14 +7,11 @@ namespace Intelly_Web.Controllers
 {
     public class EmployeeController : Controller
     {
-        private readonly ILogger<UserController> _logger;
         private readonly IUserModel _userModel;
 
-
         //Inyeccion de dependencias, para que por medio de la interfaz el controller vea los metodos
-        public EmployeeController(ILogger<UserController> logger, IUserModel userModel)
+        public EmployeeController(IUserModel userModel)
         {
-            _logger = logger;
             _userModel = userModel;
         }
 
@@ -23,15 +20,29 @@ namespace Intelly_Web.Controllers
             return View();
         }
 
+        [HttpPost]
+        public IActionResult AddEmployee(UserEnt entity)
+        {
+            var resp = _userModel.AddEmployee(entity);
+            if (resp == "Success")
+            {
+                return RedirectToAction("Employees", "Employee");
+            }
+            else
+            {
+                ViewBag.MensajePantalla = "No se realizaron cambios";
+                return View();
+            }
+        }
+
         [HttpGet]
         public async Task<IActionResult> Employees()
         {
             try
             {
-                var data = await _userModel.GetAllUsers();
-                return View("Employees", data);
+                return View(await _userModel.GetAllUsers());
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 List<UserEnt> errors = new List<UserEnt>();
                 return View(errors);

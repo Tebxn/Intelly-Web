@@ -5,11 +5,11 @@ namespace Intelly_Web.Models
     public interface IUserModel
     {
 
-        public int AddUser(UserEnt  entity);
+        public string? AddEmployee(UserEnt entity);
 
-        Task<List<UserEnt>> GetAllUsers();
+        Task<List<UserEnt>?> GetAllUsers();
 
-        Task<UserEnt> Login(UserEnt entity);
+        Task<UserEnt?> Login(UserEnt entity);
 
 
     }

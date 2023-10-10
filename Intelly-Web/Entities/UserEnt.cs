@@ -16,11 +16,7 @@
 
     public class UserEntAnswer
     {
-
-       
-        public UserEnt Object { get; set; } = null;
+        public UserEnt? Object { get; set; } = null;
         public List<UserEnt> Objects { get; set; } = new List<UserEnt>();
-    
-
     }
 }
