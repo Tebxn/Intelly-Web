@@ -1,0 +1,74 @@
+﻿@model Intelly_Web.Entities.UserEnt
+
+@{
+    ViewData["Title"] = "NewEmployee";
+}
+<div class="wrapper-page">
+    
+    <div class="card card-pages shadow-none">
+
+        <div class="card-body">
+            
+            <div class="text-center m-t-0 m-b-15">
+                <a href="index.html" class="logo logo-admin"><img src="~/images/logo-dark.png" alt="" height="70"></a>
+            </div>
+            <h5 class="font-18 text-center">Agregar nuevo usuario</h5>
+
+            <form asp-action="AddEmployee" asp-controller="User" method="post" class="pt-3">
+                <div class="form-horizontal m-t-30">
+
+                    <div class="form-group">
+                        <div class="col-12">
+                            <label>Nombre</label>
+                            <input asp-for="User_Name" class="form-control form-control-lg" type="text" placeholder="Nombre de Usuario" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-12">
+                            <label>Apellido</label>
+                            <input asp-for="User_LastName" class="form-control form-control-lg" type="text" placeholder="Apellido" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-12">
+                            <label>Correo Electrónico</label>
+                            <input asp-for="User_Email" class="form-control form-control-lg" type="text" placeholder="Correo" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-12">
+                            <label>Contraseña</label>
+                            <input asp-for="User_Password" class="form-control form-control-lg" type="password" placeholder="Contraseña" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-12">
+                            <label>Empresa</label>
+                            <input asp-for="User_Company_Id" class="form-control form-control-lg" type="number" placeholder="Id de la Empresa" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-12">
+                            <label>Permisos</label>
+                            <input asp-for="User_Type" class="form-control form-control-lg" type="number" placeholder="Tipo de Usuario" />
+                        </div>
+                    </div>
+
+                    <div class="form-group text-center m-t-20">
+                        <div class="col-12">
+                            <button class="btn btn-primary btn-block btn-lg waves-effect waves-light" type="submit">Crear Usuario</button>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+</div>

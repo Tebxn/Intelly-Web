@@ -7,13 +7,6 @@
     <RootNamespace>Intelly_Web</RootNamespace>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Views\User\**" />
-    <Content Remove="Views\User\**" />
-    <EmbeddedResource Remove="Views\User\**" />
-    <None Remove="Views\User\**" />
-  </ItemGroup>
-
 	<ItemGroup>
 		<!-- Las referencias a los paquetes NuGet se agregarán aquí. -->
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />

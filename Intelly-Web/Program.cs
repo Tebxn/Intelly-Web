@@ -1,14 +1,12 @@
+using Intelly_Web.Interfaces;
 using Intelly_Web.Models;
-using Intelly_Web.Services;
-using Intelly_Web.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpClient();
-builder.Services.AddSingleton<IEmployeeModel, EmployeeModel>();
-builder.Services.AddTransient<IEmailService, EmailService>();//mapear la inyeccion de dependencias para cualquier controller
+builder.Services.AddSingleton<IUserModel, UserModel>();
 
 var app = builder.Build();
 
@@ -29,6 +27,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Access}/{action=Login}/{id?}");
+    pattern: "{controller=Authentication}/{action=Login}/{id?}");
 
 app.Run();

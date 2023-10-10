@@ -1,16 +1,17 @@
 ﻿using Intelly_Web.Entities;
+using Intelly_Web.Interfaces;
 using Intelly_Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace Intelly_Web.Controllers
 {
-    public class AccessController : Controller
+    public class AuthenticationController : Controller
     {
-        private readonly ILogger<AccessController> _logger;
-        private readonly IEmployeeModel _userModel;
+        private readonly ILogger<AuthenticationController> _logger;
+        private readonly IUserModel _userModel;
 
-        public AccessController(ILogger<AccessController> logger, IEmployeeModel userModel)
+        public AuthenticationController(ILogger<AuthenticationController> logger, IUserModel userModel)
         {
             _logger = logger;
             _userModel = userModel;
@@ -27,32 +28,16 @@ namespace Intelly_Web.Controllers
             return View();
         }
 
-        //[HttpGet]
-        //public IActionResult PwdRecovery()
-        //{
-        //    return View();
-        //}
-
-
-        //[HttpPost]
-        //public IActionResult PwdRecovery(string email)
-        //{
-        //    _userModel.SendEmail(email);
-
-        //    return View("EmailSent");
-        //}
-
         [HttpPost]
- 
-        public async Task<IActionResult> Login(EmployeeEnt entity)
+        public async Task<IActionResult> Login(UserEnt entity)
         {
             var resp = await _userModel.Login(entity);
 
-            if (resp != null)
+            if (resp.Success)
                 return RedirectToAction("Index", "Home");
             else
             {
-                ViewBag.MensajePantalla = "No se pudo iniciar sesión";
+                ViewBag.MensajePantalla = resp.ErrorMessage;
                 return View();
             }
         }

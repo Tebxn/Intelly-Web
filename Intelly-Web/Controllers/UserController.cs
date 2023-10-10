@@ -1,18 +1,17 @@
 ﻿using Intelly_Web.Entities;
+using Intelly_Web.Interfaces;
 using Intelly_Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace Intelly_Web.Controllers
 {
-    public class EmployeeController : Controller
+    public class UserController : Controller
     {
-        private readonly IEmployeeModel _employeeModel;
-
-        //Inyeccion de dependencias, para que por medio de la interfaz el controller vea los metodos
-        public EmployeeController(IEmployeeModel employeeModel)
+        private readonly IUserModel _userModel;
+        public UserController(IUserModel employeeModel)
         {
-            _employeeModel = employeeModel;
+            _userModel = employeeModel;
         }
 
         public IActionResult AddEmployee()
@@ -21,10 +20,10 @@ namespace Intelly_Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddEmployee(EmployeeEnt entity)
+        public IActionResult AddEmployee(UserEnt entity)
         {
-            var resp = _employeeModel.AddEmployee(entity);
-            if (resp == "Success")
+            var resp = _userModel.AddEmployee(entity);
+            if (resp.IsCompletedSuccessfully)
             {
                 return RedirectToAction("Employees", "Employee");
             }
@@ -40,11 +39,13 @@ namespace Intelly_Web.Controllers
         {
             try
             {
-                return View(await _employeeModel.GetAllUsers());
+                var apiResponse = await _userModel.GetAllUsers();
+                var listUsers = apiResponse.Data.ToList();
+                return View(listUsers);
             }
             catch (Exception)
             {
-                List<EmployeeEnt> errors = new List<EmployeeEnt>();
+                List<UserEnt> errors = new List<UserEnt>();
                 return View(errors);
             }
         }

@@ -1,4 +1,4 @@
-﻿@model Intelly_Web.Entities.EmployeeEnt
+﻿@model Intelly_Web.Entities.UserEnt
 
 @{
     Layout = "/Views/Shared/_Access.cshtml";
@@ -13,12 +13,8 @@
             </div>
             <h5 class="font-18 text-center">Inicie Sesion para continuar</h5>
 
-            @using (Html.BeginForm("Login", "Access", FormMethod.Post, new { @class = "pt-3" }))
-            {
-                @ViewBag.MensajePantalla
-
-                <form class="form-horizontal m-t-30">
-
+                <form asp-action="Login" asp-controller="Authentication" method="post" class="form-horizontal m-t-30">
+                    @ViewBag.MensajePantalla
                     <div class="form-group">
                         <div class="col-12">
                             <label>Usuario</label>
@@ -50,7 +46,7 @@
                         </div>
                     </div>
                 </form>
-            }
+            
                     <!-- Hay que arreglar este redireccionamiento -->
                     <div class="form-group row m-t-30 m-b-0">
                         <div class="col-sm-7">
