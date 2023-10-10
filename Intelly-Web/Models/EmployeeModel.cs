@@ -7,14 +7,14 @@ using Intelly_Web.Services.Interfaces;
 
 namespace Intelly_Web.Models
 {
-    public class UserModel : IUserModel
+    public class EmployeeModel : IEmployeeModel
     {
         private readonly HttpClient _httpClient;
         private readonly IConfiguration _configuration;
         private String _urlApi;
         private IEmailService _emailService;
 
-        public UserModel(HttpClient httpClient, IConfiguration configuration, IEmailService emailService)
+        public EmployeeModel(HttpClient httpClient, IConfiguration configuration, IEmailService emailService)
         {
             _httpClient = httpClient;
             _configuration = configuration;
@@ -23,7 +23,7 @@ namespace Intelly_Web.Models
 
         }
 
-        string? IUserModel.AddEmployee(UserEnt entity)//REGISTRO
+        string? IEmployeeModel.AddEmployee(EmployeeEnt entity)//REGISTRO
         {
             string url = _urlApi + "/api/Authentication/RegisterAccount";
             JsonContent obj = JsonContent.Create(entity);
@@ -31,7 +31,7 @@ namespace Intelly_Web.Models
             return resp.Content.ReadAsStringAsync().Result;
         }
 
-        public async Task<List<UserEnt>?> GetAllUsers()
+        public async Task<List<EmployeeEnt>?> GetAllUsers()
         {
             string url = _urlApi + "/api/Users/GetAllUsers";
             HttpResponseMessage response = await _httpClient.GetAsync(url);
@@ -39,13 +39,13 @@ namespace Intelly_Web.Models
             if (response.IsSuccessStatusCode)
             {
                 string json = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<List<UserEnt>>(json);
+                return JsonConvert.DeserializeObject<List<EmployeeEnt>>(json);
             }
 
             throw new Exception("Error al obtener usuarios del API.");
         }
 
-        public async Task<UserEnt?> Login(UserEnt entidad)
+        public async Task<EmployeeEnt?> Login(EmployeeEnt entidad)
         {
             try
             {
@@ -54,7 +54,7 @@ namespace Intelly_Web.Models
                 var response = await _httpClient.PostAsync(url, obj);
 
                 if (response.IsSuccessStatusCode)
-                    return await response.Content.ReadFromJsonAsync<UserEnt>();
+                    return await response.Content.ReadFromJsonAsync<EmployeeEnt>();
                 else
                     return null;
             }

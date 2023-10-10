@@ -8,9 +8,9 @@ namespace Intelly_Web.Controllers
     public class AccessController : Controller
     {
         private readonly ILogger<AccessController> _logger;
-        private readonly IUserModel _userModel;
+        private readonly IEmployeeModel _userModel;
 
-        public AccessController(ILogger<AccessController> logger, IUserModel userModel)
+        public AccessController(ILogger<AccessController> logger, IEmployeeModel userModel)
         {
             _logger = logger;
             _userModel = userModel;
@@ -44,7 +44,7 @@ namespace Intelly_Web.Controllers
 
         [HttpPost]
  
-        public async Task<IActionResult> Login(UserEnt entity)
+        public async Task<IActionResult> Login(EmployeeEnt entity)
         {
             var resp = await _userModel.Login(entity);
 

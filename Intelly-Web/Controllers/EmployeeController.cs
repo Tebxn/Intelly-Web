@@ -7,12 +7,12 @@ namespace Intelly_Web.Controllers
 {
     public class EmployeeController : Controller
     {
-        private readonly IUserModel _userModel;
+        private readonly IEmployeeModel _employeeModel;
 
         //Inyeccion de dependencias, para que por medio de la interfaz el controller vea los metodos
-        public EmployeeController(IUserModel userModel)
+        public EmployeeController(IEmployeeModel employeeModel)
         {
-            _userModel = userModel;
+            _employeeModel = employeeModel;
         }
 
         public IActionResult AddEmployee()
@@ -21,9 +21,9 @@ namespace Intelly_Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddEmployee(UserEnt entity)
+        public IActionResult AddEmployee(EmployeeEnt entity)
         {
-            var resp = _userModel.AddEmployee(entity);
+            var resp = _employeeModel.AddEmployee(entity);
             if (resp == "Success")
             {
                 return RedirectToAction("Employees", "Employee");
@@ -40,11 +40,11 @@ namespace Intelly_Web.Controllers
         {
             try
             {
-                return View(await _userModel.GetAllUsers());
+                return View(await _employeeModel.GetAllUsers());
             }
             catch (Exception)
             {
-                List<UserEnt> errors = new List<UserEnt>();
+                List<EmployeeEnt> errors = new List<EmployeeEnt>();
                 return View(errors);
             }
         }

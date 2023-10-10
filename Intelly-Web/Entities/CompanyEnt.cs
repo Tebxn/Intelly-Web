@@ -1,6 +1,6 @@
 ﻿namespace Intelly_Web.Entities
 {
-    public class CompanyEntity
+    public class CompanyEnt
     {
         public long Company_Id { get; set; }
         public string Company_Name { get; set; } = string.Empty;
