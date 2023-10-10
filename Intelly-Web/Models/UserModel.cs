@@ -31,27 +31,6 @@ namespace Intelly_Web.Models
             return resp.Content.ReadFromJsonAsync<int>().Result;
         }
 
-        /* public List<UserEntity> GetAllUsers()
-       {
-           string url = "/api/Usuario/GetAllUsers";
-           var resp = _httpClient.GetAsync(_urlApi + url).Result;
-
-           if (resp.IsSuccessStatusCode)
-           {
-               var userEntAnswer = resp.Content.ReadFromJsonAsync<UserEntAnswer>().Result;
-
-               if (userEntAnswer != null && userEntAnswer.Objects != null)
-               {
-                   return userEntAnswer.Objects;
-               }
-           }
-
-           return new List<UserEntity>(); // Return an empty list in case of an error
-       }
-
-          }*/
-
-
         public async Task<List<UserEnt>> GetAllUsers()
         {
             string url = _urlApi + "/api/Users/GetAllUsers";
@@ -67,17 +46,26 @@ namespace Intelly_Web.Models
             throw new Exception("Error al obtener usuarios del API.");
         }
 
-        UserEnt? IUserModel.Login(UserEnt entity)
+        public async Task<UserEnt?> Login(UserEnt entidad)
         {
-            string url = _urlApi + "/api/Authentication/Login";
-            JsonContent obj = JsonContent.Create(entity);
-            var resp = _httpClient.PostAsync(url, obj).Result;
-
-            if (resp.IsSuccessStatusCode)
-                return resp.Content.ReadFromJsonAsync<UserEnt>().Result;
-            else
+            try
+            {
+                string url = _urlApi + "/api/Authentication/Login";
+                JsonContent obj = JsonContent.Create(entidad);
+                var response = await _httpClient.PostAsync(url, obj);
+                
+                if (response.IsSuccessStatusCode)
+                    return await response.Content.ReadFromJsonAsync<UserEnt>();
+                else
+                    return null;
+            }
+            catch (Exception ex)
+            {
+                // Manejo de excepciones, puedes agregar el código necesario aquí
                 return null;
+            }
         }
+
 	public void SendEmail(string email)
         {
             _emailService.SendEmail(email);
