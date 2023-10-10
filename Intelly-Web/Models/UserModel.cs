@@ -1,7 +1,8 @@
-﻿using Intelly_Web.Entities;
+﻿﻿using Intelly_Web.Entities;
 using System.Net.Http.Json;
 using Newtonsoft.Json;
 using System.Text.Json.Serialization;
+using Intelly_Web.Services.Interfaces;
 
 
 namespace Intelly_Web.Models
@@ -11,12 +12,14 @@ namespace Intelly_Web.Models
         private readonly HttpClient _httpClient;
         private readonly IConfiguration _configuration;
         private String _urlApi;
+ 	private IEmailService _emailService;
 
-        public UserModel(HttpClient httpClient, IConfiguration configuration)
+        public UserModel(HttpClient httpClient, IConfiguration configuration, IEmailService emailService)
         {
             _httpClient = httpClient;
             _configuration = configuration;
             _urlApi = _configuration.GetSection("Llaves:urlApi").Value;
+	    _emailService = emailService;
 
         }
 
@@ -63,6 +66,9 @@ namespace Intelly_Web.Models
             }
         }
 
-
+	public void SendEmail(string email)
+        {
+            _emailService.SendEmail(email);
+        }
     }
 }
