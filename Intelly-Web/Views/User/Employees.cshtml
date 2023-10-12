@@ -71,7 +71,7 @@
                                     <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                         <thead>
                                             <tr>
-                                                <th>Código de empleado</th>
+                                                <th>Código de empresa</th>
                                                 <th>Nombre</th>
                                                 <th>Apellido</th>
                                                 <th>Correo Eléctronico</th>
@@ -103,7 +103,10 @@
 
 
                     <div class="mt-3">
-                        <a href="@Url.Action("NewEmployee", "AddUser")" class="btn btn-light">Editar</a>
+                        <a href="@Url.Action("AddEmployee", "User")" class="btn btn-light">Agregar Usuario</a>
+                    </div>
+                    <div class="mt-3">
+                        <a href="@Url.Action("DeactivateEmployee", "User")" class="btn btn-light">Deshabilitar Usuario</a>
                     </div>
 
 

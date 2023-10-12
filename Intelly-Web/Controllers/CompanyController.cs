@@ -6,26 +6,27 @@ using System.Diagnostics;
 
 namespace Intelly_Web.Controllers
 {
-    public class UserController : Controller
+    public class CompanyController : Controller
     {
-        private readonly IUserModel _userModel;
-        public UserController(IUserModel userModel)
+        private readonly ICompanyModel _companyModel;
+
+        public CompanyController(ICompanyModel companyModel)
         {
-            _userModel = userModel;
+            _companyModel = companyModel;
         }
 
-        public IActionResult AddEmployee()
+        public IActionResult CreateCompany()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult AddEmployee(UserEnt entity)
+        public IActionResult CreateCompany(CompanyEnt entity)
         {
-            var resp = _userModel.AddEmployee(entity);
+            var resp = _companyModel.CreateCompany(entity);
             if (resp.IsCompletedSuccessfully)
             {
-                return RedirectToAction("Employees", "User");
+                return RedirectToAction("GetAllCompanies", "Company");
             }
             else
             {
@@ -35,17 +36,17 @@ namespace Intelly_Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Employees()
+        public async Task<IActionResult> GetAllCompanies()
         {
             try
             {
-                var apiResponse = await _userModel.GetAllUsers();
-                var listUsers = apiResponse.Data.ToList();
-                return View(listUsers);
+                var apiResponse = await _companyModel.GetAllCompanies();
+                var listCompanies = apiResponse.Data.ToList();
+                return View(listCompanies);
             }
             catch (Exception)
             {
-                List<UserEnt> errors = new List<UserEnt>();
+                List<CompanyEnt> errors = new List<CompanyEnt>();
                 return View(errors);
             }
         }
