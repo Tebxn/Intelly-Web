@@ -1,9 +1,8 @@
 ﻿@model Intelly_Web.Entities.UserEnt
 @{
     ViewData["Title"] = "EditUser";
-    Layout = "~/Views/User/";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -58,8 +57,6 @@
                     </div>
                     <!-- end page-title -->
 
-                    <div class="wrapper-page">
-
                         <div class="card card-pages shadow-none">
 
                             <div class="card-body">
@@ -67,9 +64,17 @@
                                 <div class="text-center m-t-0 m-b-15">
                                     <a href="index.html" class="logo logo-admin"><img src="~/images/logo-dark.png" alt="" height="70"></a>
                                 </div>
-                                <h5 class="font-18 text-center">Agregar nuevo usuario</h5>
+                                <h5 class="font-18 text-center">Editar usuario</h5>
 
                                 <form asp-action="EditUser" asp-controller="User" method="post" class="pt-3">
+
+                                    <div class="form-group">
+                                        <div class="col-12">
+                                            <label>ID de Usuario</label>
+                                            <input asp-for="User_Id" class="form-control form-control-lg" readonly />
+                                        </div>
+                                    </div>
+
                                     <div class="form-horizontal m-t-30">
                                         <div class="form-group">
                                             <div class="col-12">
@@ -131,7 +136,7 @@
                         </div>
 
 
-                    </div>
+              
                     <!-- container-fluid -->
 
                 </div>

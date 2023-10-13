@@ -76,6 +76,27 @@ namespace Intelly_Web.Controllers
             }
         }
 
+        public IActionResult EditUser()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult EditUser(int userId) // Debes recibir el ID del usuario como parámetro
+        {
+            // Aquí obtén los detalles del usuario desde tu fuente de datos
+            // Reemplaza este ejemplo con tu lógica de obtención de datos
+            var user = _userModel.GetSpecificUser(userId);
+
+            if (user != null)
+            {
+                return View("EditUser", user);
+            }
+            else
+            {
+                return View("UserNotFound"); // Puedes crear una vista "UserNotFound" para mostrar un mensaje de usuario no encontrado.
+            }
+        }
 
         [HttpPost]
         public async Task<IActionResult> EditUser(UserEnt user)

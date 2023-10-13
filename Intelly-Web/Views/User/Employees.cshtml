@@ -91,11 +91,12 @@
                                                     <td>@user.User_Email</td>
                                                     <td>@(user.User_State ? "Activo" : "Inactivo")</td>
                                                     <td>@user.User_Type</td>
-                                                    <td>
-                                                        <a href="@Url.Action("EditUser", "User", new { UserId = user.User_Id })">
-                                                            <i class="fa fa-pencil"></i>
-                                                        </a>
-                                                    </td>
+                                                <td>
+                                                    <a href="@Url.Action("EditUser", "User", new { UserId = user.User_Id })">
+                                                        <i class="fa fa-pencil"></i>
+                                                    </a>
+                                                </td>
+
                                                     <td>
                                                         <a href="@Url.Action("DisableUser", "User", new { UserId = user.User_Id })">
                                                             <i class="fa fa-exchange"></i>
