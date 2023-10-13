@@ -11,6 +11,10 @@ namespace Intelly_Web.Interfaces
 
         Task<ApiResponse<UserEnt>> Login(UserEnt entity);
 
+        Task<ApiResponse<UserEnt>> GetSpecificUser(int UserId);
+
+        Task<ApiResponse<UserEnt>> EditSpecificUser(UserEnt entity);
+
 
     }
 }

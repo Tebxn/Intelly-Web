@@ -51,6 +51,54 @@ namespace Intelly_Web.Controllers
         }
 
 
+
+        [HttpGet]
+        public async Task<IActionResult> GetSpecificUser(int UserId)
+        {
+            try
+            {
+                var apiResponse = await _userModel.GetSpecificUser(UserId);
+                if (apiResponse.Success)
+                {
+                    var user = apiResponse.Data;
+                    return RedirectToAction("EditUser", new { UserId = user.User_Id });
+                }
+                else
+                {
+                    // Maneja el caso en que no se pudo obtener el usuario
+                    return View("Error"); // Muestra una vista de error
+                }
+            }
+            catch (Exception ex)
+            {
+                // Maneja el caso en que se produjo una excepción
+                return View("Error"); // Muestra una vista de error
+            }
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> EditUser(UserEnt user)
+        {
+            var apiResponse = await _userModel.EditSpecificUser(user);
+
+            if (apiResponse.Success)
+            {
+                var editedUser = apiResponse.Data;
+                return View("EditUser", editedUser); // Muestra la vista UserDetails con los detalles del usuario editado
+            }
+            else if (apiResponse.Code == 404)
+            {
+                // Maneja el caso en que no se pudo encontrar el usuario
+                return View("UserNotFound"); // Muestra una vista de error
+            }
+            else
+            {
+                // Maneja otros errores
+                return View("Error"); // Muestra una vista de error
+            }
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
