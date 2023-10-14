@@ -172,5 +172,32 @@ namespace Intelly_Web.Models
             return response;
         }
 
+        public async Task<ApiResponse<List<UserTypeEnt>>> GetAllUsersRoles()
+        {
+            ApiResponse<List<UserTypeEnt>> response = new ApiResponse<List<UserTypeEnt>>();
+            try
+            {
+                string url = _urlApi + "/api/Users/GetAllUsers";
+                HttpResponseMessage httpResponse = await _httpClient.GetAsync(url);
+
+                if (httpResponse.IsSuccessStatusCode)
+                {
+                    string json = await httpResponse.Content.ReadAsStringAsync();
+                    response = JsonConvert.DeserializeObject<ApiResponse<List<UserTypeEnt>>>(json);
+                    List<UserTypeEnt> listUsers = new List<UserTypeEnt>();
+                    return response;
+                }
+
+                response.ErrorMessage = "Error al obtener usuarios del API.";
+                response.Code = (int)httpResponse.StatusCode;
+                return response;
+            }
+            catch (Exception ex)
+            {
+                response.ErrorMessage = "Unexpected Error: " + ex.Message;
+                response.Code = 500;
+                return response;
+            }
+        }
     }
 }

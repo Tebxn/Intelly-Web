@@ -15,6 +15,8 @@ namespace Intelly_Web.Interfaces
 
         Task<ApiResponse<UserEnt>> EditSpecificUser(UserEnt entity);
 
+        Task<ApiResponse<List<UserTypeEnt>>> GetAllUsersRoles();
+
 
     }
 }
