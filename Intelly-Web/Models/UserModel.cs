@@ -199,5 +199,33 @@ namespace Intelly_Web.Models
                 return response;
             }
         }
+
+        public async Task<ApiResponse<UserEnt>> PwdRecovery(UserEnt entity)
+        {
+            ApiResponse<UserEnt> response = new ApiResponse<UserEnt>();
+
+            try
+            {
+                string url = _urlApi + "/api/Authentication/RecoverAccount";
+                JsonContent obj = JsonContent.Create(entity);
+                var httpResponse = await _httpClient.PostAsync(url, obj);
+
+                if (httpResponse.IsSuccessStatusCode)
+                {
+                    response.Success = true;
+                    response.Data = await httpResponse.Content.ReadFromJsonAsync<UserEnt>();
+                }
+                else
+                {
+                    response.ErrorMessage = "Error al recuperar contraseña. Verifica su email.";
+                }
+            }
+            catch (Exception ex)
+            {
+                response.ErrorMessage = "Error inesperado al recuperar contraseña: " + ex.Message;
+            }
+
+            return response;
+        }
     }
 }

@@ -11,12 +11,12 @@
             </div>
             <h5 class="font-18 text-center">Ingrese sus datos para continuar</h5>
 
-            @using (Html.BeginForm("PwdRecovery", "Access", FormMethod.Post, new { @class = "pt-3" }))
+            @using (Html.BeginForm("PwdRecovery", "Authentication", FormMethod.Post, new { @class = "pt-3" }))
             {
                 <div class="form-group">
                     <div class="col-12">
                         <label>Correo Electrónico</label>
-                        <input class="form-control" name="email" id="email" type="email" required="" placeholder="Correo Electrónico">
+                        <input class="form-control" name="User_Email" id="User_Email" type="email" required="" placeholder="Correo Electrónico">
                     </div>
                 </div>
 
