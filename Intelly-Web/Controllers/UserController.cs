@@ -82,41 +82,57 @@ namespace Intelly_Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult EditUser(int userId) // Debes recibir el ID del usuario como parámetro
+        public async Task<IActionResult> EditSpecificUser(int UserId)
         {
-            // Aquí obtén los detalles del usuario desde tu fuente de datos
-            // Reemplaza este ejemplo con tu lógica de obtención de datos
-            var user = _userModel.GetSpecificUser(userId);
+            try
+            {
+                var apiResponse = await _userModel.GetSpecificUser(UserId);
+                if (apiResponse.Success)
+                {
+                    var user = apiResponse.Data;
 
-            if (user != null)
-            {
-                return View("EditUser", user);
+                    // Pasa el modelo de usuario a la vista para que los datos se muestren en el formulario de edición
+                    return View(user);
+                }
+                else
+                {
+                    // Maneja el caso en que no se pudo obtener el usuario
+                    return View("Error"); // Muestra una vista de error
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return View("UserNotFound"); // Puedes crear una vista "UserNotFound" para mostrar un mensaje de usuario no encontrado.
+                // Maneja el caso en que se produjo una excepción
+                return View("Error"); // Muestra una vista de error
             }
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditUser(UserEnt user)
+        public async Task<IActionResult> EditSpecificUser(UserEnt user)
         {
-            var apiResponse = await _userModel.EditSpecificUser(user);
+        
+            if (user != null)
+            {
+                var apiResponse = await _userModel.EditSpecificUser(user);
 
-            if (apiResponse.Success)
-            {
-                var editedUser = apiResponse.Data;
-                return View("EditUser", editedUser); // Muestra la vista UserDetails con los detalles del usuario editado
-            }
-            else if (apiResponse.Code == 404)
-            {
-                // Maneja el caso en que no se pudo encontrar el usuario
-                return View("UserNotFound"); // Muestra una vista de error
+                if (apiResponse.Success)
+                {
+                    var editedUser = apiResponse.Data;
+                    return View("EditUser", editedUser);
+                }
+                else if (apiResponse.Code == 404)
+                {
+                    return View("UserNotFound");
+                }
+                else
+                {
+                    return View("Error");
+                }
             }
             else
             {
-                // Maneja otros errores
-                return View("Error"); // Muestra una vista de error
+               
+                return View("Error");
             }
         }
 

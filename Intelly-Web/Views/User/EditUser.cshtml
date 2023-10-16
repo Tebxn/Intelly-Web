@@ -66,14 +66,13 @@
                                 </div>
                                 <h5 class="font-18 text-center">Editar usuario</h5>
 
-                                <form asp-action="EditUser" asp-controller="User" method="post" class="pt-3">
-
-                                    <div class="form-group">
-                                        <div class="col-12">
-                                            <label>ID de Usuario</label>
-                                            <input asp-for="User_Id" class="form-control form-control-lg" readonly />
-                                        </div>
+                            <form asp-action="EditUser" asp-controller="User" method="post" class="pt-3" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <div class="col-12">
+                                        <label>ID de Usuario</label>
+                                        <input asp-for="User_Id" class="form-control form-control-lg" />
                                     </div>
+                                </div>
 
                                     <div class="form-horizontal m-t-30">
                                         <div class="form-group">
@@ -99,13 +98,6 @@
 
                                         <div class="form-group">
                                             <div class="col-12">
-                                                <label>Contraseña</label>
-                                                <input asp-for="User_Password" class="form-control form-control-lg" type="password" placeholder="Contraseña" />
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <div class="col-12">
                                                 <label>Empresa</label>
                                                 <input asp-for="User_Company_Id" class="form-control form-control-lg" type="number" placeholder="Id de la Empresa" />
                                             </div>
@@ -120,7 +112,7 @@
 
                                         <div class="form-group text-center m-t-20">
                                             <div class="col-12">
-                                                <button class="btn btn-primary btn-block btn-lg waves-effect waves-light" type="submit">Editar Usuario</button>
+                                                <button class="btn btn-primary btn-block btn-lg waves-effect waves-light" type="submit">Guardar</button>
                                             </div>
                                         </div>
                                     </div>

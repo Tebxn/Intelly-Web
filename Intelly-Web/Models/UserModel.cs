@@ -143,7 +143,7 @@ namespace Intelly_Web.Models
 
             try
             {
-                string url = $"{_urlApi}/api/User/EditSpecificUser";
+                string url = $"{_urlApi}/api/Users/EditSpecificUser";
                 JsonContent obj = JsonContent.Create(entity);
                 var httpResponse = await _httpClient.PutAsync(url, obj);
 
