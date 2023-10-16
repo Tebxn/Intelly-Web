@@ -17,6 +17,8 @@ namespace Intelly_Web.Interfaces
 
         Task<ApiResponse<List<UserTypeEnt>>> GetAllUsersRoles();
 
+        Task<ApiResponse<UserEnt>> PwdRecovery(UserEnt entity);
+
 
     }
 }

@@ -28,6 +28,12 @@ namespace Intelly_Web.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult EmailSent()
+        {
+            return View();
+        }
+
         [HttpPost]
         public async Task<IActionResult> Login(UserEnt entity)
         {
@@ -35,6 +41,20 @@ namespace Intelly_Web.Controllers
 
             if (resp.Success)
                 return RedirectToAction("Index", "Home");
+            else
+            {
+                ViewBag.MensajePantalla = resp.ErrorMessage;
+                return View();
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> PwdRecovery(UserEnt entity)
+        {
+            var resp = await _userModel.PwdRecovery(entity);
+
+            if (resp.Success)
+                return RedirectToAction("EmailSent", "Authentication");
             else
             {
                 ViewBag.MensajePantalla = resp.ErrorMessage;
