@@ -90,15 +90,16 @@
                                                     <td>@(user.User_State ? "Activo" : "Inactivo")</td>
                                                     <td>@user.User_Type</td>
                                                 <td>
-                                                    <a href="@Url.Action("EditUser", "User", new { UserId = user.User_Id }) class=" btn btn-success">
+                                                    <a href="@Url.Action("EditSpecificUser", "User", new { UserId = user.User_Id })">
                                                         Editar Usuario
                                                         <i class="fa fa-pencil"></i>
                                                     </a>
+
                                                     <a> | </a>
-                     
-                                                    <a href="@Url.Action("DisableUser", "User", new { UserId = user.User_Id }) class=" btn btn-danger">
-                                                        Desactivar Usuario
-                                                        <i class="fa fa-exchange"></i>
+
+                                                    <a href="@Url.Action("DisableUser", "User", new { UserId = user.User_Id })">
+                                                        Editar Usuario
+                                                        <i class="fa fa-pencil"></i>
                                                     </a>
                                                 </td>
                                                 </tr>

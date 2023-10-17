@@ -5,6 +5,7 @@ using System.Text.Json.Serialization;
 using Intelly_Web.Interfaces;
 using System.Net;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Intelly_Web.Models
 {
@@ -145,6 +146,7 @@ namespace Intelly_Web.Models
             {
                 string url = $"{_urlApi}/api/Users/EditSpecificUser";
                 JsonContent obj = JsonContent.Create(entity);
+
                 var httpResponse = await _httpClient.PutAsync(url, obj);
 
                 if (httpResponse.IsSuccessStatusCode)
@@ -171,6 +173,7 @@ namespace Intelly_Web.Models
 
             return response;
         }
+
 
         public async Task<ApiResponse<List<UserTypeEnt>>> GetAllUsersRoles()
         {

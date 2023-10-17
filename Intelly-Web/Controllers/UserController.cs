@@ -61,11 +61,18 @@ namespace Intelly_Web.Controllers
                 if (apiResponse.Success)
                 {
                     var user = apiResponse.Data;
-                    return RedirectToAction("EditUser", new { UserId = user.User_Id });
+                    if (user != null)
+                    {
+                        return RedirectToAction("EditSpecificUser", new { UserId = UserId });
+                    }
+                    else
+                    {
+                        return View("Error");
+                    }
                 }
                 else
                 {
-                    // Maneja el caso en que no se pudo obtener el usuario
+                    // Maneja el caso en que la respuesta no sea exitosa
                     return View("Error"); // Muestra una vista de error
                 }
             }
@@ -74,11 +81,6 @@ namespace Intelly_Web.Controllers
                 // Maneja el caso en que se produjo una excepción
                 return View("Error"); // Muestra una vista de error
             }
-        }
-
-        public IActionResult EditUser()
-        {
-            return View();
         }
 
         [HttpGet]
@@ -90,13 +92,18 @@ namespace Intelly_Web.Controllers
                 if (apiResponse.Success)
                 {
                     var user = apiResponse.Data;
-
-                    // Pasa el modelo de usuario a la vista para que los datos se muestren en el formulario de edición
-                    return View(user);
+                    if (user != null)
+                    {
+                        return View("EditSpecificUser", user);
+                    }
+                    else
+                    {
+                        return View("Error");
+                    }
                 }
                 else
                 {
-                    // Maneja el caso en que no se pudo obtener el usuario
+                    // Maneja el caso en que la respuesta no sea exitosa
                     return View("Error"); // Muestra una vista de error
                 }
             }
@@ -107,34 +114,24 @@ namespace Intelly_Web.Controllers
             }
         }
 
+
         [HttpPost]
         public async Task<IActionResult> EditSpecificUser(UserEnt user)
         {
-        
-            if (user != null)
-            {
-                var apiResponse = await _userModel.EditSpecificUser(user);
+            var apiResponse = await _userModel.EditSpecificUser(user);
 
-                if (apiResponse.Success)
-                {
-                    var editedUser = apiResponse.Data;
-                    return View("EditUser", editedUser);
-                }
-                else if (apiResponse.Code == 404)
-                {
-                    return View("UserNotFound");
-                }
-                else
-                {
-                    return View("Error");
-                }
+            if (apiResponse.Success)
+            {
+                var editedUser = apiResponse.Data;
+                return RedirectToAction(nameof(EditSpecificUser), new { UserId = editedUser.User_Id });
             }
             else
             {
-               
-                return View("Error");
+                ViewBag.MensajePantalla = apiResponse.ErrorMessage ?? "No se realizaron cambios";
+                return View();
             }
         }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
