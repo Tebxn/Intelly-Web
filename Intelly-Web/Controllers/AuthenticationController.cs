@@ -63,6 +63,25 @@ namespace Intelly_Web.Controllers
         }
 
 
+        public IActionResult UpdateUserPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult UpdateUserPassword(UserEnt entity)
+        {
+            var resp = _userModel.UpdateUserPassword(entity);
+            if (resp.IsCompletedSuccessfully)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                ViewBag.MensajePantalla = "No se realizaron cambios";
+                return View();
+            }
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
