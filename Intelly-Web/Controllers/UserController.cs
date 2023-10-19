@@ -2,6 +2,7 @@
 using Intelly_Web.Interfaces;
 using Intelly_Web.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Diagnostics;
 
 namespace Intelly_Web.Controllers
@@ -9,22 +10,34 @@ namespace Intelly_Web.Controllers
     public class UserController : Controller
     {
         private readonly IUserModel _userModel;
-        public UserController(IUserModel userModel)
+
+        private readonly ICompanyModel _companyModel;
+        public UserController(IUserModel userModel, ICompanyModel companyModel)
         {
             _userModel = userModel;
+            _companyModel = companyModel;
         }
 
-        public IActionResult AddEmployee()
+        public async Task<IActionResult> AddEmployee()
         {
+            var roleDropdownData = await _userModel.GetAllUsersRoles();
+            ViewBag.ListRoles = new SelectList(roleDropdownData.Data, "Id", "Name");
+            var companyDropdownData = await _companyModel.GetAllCompanies();
+            ViewBag.ListCompanies = new SelectList(companyDropdownData.Data, "Id", "Name");
             return View();
         }
 
         [HttpPost]
-        public IActionResult AddEmployee(UserEnt entity)
+        public async Task<IActionResult> AddEmployee(UserEnt entity)
         {
-            var resp = _userModel.AddEmployee(entity);
-            if (resp.IsCompletedSuccessfully)
+            var apiResponse = await _userModel.AddEmployee(entity);
+            
+            if (apiResponse.Success)
             {
+                var roleDropdownData = await _userModel.GetAllUsersRoles();
+                ViewBag.ListRoles = new SelectList(roleDropdownData.Data, "Id", "Name");
+                var companyDropdownData = await _companyModel.GetAllCompanies();
+                ViewBag.ListCompanies = new SelectList(companyDropdownData.Data, "Id", "Name");
                 return RedirectToAction("Employees", "User");
             }
             else
