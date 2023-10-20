@@ -21,6 +21,8 @@ namespace Intelly_Web.Interfaces
 
         Task<ApiResponse<UserEnt>> UpdateUserPassword(UserEnt entity);
 
+        Task<ApiResponse<UserEnt>> GetUser(UserEnt entity);
+
 
     }
 }

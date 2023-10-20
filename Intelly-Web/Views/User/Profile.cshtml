@@ -1,0 +1,164 @@
+﻿@model Intelly_Web.Entities.UserEnt
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <title>Stexo - Responsive Admin & Dashboard Template | Themesdesign</title>
+    <meta content="Responsive admin theme build on top of Bootstrap 4" name="description" />
+    <meta content="Themesdesign" name="author" />
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
+
+    <!-- DataTables -->
+    <link href="../plugins/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="../plugins/datatables/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Responsive datatable examples -->
+    <link href="../plugins/datatables/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/metismenu.min.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/icons.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/style.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+
+    <!-- Begin page -->
+    <div id="wrapper">
+        <!-- Left Sidebar End -->
+        <!-- ============================================================== -->
+        <!-- Start right Content here -->
+        <!-- ============================================================== -->
+        <!-- Start content -->
+        <div class="content-page">
+            <!-- Start content -->
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="page-title-box">
+                        <div class="row align-items-center">
+                            <div class="col-sm-6">
+                                <h4 class="page-title">Consultar Perfil</h4>
+                            </div>
+                            <div class="col-sm-6">
+                                <ol class="breadcrumb float-right">
+                                    <li class="breadcrumb-item"><a href="javascript:void(0);">Intelly</a></li>
+                                    <li class="breadcrumb-item"><a href="javascript:void(0);">Módulo Perfil</a></li>
+                                    <li class="breadcrumb-item active">Consultar Perfil</li>
+                                </ol>
+                            </div>
+                        </div> <!-- end row -->
+                    </div>
+                    <!-- end page-title -->
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card m-b-30">
+                                <div class="card-body">
+                                    <!-- AQUI EMPIEZA EL FORM -->
+                                    <h4 class="mt-0 header-title">Información Personal</h4>
+                                    <p class="sub-title">Ingrese los datos del usuario que desea agregar</p>
+
+                                    <div class="col-xl-8">
+                                        <!-- Account details card-->
+                                        <div class="card mb-4">
+                                            <div class="card-header">Detalles del Perfil</div>
+                                            <div class="card-body">
+                                                <form>
+                                                    <!-- Form Group (username)-->
+                                                    <div class="mb-3">
+                                                        <label class="small mb-1" for="inputUsername">Username (how your name will appear to other users on the site)</label>
+                                                        <input asp-for="User_Name" class="form-control form-control-lg" type="text" placeholder="Nombre de Usuario" />
+                                                    </div>
+                                                    <!-- Form Row-->
+                                                    <div class="row gx-3 mb-3">
+                                                        <!-- Form Group (first name)-->
+                                                        <div class="col-md-6">
+                                                            <label class="small mb-1" for="inputFirstName">First name</label>
+                                                            <input class="form-control" id="inputFirstName" type="text" placeholder="Enter your first name" value="Valerie">
+                                                        </div>
+                                                        <!-- Form Group (last name)-->
+                                                        <div class="col-md-6">
+                                                            <label class="small mb-1" for="inputLastName">Last name</label>
+                                                            <input class="form-control" id="inputLastName" type="text" placeholder="Enter your last name" value="Luna">
+                                                        </div>
+                                                    </div>
+                                                    <!-- Form Row        -->
+                                                    <div class="row gx-3 mb-3">
+                                                        <!-- Form Group (organization name)-->
+                                                        <div class="col-md-6">
+                                                            <label class="small mb-1" for="inputOrgName">Organization name</label>
+                                                            <input class="form-control" id="inputOrgName" type="text" placeholder="Enter your organization name" value="Start Bootstrap">
+                                                        </div>
+                                                        <!-- Form Group (location)-->
+                                                        <div class="col-md-6">
+                                                            <label class="small mb-1" for="inputLocation">Location</label>
+                                                            <input class="form-control" id="inputLocation" type="text" placeholder="Enter your location" value="San Francisco, CA">
+                                                        </div>
+                                                    </div>
+                                                    <!-- Form Group (email address)-->
+                                                    <div class="mb-3">
+                                                        <label class="small mb-1" for="inputEmailAddress">Email address</label>
+                                                        <input class="form-control" id="inputEmailAddress" type="email" placeholder="Enter your email address" value="name@example.com">
+                                                    </div>
+                                                    <!-- Form Row-->
+                                                    <div class="row gx-3 mb-3">
+                                                        <!-- Form Group (phone number)-->
+                                                        <div class="col-md-6">
+                                                            <label class="small mb-1" for="inputPhone">Phone number</label>
+                                                            <input class="form-control" id="inputPhone" type="tel" placeholder="Enter your phone number" value="555-123-4567">
+                                                        </div>
+                                                        <!-- Form Group (birthday)-->
+                                                        <div class="col-md-6">
+                                                            <label class="small mb-1" for="inputBirthday">Birthday</label>
+                                                            <input class="form-control" id="inputBirthday" type="text" name="birthday" placeholder="Enter your birthday" value="06/10/1988">
+                                                        </div>
+                                                    </div>
+                                                    <!-- Save changes button-->
+                                                    <button class="btn btn-primary" type="button">Save changes</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <!-- end col -->
+                    </div> <!-- end row -->
+
+
+                </div>
+                <!-- container-fluid -->
+
+            </div>
+            <!-- content -->
+
+            <footer class="footer">
+            </footer>
+
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Right content here -->
+        <!-- ============================================================== -->
+
+    </div>
+    <!-- END wrapper -->
+    <!-- jQuery  -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/metismenu.min.js"></script>
+    <script src="assets/js/jquery.slimscroll.js"></script>
+    <script src="assets/js/waves.min.js"></script>
+
+    <!-- App js -->
+    <script src="assets/js/app.js"></script>
+
+</body>
+
+</html>

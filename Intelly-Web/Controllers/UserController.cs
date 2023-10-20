@@ -145,6 +145,12 @@ namespace Intelly_Web.Controllers
             }
         }
 
+        public async Task<IActionResult> Profile(UserEnt entity)
+        {
+            var data = _userModel.GetUser(entity);
+            return View(data);
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
