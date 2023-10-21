@@ -66,6 +66,7 @@
                                         Gestión de empleados
                                     </p>
                                 </div>
+                            <p>@ViewBag.MensajePantalla</p>
                                 <div style="max-height: 400px; overflow-y: auto;">
                                     <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                         <thead>
@@ -73,8 +74,8 @@
                                                 <th>Nombre</th>
                                                 <th>Apellido</th>
                                                 <th>Correo Eléctronico</th>
-                                                <th>Rol</th>
                                                 <th>Estado</th>
+                                                <th>Rol</th>
                                                 <th>Acciones</th>
                                             </tr>
                                         </thead>
@@ -98,7 +99,7 @@
                                                     <a> | </a>
 
                                                     <a href="@Url.Action("DisableUser", "User", new { UserId = user.User_Id })">
-                                                        Editar Usuario
+                                                        Deshabilitar Usuario
                                                         <i class="fa fa-pencil"></i>
                                                     </a>
                                                 </td>

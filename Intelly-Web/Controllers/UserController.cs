@@ -98,19 +98,19 @@ namespace Intelly_Web.Controllers
                     }
                     else
                     {
-                        return View("Error");
+                        ViewBag.MensajePantalla = apiResponse.ErrorMessage;
+                        return View("Employees");
                     }
                 }
                 else
                 {
-                    // Maneja el caso en que la respuesta no sea exitosa
-                    return View("Error"); // Muestra una vista de error
+                    ViewBag.MensajePantalla = apiResponse.ErrorMessage;
+                    return View();
                 }
             }
             catch (Exception ex)
             {
-                // Maneja el caso en que se produjo una excepción
-                return View("Error"); // Muestra una vista de error
+                return View();
             }
         }
 
@@ -123,11 +123,11 @@ namespace Intelly_Web.Controllers
             if (apiResponse.Success)
             {
                 var editedUser = apiResponse.Data;
-                return RedirectToAction(nameof(EditSpecificUser), new { UserId = editedUser.User_Id });
+                return RedirectToAction("Employees");
             }
             else
             {
-                ViewBag.MensajePantalla = apiResponse.ErrorMessage ?? "No se realizaron cambios";
+                ViewBag.MensajePantalla = apiResponse.ErrorMessage;
                 return View();
             }
         }
