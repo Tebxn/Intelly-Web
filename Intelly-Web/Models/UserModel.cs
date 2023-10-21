@@ -6,6 +6,7 @@ using Intelly_Web.Interfaces;
 using System.Net;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.Http.Headers;
 
 namespace Intelly_Web.Models
 {
@@ -13,6 +14,7 @@ namespace Intelly_Web.Models
     {
         private readonly HttpClient _httpClient;
         private readonly IConfiguration _configuration;
+        private readonly IHttpContextAccessor _HttpContextAccessor;
         private String _urlApi;
 
 
@@ -229,6 +231,66 @@ namespace Intelly_Web.Models
             }
 
             return response;
+        }
+
+        public async Task<ApiResponse<UserEnt>> UpdateUserPassword(UserEnt entity)
+        {
+            ApiResponse<UserEnt> response = new ApiResponse<UserEnt>();
+
+            try
+            {
+                string url = _urlApi + "/api/Authentication/UpdateUserPassword";
+                JsonContent obj = JsonContent.Create(entity);
+                var httpResponse = await _httpClient.PutAsync(url, obj);
+
+                if (httpResponse.IsSuccessStatusCode)
+                {
+                    response.Success = true;
+                    response.Data = await httpResponse.Content.ReadFromJsonAsync<UserEnt>();
+                    return response;
+                }
+                else
+                {
+                    response.ErrorMessage = "Error al Actualizar Usuario. Verifique los datos.";
+                    return response;
+                }
+            }
+            catch (Exception ex)
+            {
+                response.ErrorMessage = "Error inesperado al actualizar usuario: " + ex.Message;
+                return response;
+            }
+        }
+
+        public async Task<ApiResponse<UserEnt>> GetUser(UserEnt entity)
+        {
+            ApiResponse<UserEnt> response = new ApiResponse<UserEnt>();
+
+            try
+            {
+                string url = _urlApi + "/api/User/GetUser";
+                string token = _HttpContextAccessor.HttpContext.Session.GetString("UserToken");
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                var httpResponse = await _httpClient.GetAsync(url);
+
+                if (httpResponse.IsSuccessStatusCode)
+                {
+                    string json = await httpResponse.Content.ReadAsStringAsync();
+                    response = JsonConvert.DeserializeObject<ApiResponse<UserEnt>>(json);
+                    return response;
+                }
+                else
+                {
+                    response.ErrorMessage = "Error al Consultar Usuario. Verifique los datos.";
+                    return response;
+                }
+            }
+            catch (Exception ex)
+            {
+                response.ErrorMessage = "Error inesperado al consultar usuario: " + ex.Message;
+                return response;
+            }
+
         }
     }
 }

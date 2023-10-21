@@ -19,6 +19,10 @@ namespace Intelly_Web.Interfaces
 
         Task<ApiResponse<UserEnt>> PwdRecovery(UserEnt entity);
 
+        Task<ApiResponse<UserEnt>> UpdateUserPassword(UserEnt entity);
+
+        Task<ApiResponse<UserEnt>> GetUser(UserEnt entity);
+
 
     }
 }

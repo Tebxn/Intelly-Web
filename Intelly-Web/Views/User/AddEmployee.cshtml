@@ -47,15 +47,19 @@
 
                     <div class="form-group">
                         <div class="col-md-6 mx-auto">
-                            <label>Empresa</label>
-                            <input asp-for="User_Company_Id" class="form-control form-control-lg" type="number" placeholder="Id de la Empresa" />
+                            <label>Compañia</label>
+                            <input asp-for="User_Company_Id" class="control-label"></input>
+                              @*   <select asp-for="User_Company_Id" class="form-control" asp-items="ViewBag.ListCompanies"></select> *@
+                               @*  <span asp-validation-for="User_Company_Id" class="text-danger"></span> *@
                         </div>
                     </div>
 
                     <div class="form-group">
                         <div class="col-md-6 mx-auto">
-                            <label>Permisos</label>
-                            <input asp-for="User_Type" class="form-control form-control-lg" type="number" placeholder="Tipo de Usuario" />
+                            <label>Rol</label>
+                                <input asp-for="User_Type" class="control-label"></input>
+                             @*    <select asp-for="User_Type" class="form-control" asp-items="ViewBag.ListRoles"></select>
+                                <span asp-validation-for="User_Type" class="text-danger"></span> *@
                         </div>
                     </div>
 
