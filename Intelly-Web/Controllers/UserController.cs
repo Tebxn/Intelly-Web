@@ -169,7 +169,7 @@ namespace Intelly_Web.Controllers
             if (apiResponse.Success)
             {
                 var editedUser = apiResponse.Data;
-                return RedirectToAction("Employees");
+                return RedirectToAction("Employees", "User");
             }
             else
             {
@@ -178,39 +178,30 @@ namespace Intelly_Web.Controllers
             }
         }
 
-        [HttpGet]
-        public async Task<IActionResult> ActivateAccountGet(int UserId)
-        {
-            var apiResponse = await _userModel.ActivateAccount(UserId);
-
-            if (apiResponse.Success)
-            {
-                ViewBag.MensajePantalla = "Cuenta activada con éxito.";
-            }
-            else
-            {
-                ViewBag.MensajePantalla = apiResponse.ErrorMessage;
-            }
-
-            return RedirectToAction("Employees");
-        }
-
         [HttpPost]
-        public async Task<IActionResult> ActivateAccountPost(int userId)
+        public async Task<IActionResult> ActivateAccount(int User_Id)
         {
-            var apiResponse = await _userModel.ActivateAccount(userId);
-
-            if (apiResponse.Success)
+            try
             {
+                var apiResponse = await _userModel.ActivateAccount(User_Id);
+
+                if (apiResponse.Success)
+                {
+                    ViewBag.MensajePantalla = "Cuenta activada con éxito.";
+                }
+                else
+                {
+                    ViewBag.MensajePantalla = apiResponse.ErrorMessage;
+                }
+
                 return RedirectToAction("Employees");
             }
-            else
+            catch (Exception ex)
             {
-                ViewBag.MensajePantalla = "No se pudo activar la cuenta del usuario.";
-                return RedirectToAction("Employees");
+                ViewBag.MensajePantalla = "Error: " + ex.Message;
+                return View("Error");
             }
         }
-
 
 
         public async Task<IActionResult> Profile(UserEnt entity)

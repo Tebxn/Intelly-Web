@@ -301,7 +301,7 @@ namespace Intelly_Web.Models
 
             try
             {
-                string url = $"{_urlApi}/api/Authentication/ActivateAccount";
+                string url = _urlApi + "/api/Authentication/ActivateAccount";
                 JsonContent obj = JsonContent.Create(new { User_Id = userId });
 
                 var httpResponse = await _httpClient.PutAsync(url, obj);
@@ -319,7 +319,8 @@ namespace Intelly_Web.Models
                 else
                 {
                     response.ErrorMessage = "Error activating account: " + httpResponse.ReasonPhrase;
-                    response.Code = (int)httpResponse.StatusCode;
+    
+                response.Code = (int)httpResponse.StatusCode;
                 }
             }
             catch (Exception ex)
@@ -330,6 +331,5 @@ namespace Intelly_Web.Models
 
             return response;
         }
-
     }
 }

@@ -91,21 +91,37 @@
                                                 <td>@(user.User_State ? "Activo" : "Inactivo")</td>
                                                 <td>@user.User_Type</td>
                                                 <td>
-                                                    <a href="@Url.Action("EditSpecificUser", "User", new { UserId = user.User_Id })">
+                                                    <a href="@Url.Action("EditSpecificUser", "User", new { UserId = user.User_Id })" class="btn btn-primary">
                                                         Editar Usuario
                                                         <i class="fa fa-pencil"></i>
+                                                       
                                                     </a>
-                                                    @if (!user.User_State)
+                                                 
+                                                   
+     
+                                                    @if (user.User_State)
                                                     {
-                                                        <form method="post" asp-controller="User" asp-action="ActivateAccountPost">
-                                                            <input type="hidden" name="userId" value="@user.User_Id" />
-                                                            <button type="submit" class="btn-link">Activar Usuario <i class="fa fa-pencil"></i></button>
+                                                        <form method="post" asp-action="DeactivateAccount" asp-controller="User">
+                                                            <input type="hidden" name="User_Id" value="@user.User_Id" />
+                                                            <br>
+                                                            <button type="submit" class="btn btn-danger" >Desactivar Usuario</button>
                                                         </form>
+                                                        <br>
+                                                    }
+                                                    else
+                                                    {
+                                                        <form method="post" asp-action="ActivateAccount" asp-controller="User">
+                                                            <input type="hidden" name="User_Id" value="@user.User_Id" />
+                                                            <br>
+                                                            <button type="submit" class="btn btn-success" >Activar Usuario</button>
+                                                        </form>
+                                                      
                                                     }
                                                 </td>
                                             </tr>
                                         }
                                     </tbody>
+
 
 
 

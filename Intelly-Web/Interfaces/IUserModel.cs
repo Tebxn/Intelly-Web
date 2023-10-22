@@ -24,7 +24,7 @@ namespace Intelly_Web.Interfaces
 
         Task<ApiResponse<UserEnt>> GetUser(UserEnt entity);
 
-        Task<ApiResponse<string>> ActivateAccount(int userId);
+        Task<ApiResponse<string>> ActivateAccount(int User_Id);
 
 
     }

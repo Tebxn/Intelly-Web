@@ -68,7 +68,7 @@
 
                         <form asp-action="EditSpecificUser" asp-controller="User" method="post" class="pt-3">
                             <div class="form-group" style="display: none;">
-                                <div class="col-12">
+                                <div class="col-6 mx-auto">
                                     <label asp-for="User_Id" class="control-label"></label>
                                     <input asp-for="User_Id" class="form-control" />
                                 </div>
@@ -76,28 +76,28 @@
 
                             <div class="form-horizontal m-t-30">
                                 <div class="form-group">
-                                    <div class="col-12">
+                                    <div class="col-6 mx-auto">
                                         <label>Nombre</label>
                                         <input asp-for="User_Name" class="form-control form-control-lg" />
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <div class="col-12">
+                                    <div class="col-6 mx-auto">
                                         <label>Apellido</label>
                                         <input asp-for="User_LastName" class="form-control form-control-lg" type="text" placeholder="Apellido" />
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <div class="col-12">
+                                    <div class="col-6 mx-auto">
                                         <label>Correo Electrónico</label>
                                         <input asp-for="User_Email" class="form-control form-control-lg" type="text" placeholder="Correo" />
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <div class="col-12">
+                                    <div class="col-6 mx-auto">
                                         <label for="Empresa">Empresa</label>
                                         <select asp-for="User_Company_Id" asp-items="ViewBag.ComboCompanies" class="form-control form-control-lg">
                                             <option value="">Seleccionar Empresa</option>
@@ -106,7 +106,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <div class="col-12">
+                                    <div class="col-6 mx-auto">
                                         <label for="TipoUsuario">Tipo Usuario</label>
                                         <select asp-for="User_Type" asp-items="ViewBag.ComboRoles" class="form-control form-control-lg">
                                             <option value="">Seleccionar Tipo de Usuario</option>
@@ -116,7 +116,7 @@
 
 
                                 <div class="form-group text-center m-t-20">
-                                    <div class="col-md-12 mx-auto">
+                                    <div class="col-md-6 mx-auto">
                                         <button class="btn btn-primary btn-block btn-lg waves-effect waves-light" type="submit">Guardar</button>
                                     </div>
                                 </div>
