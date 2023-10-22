@@ -30,11 +30,10 @@ namespace Intelly_Web.Models
                 {
                     string json = await httpResponse.Content.ReadAsStringAsync();
                     response = JsonConvert.DeserializeObject<ApiResponse<List<CompanyEnt>>>(json);
-                    List<CompanyEnt> listCompanies = new List<CompanyEnt>();
                     return response;
                 }
 
-                response.ErrorMessage = "Error al obtener compañías del API.";
+                response.ErrorMessage = "Error al obtener usuarios del API.";
                 response.Code = (int)httpResponse.StatusCode;
                 return response;
             }

@@ -1,4 +1,5 @@
 ﻿using Intelly_Web.Entities;
+using System.Data;
 
 namespace Intelly_Web.Interfaces
 {
@@ -15,13 +16,15 @@ namespace Intelly_Web.Interfaces
 
         Task<ApiResponse<UserEnt>> EditSpecificUser(UserEnt entity);
 
-        Task<ApiResponse<List<UserTypeEnt>>> GetAllUsersRoles();
+        Task<ApiResponse<List<UserRoleEnt>>> GetAllUsersRoles();
 
         Task<ApiResponse<UserEnt>> PwdRecovery(UserEnt entity);
 
         Task<ApiResponse<UserEnt>> UpdateUserPassword(UserEnt entity);
 
         Task<ApiResponse<UserEnt>> GetUser(UserEnt entity);
+
+        Task<ApiResponse<string>> ActivateAccount(int userId);
 
 
     }

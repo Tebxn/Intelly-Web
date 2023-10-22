@@ -79,33 +79,34 @@
                                                 <th>Acciones</th>
                                             </tr>
                                         </thead>
-                                    
 
-                                        <tbody>
-                                            @foreach (var user in Model)
-                                            {
-                                                <tr>
-                                                    <td>@user.User_Name</td>
-                                                    <td>@user.User_LastName</td>
-                                                    <td>@user.User_Email</td>
-                                                    <td>@(user.User_State ? "Activo" : "Inactivo")</td>
-                                                    <td>@user.User_Type</td>
+
+                                    <tbody>
+                                        @foreach (var user in Model)
+                                        {
+                                            <tr>
+                                                <td>@user.User_Name</td>
+                                                <td>@user.User_LastName</td>
+                                                <td>@user.User_Email</td>
+                                                <td>@(user.User_State ? "Activo" : "Inactivo")</td>
+                                                <td>@user.User_Type</td>
                                                 <td>
                                                     <a href="@Url.Action("EditSpecificUser", "User", new { UserId = user.User_Id })">
                                                         Editar Usuario
                                                         <i class="fa fa-pencil"></i>
                                                     </a>
-
-                                                    <a> | </a>
-
-                                                    <a href="@Url.Action("DisableUser", "User", new { UserId = user.User_Id })">
-                                                        Deshabilitar Usuario
-                                                        <i class="fa fa-pencil"></i>
-                                                    </a>
+                                                    @if (!user.User_State)
+                                                    {
+                                                        <form method="post" asp-controller="User" asp-action="ActivateAccountPost">
+                                                            <input type="hidden" name="userId" value="@user.User_Id" />
+                                                            <button type="submit" class="btn-link">Activar Usuario <i class="fa fa-pencil"></i></button>
+                                                        </form>
+                                                    }
                                                 </td>
-                                                </tr>
-                                            }
-                                        </tbody>
+                                            </tr>
+                                        }
+                                    </tbody>
+
 
 
                                     </table>

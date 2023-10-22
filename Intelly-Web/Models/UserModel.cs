@@ -7,6 +7,7 @@ using System.Net;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Http.Headers;
+using System.Data;
 
 namespace Intelly_Web.Models
 {
@@ -112,6 +113,8 @@ namespace Intelly_Web.Models
         }
 
 
+
+
         public async Task<ApiResponse<UserEnt>> GetSpecificUser(int UserId)
         {
             // Implementa la lógica para obtener un usuario específico
@@ -176,20 +179,19 @@ namespace Intelly_Web.Models
             return response;
         }
 
-
-        public async Task<ApiResponse<List<UserTypeEnt>>> GetAllUsersRoles()
+       
+        public async Task<ApiResponse<List<UserRoleEnt>>> GetAllUsersRoles()
         {
-            ApiResponse<List<UserTypeEnt>> response = new ApiResponse<List<UserTypeEnt>>();
+            ApiResponse<List<UserRoleEnt>> response = new ApiResponse<List<UserRoleEnt>>();
             try
             {
-                string url = _urlApi + "/api/Users/GetAllUsers";
+                string url = _urlApi + "/api/Users/GetAllUsersRoles";
                 HttpResponseMessage httpResponse = await _httpClient.GetAsync(url);
 
                 if (httpResponse.IsSuccessStatusCode)
                 {
                     string json = await httpResponse.Content.ReadAsStringAsync();
-                    response = JsonConvert.DeserializeObject<ApiResponse<List<UserTypeEnt>>>(json);
-                    List<UserTypeEnt> listUsers = new List<UserTypeEnt>();
+                    response = JsonConvert.DeserializeObject<ApiResponse<List<UserRoleEnt>>>(json);
                     return response;
                 }
 
@@ -292,5 +294,42 @@ namespace Intelly_Web.Models
             }
 
         }
+
+        public async Task<ApiResponse<string>> ActivateAccount(int userId)
+        {
+            ApiResponse<string> response = new ApiResponse<string>();
+
+            try
+            {
+                string url = $"{_urlApi}/api/Authentication/ActivateAccount";
+                JsonContent obj = JsonContent.Create(new { User_Id = userId });
+
+                var httpResponse = await _httpClient.PutAsync(url, obj);
+
+                if (httpResponse.IsSuccessStatusCode)
+                {
+                    response.Success = true;
+                    response.Data = "Account activated";
+                }
+                else if (httpResponse.StatusCode == HttpStatusCode.NotFound)
+                {
+                    response.ErrorMessage = "User not found";
+                    response.Code = 404;
+                }
+                else
+                {
+                    response.ErrorMessage = "Error activating account: " + httpResponse.ReasonPhrase;
+                    response.Code = (int)httpResponse.StatusCode;
+                }
+            }
+            catch (Exception ex)
+            {
+                response.ErrorMessage = "Unexpected Error: " + ex.Message;
+                response.Code = 500;
+            }
+
+            return response;
+        }
+
     }
 }

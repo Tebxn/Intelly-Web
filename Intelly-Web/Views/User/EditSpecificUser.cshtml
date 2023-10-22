@@ -67,7 +67,7 @@
                         <h5 class="font-18 text-center">Editar usuario</h5>
 
                         <form asp-action="EditSpecificUser" asp-controller="User" method="post" class="pt-3">
-                            <div class="form-group">
+                            <div class="form-group" style="display: none;">
                                 <div class="col-12">
                                     <label asp-for="User_Id" class="control-label"></label>
                                     <input asp-for="User_Id" class="form-control" />
@@ -98,17 +98,22 @@
 
                                 <div class="form-group">
                                     <div class="col-12">
-                                        <label>Empresa</label>
-                                        <input asp-for="User_Company_Id" class="form-control form-control-lg" type="number" placeholder="Id de la Empresa" />
+                                        <label for="Empresa">Empresa</label>
+                                        <select asp-for="User_Company_Id" asp-items="ViewBag.ComboCompanies" class="form-control form-control-lg">
+                                            <option value="">Seleccionar Empresa</option>
+                                        </select>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <div class="col-12">
-                                        <label>Permisos</label>
-                                        <input asp-for="User_Type" class="form-control form-control-lg" type="number" placeholder="Tipo de Usuario" />
+                                        <label for="TipoUsuario">Tipo Usuario</label>
+                                        <select asp-for="User_Type" asp-items="ViewBag.ComboRoles" class="form-control form-control-lg">
+                                            <option value="">Seleccionar Tipo de Usuario</option>
+                                        </select>
                                     </div>
                                 </div>
+
 
                                 <div class="form-group text-center m-t-20">
                                     <div class="col-md-12 mx-auto">

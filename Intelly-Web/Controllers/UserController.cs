@@ -18,26 +18,35 @@ namespace Intelly_Web.Controllers
             _companyModel = companyModel;
         }
 
+        [HttpGet]
         public async Task<IActionResult> AddEmployee()
         {
-            var roleDropdownData = await _userModel.GetAllUsersRoles();
-            ViewBag.ListRoles = new SelectList(roleDropdownData.Data, "Id", "Name");
-            var companyDropdownData = await _companyModel.GetAllCompanies();
-            ViewBag.ListCompanies = new SelectList(companyDropdownData.Data, "Id", "Name");
-            return View();
+            try
+            {
+                var roleDropdownData = await _userModel.GetAllUsersRoles();
+                ViewBag.ListRoles = roleDropdownData.Data.Select(role => new SelectListItem 
+                { Value = role.User_Type_Id.ToString(), 
+                    Text = role.User_Type_Name });
+                var companyDropdownData = await _companyModel.GetAllCompanies();
+                ViewBag.ListCompanies = companyDropdownData.Data.Select(company => new SelectListItem 
+                { Value = company.Company_Id.ToString(), 
+                    Text = company.Company_Name });
+                return View();
+            }
+            catch (Exception ex)
+            {
+                ViewBag.MensajePantalla = "Error al cargar los datos";
+                return View();
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> AddEmployee(UserEnt entity)
         {
             var apiResponse = await _userModel.AddEmployee(entity);
-            
+
             if (apiResponse.Success)
             {
-                var roleDropdownData = await _userModel.GetAllUsersRoles();
-                ViewBag.ListRoles = new SelectList(roleDropdownData.Data, "Id", "Name");
-                var companyDropdownData = await _companyModel.GetAllCompanies();
-                ViewBag.ListCompanies = new SelectList(companyDropdownData.Data, "Id", "Name");
                 return RedirectToAction("Employees", "User");
             }
             else
@@ -62,7 +71,6 @@ namespace Intelly_Web.Controllers
                 return View(errors);
             }
         }
-
 
 
         [HttpGet]
@@ -107,6 +115,31 @@ namespace Intelly_Web.Controllers
                     var user = apiResponse.Data;
                     if (user != null)
                     {
+                        // Obtener la lista de roles para el usuario
+                        var apiRolesResponse = await _userModel.GetAllUsersRoles();
+
+                        if (apiRolesResponse.Success)
+                        {
+                            var userRoles = apiRolesResponse.Data;
+                            ViewBag.ComboRoles = userRoles.Select(role => new SelectListItem { Value = role.User_Type_Id.ToString(), Text = role.User_Type_Name });
+                        }
+                        else
+                        {
+                            ViewBag.MensajePantalla = apiRolesResponse.ErrorMessage;
+                        }
+
+                        // Obtener la lista de compañías
+                        var companiesResponse = await _companyModel.GetAllCompanies();
+                        if (companiesResponse.Success)
+                        {
+                            var companies = companiesResponse.Data;
+                            ViewBag.ComboCompanies = companies.Select(company => new SelectListItem { Value = company.Company_Id.ToString(), Text = company.Company_Name});
+                        }
+                        else
+                        {
+                            ViewBag.MensajePantalla = companiesResponse.ErrorMessage;
+                        }
+
                         return View("EditSpecificUser", user);
                     }
                     else
@@ -144,6 +177,41 @@ namespace Intelly_Web.Controllers
                 return View();
             }
         }
+
+        [HttpGet]
+        public async Task<IActionResult> ActivateAccountGet(int UserId)
+        {
+            var apiResponse = await _userModel.ActivateAccount(UserId);
+
+            if (apiResponse.Success)
+            {
+                ViewBag.MensajePantalla = "Cuenta activada con éxito.";
+            }
+            else
+            {
+                ViewBag.MensajePantalla = apiResponse.ErrorMessage;
+            }
+
+            return RedirectToAction("Employees");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ActivateAccountPost(int userId)
+        {
+            var apiResponse = await _userModel.ActivateAccount(userId);
+
+            if (apiResponse.Success)
+            {
+                return RedirectToAction("Employees");
+            }
+            else
+            {
+                ViewBag.MensajePantalla = "No se pudo activar la cuenta del usuario.";
+                return RedirectToAction("Employees");
+            }
+        }
+
+
 
         public async Task<IActionResult> Profile(UserEnt entity)
         {
