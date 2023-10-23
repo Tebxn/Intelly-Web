@@ -15,31 +15,32 @@
             <h5 class="font-18 text-center">Agregar nuevo usuario</h5>
 
             <form asp-action="AddEmployee" asp-controller="User" method="post" class="pt-3">
+
                 <div class="container">
 
                     <div class="form-group">
-                        <div class="col-md-6 mx-auto">
+                        <div class="col-6 mx-auto">
                             <label>Nombre</label>
                             <input asp-for="User_Name" class="form-control form-control-lg" type="text" placeholder="Nombre de Usuario" />
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <div class="col-md-6 mx-auto">
+                        <div class="col-6 mx-auto">
                             <label>Apellido</label>
                             <input asp-for="User_LastName" class="form-control form-control-lg" type="text" placeholder="Apellido" />
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <div class="col-md-6 mx-auto">
+                        <div class="col-6 mx-auto">
                             <label>Correo Electrónico</label>
                             <input asp-for="User_Email" class="form-control form-control-lg" type="text" placeholder="Correo" />
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <div class="col-md-6 mx-auto">
+                        <div class="col-6 mx-auto">
                             <label>Contraseña</label>
                             <input asp-for="User_Password" class="form-control form-control-lg" type="password" placeholder="Contraseña" />
                         </div>
@@ -56,7 +57,7 @@
                     </div>
 
                     <div class="form-group">
-                        <div class="col-6 mx-auto" ">
+                        <div class="col-6 mx-auto">
                             <label for="TipoUsuario">Tipo Usuario</label>
                             <select asp-for="User_Type" asp-items="ViewBag.ListRoles" class="form-control form-control-lg">
                                 <option value="">Seleccionar Tipo de Usuario</option>
@@ -65,7 +66,7 @@
                     </div>
 
                     <div class="form-group text-center m-t-20">
-                        <div class="col-md-6 mx-auto">
+                        <div class="col-6 mx-auto">
                             <button class="btn btn-primary btn-block btn-lg waves-effect waves-light" type="submit">Crear Usuario</button>
                         </div>
                     </div>

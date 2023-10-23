@@ -1,6 +1,7 @@
 ﻿using Intelly_Web.Entities;
 using Intelly_Web.Interfaces;
 using Intelly_Web.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -37,10 +38,15 @@ namespace Intelly_Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(UserEnt entity)
         {
+          
             var resp = await _userModel.Login(entity);
 
+
             if (resp.Success)
+            {
+           
                 return RedirectToAction("Index", "Home");
+            }
             else
             {
                 ViewBag.MensajePantalla = resp.ErrorMessage;

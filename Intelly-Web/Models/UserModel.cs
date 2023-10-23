@@ -23,6 +23,7 @@ namespace Intelly_Web.Models
         {
             _httpClient = httpClient;
             _configuration = configuration;
+      
             _urlApi = _configuration.GetSection("Llaves:urlApi").Value;
 
         }
@@ -331,5 +332,20 @@ namespace Intelly_Web.Models
 
             return response;
         }
+
+        //public async Task<UserEnt?> Profile(int UserId)
+        //{
+        //    string url = $"{_urlApi}/api/Users/GetSpecificUser/{UserId}";
+
+        //    var resp = await _httpClient.GetAsync(url);
+
+        //    if (resp.IsSuccessStatusCode)
+        //        return await resp.Content.ReadFromJsonAsync<UserEnt>();
+        //    else
+        //        return null;
+        //}
+
+
+
     }
 }

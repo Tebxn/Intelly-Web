@@ -26,6 +26,8 @@ namespace Intelly_Web.Interfaces
 
         Task<ApiResponse<string>> ActivateAccount(int User_Id);
 
+        //Task<UserEnt?> Profile(int UserId);
+
 
     }
 }

@@ -12,10 +12,13 @@ namespace Intelly_Web.Controllers
         private readonly IUserModel _userModel;
 
         private readonly ICompanyModel _companyModel;
+
+
         public UserController(IUserModel userModel, ICompanyModel companyModel)
         {
             _userModel = userModel;
             _companyModel = companyModel;
+         
         }
 
         [HttpGet]
@@ -203,12 +206,24 @@ namespace Intelly_Web.Controllers
             }
         }
 
+        //[HttpGet]
+        //public IActionResult Profile()
+        //{
+          
+        //    int UserId = HttpContext.Session.GetInt32("User_Id") ?? 0; // Obtén el UserId de las variables de sesión
+        //    var datos = _userModel.Profile(UserId);
 
-        public async Task<IActionResult> Profile(UserEnt entity)
-        {
-            var data = _userModel.GetUser(entity);
-            return View(data);
-        }
+        //    // Asegúrate de que datos sea del tipo UserEnt
+        //    if (datos is UserEnt)
+        //    {
+        //        return View("Profile", datos);
+        //    }
+        //    else
+        //    {
+        //        // Maneja el caso en el que los datos no sean del tipo esperado
+        //        return View("Error");
+        //    }
+        //}
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
