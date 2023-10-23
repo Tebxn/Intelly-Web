@@ -7,5 +7,7 @@ namespace Intelly_Web.Interfaces
 
         Task<ApiResponse<List<CompanyEnt>>> GetAllCompanies();
         Task<ApiResponse<CompanyEnt>> CreateCompany(CompanyEnt entity);
+        Task<ApiResponse<CompanyEnt>> GetSpecificCompany(int CompanyId);
+        Task<ApiResponse<CompanyEnt>> EditSpecificCompany(CompanyEnt entity);
     }
 }

@@ -1,6 +1,8 @@
 ﻿using Intelly_Web.Entities;
 using Intelly_Web.Interfaces;
 using Newtonsoft.Json;
+using System.ComponentModel.Design;
+using System.Net;
 using System.Net.Http;
 
 namespace Intelly_Web.Models
@@ -66,12 +68,78 @@ namespace Intelly_Web.Models
                     return response;
                 }
             }
+
+
             catch (Exception ex)
             {
                 response.ErrorMessage = "Error inesperado al agregar compañía: " + ex.Message;
                 return response;
             }
         }
+       public async Task<ApiResponse<CompanyEnt>> GetSpecificCompany(int CompanyId)
+          {
+        // Implementa la lógica para obtener una empresa en específico
+           ApiResponse<CompanyEnt> response = new ApiResponse<CompanyEnt>();
+          try
+          {
+           string url = $"{_urlApi}/api/Companies/GetSpecificCompany/{CompanyId}";
+        HttpResponseMessage httpResponse = await _httpClient.GetAsync(url);
+        
+          if (httpResponse.IsSuccessStatusCode)
+          {
+             string json = await httpResponse.Content.ReadAsStringAsync();
+             response = JsonConvert.DeserializeObject<ApiResponse<CompanyEnt>>(json);
+            return response;
+          }
+
+           response.ErrorMessage = "Error al obtener el usuario del API.";
+           response.Code = (int)httpResponse.StatusCode;
+          return response;
+        }
+         catch (Exception ex)
+         {
+              response.ErrorMessage = "Unexpected Error: " + ex.Message;
+           response.Code = 500;
+             return response;
+         }
+          }
+
+        public async Task<ApiResponse<CompanyEnt>> EditSpecificCompany(CompanyEnt entity)
+        {
+            ApiResponse<CompanyEnt> response = new ApiResponse<CompanyEnt>();
+
+            try
+            {
+                string url = $"{_urlApi}/api/Companies/EditSpecificCompany";
+                JsonContent obj = JsonContent.Create(entity);
+
+                var httpResponse = await _httpClient.PutAsync(url, obj);
+
+                if (httpResponse.IsSuccessStatusCode)
+                {
+                    response.Success = true;
+                    response.Data = await httpResponse.Content.ReadFromJsonAsync<CompanyEnt>();
+                }
+                else if (httpResponse.StatusCode == HttpStatusCode.NotFound)
+                {
+                    response.ErrorMessage = "User not found";
+                    response.Code = 404;
+                }
+                else
+                {
+                    response.ErrorMessage = "Unexpected Error: " + httpResponse.ReasonPhrase;
+                    response.Code = (int)httpResponse.StatusCode;
+                }
+            }
+            catch (Exception ex)
+            {
+                response.ErrorMessage = "Unexpected Error: " + ex.Message;
+                response.Code = 500;
+            }
+
+            return response;
+        }
+
 
     }
 }

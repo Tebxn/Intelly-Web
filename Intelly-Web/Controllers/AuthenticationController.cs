@@ -69,13 +69,13 @@ namespace Intelly_Web.Controllers
         }
 
 
-        public IActionResult UpdateUserPassword()
+        public async Task<IActionResult> UpdateUserPassword()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult UpdateUserPassword(UserEnt entity)
+        public async Task<IActionResult> UpdateUserPassword(UserEnt entity)
         {
             var resp = _userModel.UpdateUserPassword(entity);
             if (resp.IsCompletedSuccessfully)

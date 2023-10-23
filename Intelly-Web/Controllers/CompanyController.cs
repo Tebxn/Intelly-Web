@@ -2,6 +2,7 @@
 using Intelly_Web.Interfaces;
 using Intelly_Web.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Diagnostics;
 
 namespace Intelly_Web.Controllers
@@ -15,16 +16,17 @@ namespace Intelly_Web.Controllers
             _companyModel = companyModel;
         }
 
-        public IActionResult CreateCompany()
+        public async Task<IActionResult> CreateCompany()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult CreateCompany(CompanyEnt entity)
+        public async Task<IActionResult> CreateCompany(CompanyEnt entity)
         {
-            var resp = _companyModel.CreateCompany(entity);
-            if (resp.IsCompletedSuccessfully)
+            var apiResponse = await _companyModel.CreateCompany(entity);
+
+            if (apiResponse.Success)
             {
                 return RedirectToAction("GetAllCompanies", "Company");
             }
@@ -51,6 +53,84 @@ namespace Intelly_Web.Controllers
             }
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetSpecificCompany(int CompanyId)
+        {
+            try
+            {
+                var apiResponse = await _companyModel.GetSpecificCompany(CompanyId);
+                if (apiResponse.Success)
+                {
+                    var user = apiResponse.Data;
+                    if (user != null)
+                    {
+                        return RedirectToAction("EditSpecificCompany", new { CompanyId = CompanyId });
+                    }
+                    else
+                    {
+                        return View("Error");
+                    }
+                }
+                else
+                {
+                    // Maneja el caso en que la respuesta no sea exitosa
+                    return View("Error"); // Muestra una vista de error
+                }
+            }
+            catch (Exception ex)
+            {
+                // Maneja el caso en que se produjo una excepción
+                return View("Error"); // Muestra una vista de error
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EditSpecificCompany(int CompanyId)
+        {
+            try
+            {
+                var apiResponse = await _companyModel.GetSpecificCompany(CompanyId);
+                if (apiResponse.Success)
+                {
+                    var company = apiResponse.Data;
+                    if (company != null)
+                    {
+                        return View("EditSpecificCompany", company);
+                    }
+                    else
+                    {
+                        ViewBag.MensajePantalla = apiResponse.ErrorMessage;
+                        return View("GetAllCompanies");
+                    }
+                }
+                else
+                {
+                    ViewBag.MensajePantalla = apiResponse.ErrorMessage;
+                    return View();
+                }
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditSpecificCompany(CompanyEnt company)
+        {
+            var apiResponse = await _companyModel.EditSpecificCompany(company);
+
+            if (apiResponse.Success)
+            {
+                var editedCompany = apiResponse.Data;
+                return RedirectToAction("GetAllCompanies", "Company");
+            }
+            else
+            {
+                ViewBag.MensajePantalla = apiResponse.ErrorMessage;
+                return View();
+            }
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
