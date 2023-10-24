@@ -28,6 +28,8 @@ namespace Intelly_Web.Interfaces
 
         //Task<UserEnt?> Profile(int UserId);
 
+        Task<ApiResponse<UserEnt>> ChangePassword(UserEnt entity);
+
 
     }
 }

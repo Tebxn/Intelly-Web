@@ -345,7 +345,34 @@ namespace Intelly_Web.Models
         //        return null;
         //}
 
+        public async Task<ApiResponse<UserEnt>> ChangePassword(UserEnt entity)
+        {
+            ApiResponse<UserEnt> response = new ApiResponse<UserEnt>();
 
+            try
+            {
+                string url = _urlApi + "/api/Authentication/ChangePassword";
+                JsonContent obj = JsonContent.Create(entity);
+                var httpResponse = await _httpClient.PutAsync(url, obj);
+
+                if (httpResponse.IsSuccessStatusCode)
+                {
+                    response.Success = true;
+                    response.Data = await httpResponse.Content.ReadFromJsonAsync<UserEnt>();
+                    return response;
+                }
+                else
+                {
+                    response.ErrorMessage = "Error al conectar con el servidor. Contacte con soporte.";
+                    return response;
+                }
+            }
+            catch (Exception ex)
+            {
+                response.ErrorMessage = "Error inesperado al actualizar usuario: " + ex.Message;
+                return response;
+            }
+        }
 
     }
 }

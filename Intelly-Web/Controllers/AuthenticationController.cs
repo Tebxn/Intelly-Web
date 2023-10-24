@@ -44,7 +44,6 @@ namespace Intelly_Web.Controllers
 
             if (resp.Success)
             {
-           
                 return RedirectToAction("Index", "Home");
             }
             else
@@ -89,7 +88,28 @@ namespace Intelly_Web.Controllers
             }
         }
 
-      
+        [HttpGet]
+        public IActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [HttpPut]
+        public IActionResult ChangePassword(UserEnt entity)
+        {
+            var resp = _userModel.ChangePassword(entity);
+            if (resp.IsCompletedSuccessfully)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                ViewBag.MensajePantalla = "Error al conectar con el servidor";
+                return View();
+            }
+        }
+
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
