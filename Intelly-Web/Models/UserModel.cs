@@ -19,11 +19,11 @@ namespace Intelly_Web.Models
         private String _urlApi;
 
 
-        public UserModel(HttpClient httpClient, IConfiguration configuration)
+        public UserModel(HttpClient httpClient, IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
         {
             _httpClient = httpClient;
             _configuration = configuration;
-      
+            _HttpContextAccessor = httpContextAccessor;
             _urlApi = _configuration.GetSection("Llaves:urlApi").Value;
 
         }
@@ -41,7 +41,7 @@ namespace Intelly_Web.Models
                 if (httpResponse.IsSuccessStatusCode)
                 {
                     response.Success = true;
-                    response.Data = await httpResponse.Content.ReadFromJsonAsync<UserEnt>();
+                    response = await httpResponse.Content.ReadFromJsonAsync<ApiResponse<UserEnt>>();
                 }
                 else
                 {
@@ -63,6 +63,9 @@ namespace Intelly_Web.Models
             try
             {
                 string url = _urlApi + "/api/Authentication/RegisterAccount";
+                string token = _HttpContextAccessor.HttpContext.Session.GetString("UserToken");
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
                 JsonContent obj = JsonContent.Create(entity);
                 var httpResponse = await _httpClient.PostAsync(url, obj);
 
@@ -91,6 +94,9 @@ namespace Intelly_Web.Models
             try
             {
                 string url = _urlApi + "/api/Users/GetAllUsers";
+                string token = _HttpContextAccessor.HttpContext.Session.GetString("UserToken");
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
                 HttpResponseMessage httpResponse = await _httpClient.GetAsync(url);
 
                 if (httpResponse.IsSuccessStatusCode)
@@ -113,9 +119,6 @@ namespace Intelly_Web.Models
             }
         }
 
-
-
-
         public async Task<ApiResponse<UserEnt>> GetSpecificUser(int UserId)
         {
             // Implementa la lógica para obtener un usuario específico
@@ -123,6 +126,10 @@ namespace Intelly_Web.Models
             try
             {
                 string url = $"{_urlApi}/api/Users/GetSpecificUser/{UserId}";
+
+                string token = _HttpContextAccessor.HttpContext.Session.GetString("UserToken");
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
                 HttpResponseMessage httpResponse = await _httpClient.GetAsync(url);
 
                 if (httpResponse.IsSuccessStatusCode)
@@ -151,6 +158,9 @@ namespace Intelly_Web.Models
             try
             {
                 string url = $"{_urlApi}/api/Users/EditSpecificUser";
+                string token = _HttpContextAccessor.HttpContext.Session.GetString("UserToken");
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
                 JsonContent obj = JsonContent.Create(entity);
 
                 var httpResponse = await _httpClient.PutAsync(url, obj);
@@ -180,13 +190,15 @@ namespace Intelly_Web.Models
             return response;
         }
 
-       
         public async Task<ApiResponse<List<UserRoleEnt>>> GetAllUsersRoles()
         {
             ApiResponse<List<UserRoleEnt>> response = new ApiResponse<List<UserRoleEnt>>();
             try
             {
                 string url = _urlApi + "/api/Users/GetAllUsersRoles";
+                string token = _HttpContextAccessor.HttpContext.Session.GetString("UserToken");
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
                 HttpResponseMessage httpResponse = await _httpClient.GetAsync(url);
 
                 if (httpResponse.IsSuccessStatusCode)
@@ -215,6 +227,9 @@ namespace Intelly_Web.Models
             try
             {
                 string url = _urlApi + "/api/Authentication/RecoverAccount";
+                string token = _HttpContextAccessor.HttpContext.Session.GetString("UserToken");
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
                 JsonContent obj = JsonContent.Create(entity);
                 var httpResponse = await _httpClient.PostAsync(url, obj);
 
@@ -243,6 +258,9 @@ namespace Intelly_Web.Models
             try
             {
                 string url = _urlApi + "/api/Authentication/UpdateUserPassword";
+                string token = _HttpContextAccessor.HttpContext.Session.GetString("UserToken");
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
                 JsonContent obj = JsonContent.Create(entity);
                 var httpResponse = await _httpClient.PutAsync(url, obj);
 
@@ -274,6 +292,7 @@ namespace Intelly_Web.Models
                 string url = _urlApi + "/api/User/GetUser";
                 string token = _HttpContextAccessor.HttpContext.Session.GetString("UserToken");
                 _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
                 var httpResponse = await _httpClient.GetAsync(url);
 
                 if (httpResponse.IsSuccessStatusCode)
@@ -303,6 +322,9 @@ namespace Intelly_Web.Models
             try
             {
                 string url = _urlApi + "/api/Authentication/ActivateAccount";
+                string token = _HttpContextAccessor.HttpContext.Session.GetString("UserToken");
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
                 JsonContent obj = JsonContent.Create(new { User_Id = userId });
 
                 var httpResponse = await _httpClient.PutAsync(url, obj);
@@ -352,6 +374,9 @@ namespace Intelly_Web.Models
             try
             {
                 string url = _urlApi + "/api/Authentication/ChangePassword";
+                string token = _HttpContextAccessor.HttpContext.Session.GetString("UserToken");
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
                 JsonContent obj = JsonContent.Create(entity);
                 var httpResponse = await _httpClient.PutAsync(url, obj);
 

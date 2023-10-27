@@ -44,6 +44,8 @@ namespace Intelly_Web.Controllers
 
             if (resp.Success)
             {
+                HttpContext.Session.SetString("UserName", resp.Data.User_Name);
+                HttpContext.Session.SetString("UserToken", resp.Data.UserToken);
                 return RedirectToAction("Index", "Home");
             }
             else
@@ -51,6 +53,13 @@ namespace Intelly_Web.Controllers
                 ViewBag.MensajePantalla = resp.ErrorMessage;
                 return View();
             }
+        }
+
+        [HttpGet]
+        public IActionResult EndSession()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Authentication", "Login");
         }
 
         [HttpPost]
