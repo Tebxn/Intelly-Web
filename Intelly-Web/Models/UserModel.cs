@@ -62,6 +62,8 @@ namespace Intelly_Web.Models
 
             try
             {
+                entity.User_Company_Id = long.Parse(_HttpContextAccessor.HttpContext.Session.GetString("UserCompnayId"));
+
                 string url = _urlApi + "/api/Authentication/RegisterAccount";
                 string token = _HttpContextAccessor.HttpContext.Session.GetString("UserToken");
                 _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
@@ -72,7 +74,7 @@ namespace Intelly_Web.Models
                 if (httpResponse.IsSuccessStatusCode)
                 {
                     response.Success = true;
-                    response.Data = await httpResponse.Content.ReadFromJsonAsync<UserEnt>();
+                    response = await httpResponse.Content.ReadFromJsonAsync<ApiResponse<UserEnt>>();
                     return response;
                 }
                 else

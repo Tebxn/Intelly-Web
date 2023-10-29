@@ -44,8 +44,12 @@ namespace Intelly_Web.Controllers
 
             if (resp.Success)
             {
+                HttpContext.Session.SetString("UserId", resp.Data.User_Id.ToString());
                 HttpContext.Session.SetString("UserName", resp.Data.User_Name);
+                HttpContext.Session.SetString("UserName", resp.Data.User_LastName);
+                HttpContext.Session.SetString("UserCompnayId", resp.Data.User_Company_Id.ToString());
                 HttpContext.Session.SetString("UserToken", resp.Data.UserToken);
+
                 return RedirectToAction("Index", "Home");
             }
             else
