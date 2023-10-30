@@ -1,9 +1,11 @@
 ﻿using Intelly_Web.Entities;
 using Intelly_Web.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System.ComponentModel.Design;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 
 namespace Intelly_Web.Models
 {
@@ -11,12 +13,14 @@ namespace Intelly_Web.Models
     {
         private readonly HttpClient _httpClient;
         private readonly IConfiguration _configuration;
+        private readonly IHttpContextAccessor _HttpContextAccessor;
         private String _urlApi;
 
-        public CompanyModel(HttpClient httpClient, IConfiguration configuration)
+        public CompanyModel(HttpClient httpClient, IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
         {
             _httpClient = httpClient;
             _configuration = configuration;
+            _HttpContextAccessor = httpContextAccessor;
             _urlApi = _configuration.GetSection("Llaves:urlApi").Value;
 
         }
@@ -26,12 +30,16 @@ namespace Intelly_Web.Models
             try
             {
                 string url = _urlApi + "/api/Companies/GetAllCompanies";
+                string token = _HttpContextAccessor.HttpContext.Session.GetString("UserToken");
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
                 HttpResponseMessage httpResponse = await _httpClient.GetAsync(url);
 
                 if (httpResponse.IsSuccessStatusCode)
                 {
                     string json = await httpResponse.Content.ReadAsStringAsync();
                     response = JsonConvert.DeserializeObject<ApiResponse<List<CompanyEnt>>>(json);
+                    List<UserEnt> listCompanies = new List<UserEnt>();
                     return response;
                 }
 

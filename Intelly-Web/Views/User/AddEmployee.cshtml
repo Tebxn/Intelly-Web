@@ -21,7 +21,7 @@
                     <div class="form-group">
                         <div class="col-6 mx-auto">
                             <label>Nombre</label>
-                            <input asp-for="User_Name" class="form-control form-control-lg" type="text" placeholder="Nombre de Usuario" />
+                            <input asp-for="User_Name" class="form-control form-control-lg" type="text" placeholder="Nombre del Usuario" />
                         </div>
                     </div>
 
@@ -36,23 +36,6 @@
                         <div class="col-6 mx-auto">
                             <label>Correo Electrónico</label>
                             <input asp-for="User_Email" class="form-control form-control-lg" type="text" placeholder="Correo" />
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-6 mx-auto">
-                            <label>Contraseña</label>
-                            <input asp-for="User_Password" class="form-control form-control-lg" type="password" placeholder="Contraseña" />
-                        </div>
-                    </div>
-
-
-                    <div class="form-group">
-                        <div class="col-6 mx-auto">
-                            <label for="Empresa">Empresa</label>
-                            <select asp-for="User_Company_Id" asp-items="ViewBag.ListCompanies" class="form-control form-control-lg">
-                                <option value="">Seleccionar Empresa</option>
-                            </select>
                         </div>
                     </div>
 

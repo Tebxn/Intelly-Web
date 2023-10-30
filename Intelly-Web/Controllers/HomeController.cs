@@ -1,4 +1,6 @@
-﻿using Intelly_Web.Models;
+﻿using Intelly_Web.Entities;
+using Intelly_Web.Interfaces;
+using Intelly_Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -8,13 +10,14 @@ namespace Intelly_Web.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
+
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
         }
 
         public IActionResult Index()
-        {
+        {           
             return View("Home");
         }
 

@@ -9,7 +9,7 @@
         public string? User_Email { get; set; } = string.Empty;
         public string? User_Password { get; set; } = string.Empty;
         public int? User_Type { get; set; }
-        public bool User_State { get; set; }
+        public bool User_State { get; set; } = true;
         public bool? User_Password_IsTemp { get; set; }
         public string UserToken { get; set; } = string.Empty;
     }

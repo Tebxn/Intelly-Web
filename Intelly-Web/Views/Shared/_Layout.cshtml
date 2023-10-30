@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -179,18 +180,17 @@
                         <li>
                             <a href="calendar.html" class="waves-effect"><i class="icon-calendar"></i><span> Agenda </span></a>
                         </li>
+                      
+                            <li>
+                                <a href="javascript:void(0);" class="waves-effect"><i class="icon-paper-sheet"></i><span> Administrativo <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
+                                <ul class="submenu">
+                                    <li><a href="@Url.Action("Employees", "User")">Empleados</a></li>
 
-                        <li>
-                            <a href="javascript:void(0);" class="waves-effect"><i class="icon-paper-sheet"></i><span> Administrativo <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
-                            <ul class="submenu">
-                                <li><a href="@Url.Action("Employees", "User")">Empleados</a></li>
-                            
-                                <li><a href="@Url.Action("GetAllCompanies", "Company")">Empresas</a></li>
+                                    <li><a href="@Url.Action("GetAllCompanies", "Company")">Empresas</a></li>
 
-                                <li><a href="@Url.Action("UpdateUserPassword", "Authentication")">Cambiar Contraseña</li>
-                               
-                            </ul>
-                        </li>
+                                    <li><a href="@Url.Action("UpdateUserPassword", "Authentication")">Cambiar Contraseña</a></li>
+                                </ul>
+                            </li>
                     </ul>
 
 
