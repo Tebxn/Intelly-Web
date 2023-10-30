@@ -209,7 +209,7 @@ namespace Intelly_Web.Controllers
         //[HttpGet]
         //public IActionResult Profile()
         //{
-          
+
         //    int UserId = HttpContext.Session.GetInt32("User_Id") ?? 0; // Obtén el UserId de las variables de sesión
         //    var datos = _userModel.Profile(UserId);
 
@@ -225,12 +225,21 @@ namespace Intelly_Web.Controllers
         //    }
         //}
 
+        //[HttpGet]
+        //public IActionResult GetProfile()
+        //{
+        //    var datos = _userModel.GetProfile();
+        //    ViewBag.Provincias = _usuarioModel.ConsultarProvincias();
+        //    return View(datos);
+        //}
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+        
+
+        //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        //public IActionResult Error()
+        //{
+        //    return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        //}
         
 
 

@@ -113,7 +113,7 @@ namespace Intelly_Web.Controllers
             var resp = _userModel.ChangePassword(entity);
             if (resp.IsCompletedSuccessfully)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Authentication");
             }
             else
             {
