@@ -77,17 +77,17 @@ namespace Intelly_Web.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> GetSpecificUser(int UserId)
+        public async Task<IActionResult> GetSpecificUser(string UserToken)
         {
             try
             {
-                var apiResponse = await _userModel.GetSpecificUser(UserId);
+                var apiResponse = await _userModel.GetSpecificUser(UserToken);
                 if (apiResponse.Success)
                 {
                     var user = apiResponse.Data;
                     if (user != null)
                     {
-                        return RedirectToAction("EditSpecificUser", new { UserId = UserId });
+                        return RedirectToAction("EditSpecificUser", new { UserToken = UserToken });
                     }
                     else
                     {
@@ -108,11 +108,11 @@ namespace Intelly_Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> EditSpecificUser(int UserId)
+        public async Task<IActionResult> EditSpecificUser(string UserToken)
         {
             try
             {
-                var apiResponse = await _userModel.GetSpecificUser(UserId);
+                var apiResponse = await _userModel.GetSpecificUser(UserToken);
                 if (apiResponse.Success)
                 {
                     var user = apiResponse.Data;
@@ -206,41 +206,32 @@ namespace Intelly_Web.Controllers
             }
         }
 
-        //[HttpGet]
-        //public IActionResult Profile()
-        //{
+        [HttpGet]
+        public async Task<IActionResult> GetProfile(string UserToken)
+        {
 
-        //    int UserId = HttpContext.Session.GetInt32("User_Id") ?? 0; // Obtén el UserId de las variables de sesión
-        //    var datos = _userModel.Profile(UserId);
+            try
+            {
+                var apiResponse = await _userModel.GetSpecificUser(UserToken);
+                var user = apiResponse.Data;
+                return View(user);
+            }
+            catch (Exception)
+            {
+                List<UserEnt> errors = new List<UserEnt>();
+                return View(errors);
+            }
+        }
+    
 
-        //    // Asegúrate de que datos sea del tipo UserEnt
-        //    if (datos is UserEnt)
-        //    {
-        //        return View("Profile", datos);
-        //    }
-        //    else
-        //    {
-        //        // Maneja el caso en el que los datos no sean del tipo esperado
-        //        return View("Error");
-        //    }
-        //}
 
-        //[HttpGet]
-        //public IActionResult GetProfile()
-        //{
-        //    var datos = _userModel.GetProfile();
-        //    ViewBag.Provincias = _usuarioModel.ConsultarProvincias();
-        //    return View(datos);
-        //}
 
-        
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
 
-        //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        //public IActionResult Error()
-        //{
-        //    return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        //}
-        
 
 
     }

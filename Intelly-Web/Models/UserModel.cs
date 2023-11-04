@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Http.Headers;
 using System.Data;
+using Microsoft.AspNetCore.Http;
 
 namespace Intelly_Web.Models
 {
@@ -121,13 +122,13 @@ namespace Intelly_Web.Models
             }
         }
 
-        public async Task<ApiResponse<UserEnt>> GetSpecificUser(int UserId)
+        public async Task<ApiResponse<UserEnt>> GetSpecificUser(string UserToken)
         {
             // Implementa la lógica para obtener un usuario específico
             ApiResponse<UserEnt> response = new ApiResponse<UserEnt>();
             try
             {
-                string url = $"{_urlApi}/api/Users/GetSpecificUser/{UserId}";
+                string url = $"{_urlApi}/api/Users/GetSpecificUser/{UserToken}";
 
                 string token = _HttpContextAccessor.HttpContext.Session.GetString("UserToken");
                 _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
@@ -357,17 +358,6 @@ namespace Intelly_Web.Models
             return response;
         }
 
-        //public async Task<UserEnt?> Profile(int UserId)
-        //{
-        //    string url = $"{_urlApi}/api/Users/GetSpecificUser/{UserId}";
-
-        //    var resp = await _httpClient.GetAsync(url);
-
-        //    if (resp.IsSuccessStatusCode)
-        //        return await resp.Content.ReadFromJsonAsync<UserEnt>();
-        //    else
-        //        return null;
-        //}
 
         public async Task<ApiResponse<UserEnt>> ChangePassword(UserEnt entity)
         {
@@ -401,5 +391,6 @@ namespace Intelly_Web.Models
             }
         }
 
+       
     }
 }

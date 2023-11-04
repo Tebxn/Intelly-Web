@@ -1,6 +1,6 @@
 ﻿@model Intelly_Web.Entities.UserEnt
 @{
-    ViewData["Title"] = "Profile";
+    ViewData["Title"] = "GetProfile";
 }
 
 <!DOCTYPE html>
@@ -71,43 +71,45 @@
                                         <div class="card mb-4">
                                             <div class="card-header">Detalles del Perfil</div>
                                             <div class="card-body">
-                                                <form asp-action="Profile" asp-controller="Authentication" method="post" class="form-horizontal m-t-30">
-                                                    <!-- Form Group (username)-->
-                                                    <div class="mb-3">
-                                                        <label class="small mb-1" for="inputUsername">User_Name</label>
-                                                        <input asp-for="User_Name" class="form-control form-control-lg" type="text" placeholder="Nombre de Usuario" value="@Model.User_Name" />
+                                               @using (Html.BeginForm("GetProfile", "Authentication", FormMethod.Get, new { @class = "pt-3" })){
+                                                    
+                                                        <!-- Form Group (username)-->
+                                                        <div class="mb-3">
+                                                            <label class="small mb-1" for="inputUsername">User_Name</label>
+                                                        @Html.TextBoxFor(m => m.User_Name, new { @class="form-control form-control-lg", @type="text", @placeholder="Nombre de Usuario" })
+                                                        </div>
+                                                        <!-- Form Row-->
+                                                        <div class="row gx-3 mb-3">
+                                                            <!-- Form Group (first name)-->
+                                                            <div class="mb-3">
+                                                                <label class="small mb-1" for="inputUser_LastName">User_LastName</label>
+                                                            @Html.TextBoxFor(m => m.User_LastName, new { @class="form-control form-control-lg", @type="text", @placeholder="Apellido" })
+                                                            </div>
+                                                            <!-- Form Group (last name)-->
+                                                            <div class="mb-3">
+                                                                <label class="small mb-1" for="inputUser_Email">User_Email</label>
+                                                            @Html.TextBoxFor(m => m.User_Email, new { @class="form-control form-control-lg", @type="text", @placeholder="Correo Electrónico" })
+                                                            </div>
+                                                        </div>
+                                                        <!-- Form Row        -->
+                                                        <div class="row gx-3 mb-3">
+                                                            <!-- Form Group (organization name)-->
+                                                            <div class="mb-3">
+                                                                <label class="small mb-1" for="inputUser_Type">User_Type</label>
+                                                            @Html.TextBoxFor(m => m.User_Type, new { @class="form-control form-control-lg", @type="text", @placeholder="Tipo de Usuario" })
+                                                            </div>
+                                                            <!-- Form Group (location)-->
+                                                            <div class="mb-3">
+                                                                <label class="small mb-1" for="inputUser_Email">User_Email</label>
+                                                            @Html.TextBoxFor(m => m.User_Company_Id, new { @class="form-control form-control-lg", @type="text", @placeholder="Id de la Compañía" })
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Save changes button-->
+                                                        <button class="btn btn-primary" type="button">Save changes</button>
+                                                       }
+                                                    
                                                     </div>
-                                                    <!-- Form Row-->
-                                                    <div class="row gx-3 mb-3">
-                                                        <!-- Form Group (first name)-->
-                                                        <div class="mb-3">
-                                                            <label class="small mb-1" for="inputUser_LastName">User_LastName</label>
-                                                            <input asp-for="User_LastName" class="form-control form-control-lg" type="text" placeholder="Apellidos" value="@Model.User_LastName" />
-                                                        </div>
-                                                        <!-- Form Group (last name)-->
-                                                        <div class="mb-3">
-                                                            <label class="small mb-1" for="inputUser_Email">User_Email</label>
-                                                            <input asp-for="User_Email" class="form-control form-control-lg" type="text" placeholder="Correo Electronico" value="@Model.User_Email" />
-                                                        </div>
-                                                    </div>
-                                                    <!-- Form Row        -->
-                                                    <div class="row gx-3 mb-3">
-                                                        <!-- Form Group (organization name)-->
-                                                        <div class="mb-3">
-                                                            <label class="small mb-1" for="inputUser_Type">User_Type</label>
-                                                            <input asp-for="User_Type" class="form-control form-control-lg" type="text" placeholder="Tipo de Usuario" value="@Model.User_Type" />
-                                                        </div>
-                                                        <!-- Form Group (location)-->
-                                                        <div class="mb-3">
-                                                            <label class="small mb-1" for="inputUser_Email">User_Email</label>
-                                                            <input asp-for="User_Email" class="form-control form-control-lg" type="text" placeholder="Correo Electronico" value="@Model.User_Email" />
-                                                        </div>
-                                                    </div>
-                                          
-                                                    <!-- Save changes button-->
-                                                    <button class="btn btn-primary" type="button">Save changes</button>
-                                                </form>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
