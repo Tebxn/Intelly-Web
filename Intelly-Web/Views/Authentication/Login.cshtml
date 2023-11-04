@@ -14,9 +14,11 @@
             <h5 class="font-18 text-center">Inicie Sesion para continuar</h5>
 
                 <form asp-action="Login" asp-controller="Authentication" method="post" class="form-horizontal m-t-30">
-                    @ViewBag.MensajePantalla
+                    
                     <div class="form-group">
                         <div class="col-12">
+                            @ViewBag.MensajePantalla
+                            <br/>
                             <label>Usuario</label>
                             <input class="form-control form-control-lg" type="text" placeholder="Correo" name="User_Email">
                         </div>

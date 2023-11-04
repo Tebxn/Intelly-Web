@@ -17,13 +17,13 @@ namespace Intelly_Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult EmailMarketingManual()
+        public IActionResult EmailMarketing()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> EmailMarketingManual(EmailEnt entity)
+        public async Task<IActionResult> NewEmailCampaign(EmailEnt entity)
         {
             var apiResponse = await _marketingModel.EmailMarketingManual(entity);
 
