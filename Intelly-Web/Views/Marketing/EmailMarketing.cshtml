@@ -1,11 +1,7 @@
-﻿@model Intelly_Web.Entities.EmailEnt
+﻿@model IEnumerable<Intelly_Web.Entities.MarketingCampaignEnt>
 @{
-    ViewData["Title"] = "EmailMarketingManual";
+    ViewData["Title"] = "Marketing Campaigns";
 }
-
-<!DOCTYPE html>
-<html lang="en">
-
 <body>
 
     
@@ -26,41 +22,51 @@
                         <div class="col-12">
                             <!-- Left sidebar -->
                             <div class="email-leftbar card">
-                                <a href="Campañas publicitarias" class="btn btn-danger rounded btn-custom btn-block waves-effect waves-light">Nueva Campaña</a>
-                                <a href="Campañas publicitarias" class="btn btn-secondary rounded btn-custom btn-block waves-effect waves-light">Enviar Mail de campaña</a>
-
-                                
-
+                                <a href="Campañas publicitarias" class="btn btn-danger rounded btn-custom btn-block waves-effect waves-light">Ver Campañas</a>
+                                <a href="Campañas publicitarias" class="btn btn-secondary rounded btn-custom btn-block waves-effect waves-light">Crear campaña</a>
+                                <a href="Campañas publicitarias" class="btn btn-secondary rounded btn-custom btn-block waves-effect waves-light">Enviar correo de Campaña</a>
+                                <a href="Campañas publicitarias" class="btn btn-secondary rounded btn-custom btn-block waves-effect waves-light">Sugerencias de campañas</a>
                             </div>
                             <!-- End Left sidebar -->
+
                             <!-- Right Sidebar -->
-                            <div class="email-rightbar mb-3">
+                            <div class="table-rightbar mb-3">
                             <div class="card w-75 m-0 auto">
-                                <div class="card-body w-75 m-0 auto">
-                                        <form>
-                                            <div class="form-group">
-                                                <input type="email" class="form-control" placeholder="Para">
-                                            </div>
+                                <div class="card-body w-100 m-0 auto">
 
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="Asunto">
-                                            </div>
+                                    <table id="marketingCampaigns" class="table table-striped" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Codigo</th>
+                                                <th>Nombre</th>
+                                                <th>Fecha de Inicio</th>
+                                                <th>Fecha de Cierre</th>
+                                                <th>Nivel Cliente</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach(var x in Model)
+                                            {
+                                                <tr>
+                                                    <td>@x.MarketingCampaign_Internal_Code</td>
+                                                    <td>@x.MarketingCampaign_Name</td>
+                                                    <td>@x.MarketingCampaign_Start_Date</td>
+                                                    <td>@x.MarketingCampaign_End_Date</td>
+                                                    <td>@x.Membership_Name</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th>Codigo</th>
+                                                <th>Nombre</th>
+                                                <th>Fecha de Inicio</th>
+                                                <th>Fecha de Cierre</th>
+                                                <th>Nivel Cliente</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
 
-                                            <div class="form-group">
-                                                <textarea class="form-control" rows="10" placeholder="Redacte su mensaje aquí"></textarea>
-                                            </div>
-
-                                            <div class="btn-toolbar form-group mb-0">
-                                                <div class="">
-                                                    <button type="button" class="btn btn-success waves-effect waves-light m-r-5"><i class="far fa-save"></i></button>
-                                                    <button type="button" class="btn btn-danger waves-effect waves-light m-r-5"><i class="far fa-trash-alt"></i></button>
-                                                    <button class="btn btn-primary waves-effect waves-light">
-                                                        <span>Enviar</span>
-                                                        <i class="fab fa-telegram-plane m-l-10"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -87,6 +93,8 @@
 
 
     <script>
+        new DataTable('#marketingCampaigns');
+
         jQuery(document).ready(function () {
 
             $('.summernote').summernote({
@@ -96,6 +104,8 @@
                 focus: false                 // set focus to editable area after initializing summernote
             });
         });
+
+
     </script>
 </body>
 

@@ -108,8 +108,7 @@ namespace Intelly_Web.Models
                 if (httpResponse.IsSuccessStatusCode)
                 {
                     string json = await httpResponse.Content.ReadAsStringAsync();
-                    response = JsonConvert.DeserializeObject<ApiResponse<List<UserEnt>>>(json);
-                    List<UserEnt> listUsers = new List<UserEnt>();
+                    response = JsonConvert.DeserializeObject<ApiResponse<List<UserEnt>>>(json);  
                     return response;
                 }
 

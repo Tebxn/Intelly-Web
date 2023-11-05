@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Http.Headers;
 using System.Data;
+using Intelly_Web.Implementations;
+
 namespace Intelly_Web.Models
 {
     public class MarketingModel : IMarketing 
@@ -16,15 +18,47 @@ namespace Intelly_Web.Models
         private readonly IConfiguration _configuration;
         private readonly IHttpContextAccessor _HttpContextAccessor;
         private String _urlApi;
+        private readonly ITools _tools;
 
 
-        public MarketingModel(HttpClient httpClient, IConfiguration configuration)
+        public MarketingModel(HttpClient httpClient, IConfiguration configuration, IHttpContextAccessor httpContextAccessor, ITools tools)
         {
             _httpClient = httpClient;
             _configuration = configuration;
-
+            _HttpContextAccessor = httpContextAccessor;
             _urlApi = _configuration.GetSection("Llaves:urlApi").Value;
+            _tools = tools;
 
+        }
+
+        public async Task<ApiResponse<List<MarketingCampaignEnt>>> GetAllMarketingCampaigns(string MarketingCampaign_CompanyId)
+        {
+            ApiResponse<List<MarketingCampaignEnt>> response = new ApiResponse<List<MarketingCampaignEnt>>();
+            try
+            {
+                string url = $"{_urlApi}/api/EmailMarketing/GetAllMarketingCampaigns/{MarketingCampaign_CompanyId}";
+                string token = _HttpContextAccessor.HttpContext.Session.GetString("UserToken");
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+                HttpResponseMessage httpResponse = await _httpClient.GetAsync(url);
+
+                if (httpResponse.IsSuccessStatusCode)
+                {
+                    string json = await httpResponse.Content.ReadAsStringAsync();
+                    response = JsonConvert.DeserializeObject<ApiResponse<List<MarketingCampaignEnt>>>(json);
+                    return response;
+                }
+
+                response.ErrorMessage = "Error al obtener usuarios del API.";
+                response.Code = (int)httpResponse.StatusCode;
+                return response;
+            }
+            catch (Exception ex)
+            {
+                response.ErrorMessage = "Unexpected Error: " + ex.Message;
+                response.Code = 500;
+                return response;
+            }
         }
 
         public async Task<ApiResponse<EmailEnt>> EmailMarketingManual(EmailEnt entity)
