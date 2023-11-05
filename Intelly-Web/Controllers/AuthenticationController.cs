@@ -47,7 +47,7 @@ namespace Intelly_Web.Controllers
                 HttpContext.Session.SetString("UserId", resp.Data.User_Id.ToString());
                 HttpContext.Session.SetString("UserName", resp.Data.User_Name);
                 HttpContext.Session.SetString("UserName", resp.Data.User_LastName);
-                HttpContext.Session.SetString("UserCompnayId", resp.Data.User_Company_Id.ToString());
+                HttpContext.Session.SetString("UserCompanyId", resp.Data.User_Company_Id.ToString());
                 HttpContext.Session.SetString("UserToken", resp.Data.UserToken);
 
                 return RedirectToAction("Index", "Home");
@@ -123,7 +123,6 @@ namespace Intelly_Web.Controllers
                 return View();
             }
         }
-
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
