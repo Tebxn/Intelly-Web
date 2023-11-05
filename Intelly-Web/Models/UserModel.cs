@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net.Http.Headers;
 using System.Data;
 using Microsoft.AspNetCore.Http;
+using Intelly_Web.Implementations;
 
 namespace Intelly_Web.Models
 {
@@ -18,14 +19,16 @@ namespace Intelly_Web.Models
         private readonly IConfiguration _configuration;
         private readonly IHttpContextAccessor _HttpContextAccessor;
         private String _urlApi;
+        private readonly ITools _tools;
 
 
-        public UserModel(HttpClient httpClient, IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
+        public UserModel(HttpClient httpClient, IConfiguration configuration, IHttpContextAccessor httpContextAccessor, ITools tools)
         {
             _httpClient = httpClient;
             _configuration = configuration;
             _HttpContextAccessor = httpContextAccessor;
             _urlApi = _configuration.GetSection("Llaves:urlApi").Value;
+            _tools = tools;
 
         }
 
@@ -128,7 +131,10 @@ namespace Intelly_Web.Models
             ApiResponse<UserEnt> response = new ApiResponse<UserEnt>();
             try
             {
-                string url = $"{_urlApi}/api/Users/GetSpecificUser/{UserToken}";
+                // Encripta UserToken antes de pasarlo en la URL
+                string encryptedUserToken = _tools.Encrypt(UserToken);
+
+                string url = $"{_urlApi}/api/Users/GetSpecificUser/{encryptedUserToken}";
 
                 string token = _HttpContextAccessor.HttpContext.Session.GetString("UserToken");
                 _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);

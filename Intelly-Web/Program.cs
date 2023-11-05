@@ -1,5 +1,6 @@
 using Intelly_Web.Interfaces;
 using Intelly_Web.Models;
+using Intelly_Web.Implementations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,7 @@ builder.Services.AddSession();
 builder.Services.AddSingleton<IUserModel, UserModel>();
 builder.Services.AddSingleton<ICompanyModel, CompanyModel>();
 builder.Services.AddSingleton<IMarketing, MarketingModel>();
+builder.Services.AddSingleton<ITools, Tools>();
 
 var app = builder.Build();
 
