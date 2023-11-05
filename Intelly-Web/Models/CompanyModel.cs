@@ -91,7 +91,7 @@ namespace Intelly_Web.Models
           try
           {
            string url = $"{_urlApi}/api/Companies/GetSpecificCompany/{CompanyId}";
-        HttpResponseMessage httpResponse = await _httpClient.GetAsync(url);
+           HttpResponseMessage httpResponse = await _httpClient.GetAsync(url);
         
           if (httpResponse.IsSuccessStatusCode)
           {

@@ -96,15 +96,14 @@
                                                         <i class="fa fa-pencil"></i>
                                                        
                                                     </a>
-                                                 
-                                                   
-     
+
+
                                                     @if (user.User_State)
                                                     {
-                                                        <form method="post" asp-action="DeactivateAccount" asp-controller="User">
+                                                        <form method="post" asp-action="DisableSpecificUser" asp-controller="User">
                                                             <input type="hidden" name="User_Id" value="@user.User_Id" />
                                                             <br>
-                                                            <button type="submit" class="btn btn-danger" >Desactivar Usuario</button>
+                                                            <button type="submit" class="btn btn-danger">Desactivar Usuario</button>
                                                         </form>
                                                         <br>
                                                     }
