@@ -134,7 +134,36 @@ namespace Intelly_Web.Models
 
                 string url = $"{_urlApi}/api/Users/GetSpecificUser/{encryptedUserId}";
 
-                // Agrega aquí la lógica para configurar el encabezado de autorización si es necesario
+                HttpResponseMessage httpResponse = await _httpClient.GetAsync(url);
+
+                if (httpResponse.IsSuccessStatusCode)
+                {
+                    string json = await httpResponse.Content.ReadAsStringAsync();
+                    response = JsonConvert.DeserializeObject<ApiResponse<UserEnt>>(json);
+                    return response;
+                }
+
+                response.ErrorMessage = "Error al obtener el usuario del API.";
+                response.Code = (int)httpResponse.StatusCode;
+                return response;
+            }
+            catch (Exception ex)
+            {
+                response.ErrorMessage = "Unexpected Error: " + ex.Message;
+                response.Code = 500;
+                return response;
+            }
+        }
+
+        public async Task<ApiResponse<UserEnt>> GetSpecificUserFromToken(string userToken)
+        {
+            ApiResponse<UserEnt> response = new ApiResponse<UserEnt>();
+            try
+            {
+                // Encripta el userToken antes de pasarlo en la URL
+                string encryptedUserToken = _tools.Encrypt(userToken);
+
+                string url = $"{_urlApi}/api/Users/GetSpecificUserFromToken/{encryptedUserToken}";
 
                 HttpResponseMessage httpResponse = await _httpClient.GetAsync(url);
 
@@ -156,6 +185,8 @@ namespace Intelly_Web.Models
                 return response;
             }
         }
+
+
 
         public async Task<ApiResponse<UserEnt>> EditSpecificUser(UserEnt entity)
         {
@@ -330,37 +361,5 @@ namespace Intelly_Web.Models
             }
         }
 
-        public async Task<ApiResponse<UserEnt>> GetSpecificUserFromToken()
-        {
-            ApiResponse<UserEnt> response = new ApiResponse<UserEnt>();
-            try
-            {
-
-                string url = _urlApi + "/api/Users/GetSpecificUserFromToken";
-                string token = _HttpContextAccessor.HttpContext.Session.GetString("UserToken");
-                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-
-                HttpResponseMessage httpResponse = await _httpClient.GetAsync(url);
-
-                if (httpResponse.IsSuccessStatusCode)
-                {
-                    string json = await httpResponse.Content.ReadAsStringAsync();
-                    response = JsonConvert.DeserializeObject<ApiResponse<UserEnt>>(json);
-                    return response;
-                }
-
-                response.ErrorMessage = "Error al obtener usuarios del API.";
-                response.Code = (int)httpResponse.StatusCode;
-                return response;
-            }
-            catch (Exception ex)
-            {
-                response.ErrorMessage = "Unexpected Error: " + ex.Message;
-                response.Code = 500;
-                return response;
-            }
-
-
-        }
     }
 }

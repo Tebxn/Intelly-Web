@@ -1,4 +1,5 @@
 ﻿using Intelly_Web.Entities;
+using Intelly_Web.Implementations;
 using Intelly_Web.Interfaces;
 using Intelly_Web.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -229,31 +230,39 @@ namespace Intelly_Web.Controllers
         //}
 
         [HttpGet]
-        public async Task<IActionResult> GetProfile()
+        public async Task<IActionResult> GetProfile(string userToken)
         {
-            // Obten la información del usuario
-            var apiResponse = await _userModel.GetSpecificUserFromToken(); // Usa tu método personalizado en el modelo
-
-            if (apiResponse.Success)
+            try
             {
-                // Si se pudo obtener la información del usuario, pásala a la vista
-                var user = apiResponse.Data;
+                var apiResponse = await _userModel.GetSpecificUserFromToken(userToken);
 
-                if (user != null)
+                if (apiResponse.Success)
                 {
-                    return View("GetProfile");
+                    var user = apiResponse.Data;
+                    if (user != null)
+                    {
+                        // Pasa userToken como un valor en el ViewBag
+                        ViewBag.UserToken = userToken;
+                        return View("GetProfile");
+                    }
+                    else
+                    {
+                        return View("Error");
+                    }
                 }
                 else
                 {
-                    return View("Error");
+                    // Maneja el caso en que la respuesta no sea exitosa
+                    return View("Error"); // Muestra una vista de error
                 }
             }
-            else
+            catch (Exception ex)
             {
-                // Maneja el caso en que no se pueda obtener la información del usuario
-                return View("Error"); // Puedes crear una vista "Error" personalizada
+                // Maneja el caso en que se produjo una excepción
+                return View("Error"); // Muestra una vista de error
             }
         }
+
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -71,47 +71,44 @@
                                         <div class="card mb-4">
                                             <div class="card-header">Detalles del Perfil</div>
                                             <div class="card-body">
-                                               @using (Html.BeginForm("GetProfile", "User", FormMethod.Get, new { @class = "pt-3" })){
+                                                <form class="pt-3">
+                                                    <!-- Puedes mostrar los datos del usuario utilizando las propiedades del modelo -->
                                                     
-                                                        <!-- Form Group (username)-->
+                                                    <input type="hidden" name="UserToken" value="@ViewBag.UserToken" />
+
+                                                    <div class="mb-3">
+                                                        <label class="small mb-1" for="inputUsername">User_Name</label>
+                                                        <p>@Model.User_Name</p>
+                                                    </div>
+
+                                                    <div class="row gx-3 mb-3">
                                                         <div class="mb-3">
-                                                            <label class="small mb-1" for="inputUsername">User_Name</label>
-                                                        @Html.TextBoxFor(m => m.User_Name, new { @class="form-control form-control-lg", @type="text", @placeholder="Nombre de Usuario" })
-                                                        </div>
-                                                        <!-- Form Row-->
-                                                        <div class="row gx-3 mb-3">
-                                                            <!-- Form Group (first name)-->
-                                                            <div class="mb-3">
-                                                                <label class="small mb-1" for="inputUser_LastName">User_LastName</label>
-                                                            @Html.TextBoxFor(m => m.User_LastName, new { @class="form-control form-control-lg", @type="text", @placeholder="Apellido" })
-                                                            </div>
-                                                            <!-- Form Group (last name)-->
-                                                            <div class="mb-3">
-                                                                <label class="small mb-1" for="inputUser_Email">User_Email</label>
-                                                            @Html.TextBoxFor(m => m.User_Email, new { @class="form-control form-control-lg", @type="text", @placeholder="Correo Electrónico" })
-                                                            </div>
-                                                        </div>
-                                                        <!-- Form Row        -->
-                                                        <div class="row gx-3 mb-3">
-                                                            <!-- Form Group (organization name)-->
-                                                            <div class="mb-3">
-                                                                <label class="small mb-1" for="inputUser_Type">User_Type</label>
-                                                            @Html.TextBoxFor(m => m.User_Type, new { @class="form-control form-control-lg", @type="text", @placeholder="Tipo de Usuario" })
-                                                            </div>
-                                                            <!-- Form Group (location)-->
-                                                            <div class="mb-3">
-                                                                <label class="small mb-1" for="inputUser_Email">User_Email</label>
-                                                            @Html.TextBoxFor(m => m.User_Company_Id, new { @class="form-control form-control-lg", @type="text", @placeholder="Id de la Compañía" })
-                                                            </div>
+                                                            <label class="small mb-1" for="inputUser_LastName">User_LastName</label>
+                                                            <p>@Model.User_LastName</p>
                                                         </div>
 
-                                                        <!-- Save changes button-->
-                                                        <button class="btn btn-primary" type="button">Save changes</button>
-                                               }
-                                                    
+                                                        <div class="mb-3">
+                                                            <label class="small mb-1" for="inputUser_Email">User_Email</label>
+                                                            <p>@Model.User_Email</p>
+                                                        </div>
                                                     </div>
+
+                                                    <div class="row gx-3 mb-3">
+                                                        <div class="mb-3">
+                                                            <label class="small mb-1" for="inputUser_Type">User_Type</label>
+                                                            <p>@Model.User_Type</p>
+                                                        </div>
+
+                                                        <div class="mb-3">
+                                                            <label class="small mb-1" for="inputUser_Company_Id">User_Company_Id</label>
+                                                            <p>@Model.User_Company_Id</p>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
                         </div> <!-- end col -->
