@@ -12,17 +12,19 @@ namespace Intelly_Web.Interfaces
 
         Task<ApiResponse<UserEnt>> Login(UserEnt entity);
 
-        Task<ApiResponse<UserEnt>> GetSpecificUser(string UserToken);
+        Task<ApiResponse<UserEnt>> GetSpecificUser(long userId);
+
+        Task<ApiResponse<UserEnt>> GetSpecificUserFromToken();
 
         Task<ApiResponse<UserEnt>> EditSpecificUser(UserEnt entity);
 
         Task<ApiResponse<List<UserRoleEnt>>> GetAllUsersRoles();
 
-        Task<ApiResponse<UserEnt>> PwdRecovery(UserEnt entity);
+        //Task<ApiResponse<UserEnt>> PwdRecovery(UserEnt entity);
 
         Task<ApiResponse<UserEnt>> UpdateUserPassword(UserEnt entity);
 
-        Task<ApiResponse<UserEnt>> GetUser(UserEnt entity);
+        //Task<ApiResponse<UserEnt>> GetUser(UserEnt entity);
 
         Task<ApiResponse<string>> ActivateAccount(int User_Id);
 

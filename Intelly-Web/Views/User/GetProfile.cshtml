@@ -71,7 +71,7 @@
                                         <div class="card mb-4">
                                             <div class="card-header">Detalles del Perfil</div>
                                             <div class="card-body">
-                                               @using (Html.BeginForm("GetProfile", "Authentication", FormMethod.Get, new { @class = "pt-3" })){
+                                               @using (Html.BeginForm("GetProfile", "User", FormMethod.Get, new { @class = "pt-3" })){
                                                     
                                                         <!-- Form Group (username)-->
                                                         <div class="mb-3">
@@ -107,7 +107,7 @@
 
                                                         <!-- Save changes button-->
                                                         <button class="btn btn-primary" type="button">Save changes</button>
-                                                       }
+                                               }
                                                     
                                                     </div>
                                         </div>

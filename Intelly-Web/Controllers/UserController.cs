@@ -13,12 +13,16 @@ namespace Intelly_Web.Controllers
 
         private readonly ICompanyModel _companyModel;
 
+        private readonly IHttpContextAccessor _HttpContextAccessor;
 
-        public UserController(IUserModel userModel, ICompanyModel companyModel)
+
+        public UserController(IUserModel userModel, ICompanyModel companyModel, IHttpContextAccessor httpContextAccessor)
         {
             _userModel = userModel;
             _companyModel = companyModel;
-         
+            _HttpContextAccessor = httpContextAccessor;
+
+
         }
 
         [HttpGet]
@@ -77,17 +81,17 @@ namespace Intelly_Web.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> GetSpecificUser(string UserToken)
+        public async Task<IActionResult> GetSpecificUser(long userId)
         {
             try
             {
-                var apiResponse = await _userModel.GetSpecificUser(UserToken);
+                var apiResponse = await _userModel.GetSpecificUser(userId);
                 if (apiResponse.Success)
                 {
                     var user = apiResponse.Data;
                     if (user != null)
                     {
-                        return RedirectToAction("EditSpecificUser", new { UserToken = UserToken });
+                        return RedirectToAction("EditSpecificUser", new { UserId = userId });
                     }
                     else
                     {
@@ -108,11 +112,11 @@ namespace Intelly_Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> EditSpecificUser(string UserToken)
+        public async Task<IActionResult> EditSpecificUser(long userId)
         {
             try
             {
-                var apiResponse = await _userModel.GetSpecificUser(UserToken);
+                var apiResponse = await _userModel.GetSpecificUser(userId);
                 if (apiResponse.Success)
                 {
                     var user = apiResponse.Data;
@@ -136,7 +140,7 @@ namespace Intelly_Web.Controllers
                         if (companiesResponse.Success)
                         {
                             var companies = companiesResponse.Data;
-                            ViewBag.ComboCompanies = companies.Select(company => new SelectListItem { Value = company.Company_Id.ToString(), Text = company.Company_Name});
+                            ViewBag.ComboCompanies = companies.Select(company => new SelectListItem { Value = company.Company_Id.ToString(), Text = company.Company_Name });
                         }
                         else
                         {
@@ -162,6 +166,7 @@ namespace Intelly_Web.Controllers
                 return View();
             }
         }
+
 
 
         [HttpPost]
@@ -206,24 +211,49 @@ namespace Intelly_Web.Controllers
             }
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetProfile(string UserToken)
-        {
+        //[HttpGet]
+        //public async Task<IActionResult> GetProfile(string UserToken)
+        //{
 
-            try
+        //    try
+        //    {
+        //        var apiResponse = await _userModel.GetSpecificUser(UserToken);
+        //        var user = apiResponse.Data;
+        //        return View(user);
+        //    }
+        //    catch (Exception)
+        //    {
+        //        List<UserEnt> errors = new List<UserEnt>();
+        //        return View(errors);
+        //    }
+        //}
+
+        [HttpGet]
+        public async Task<IActionResult> GetProfile()
+        {
+            // Obten la información del usuario
+            var apiResponse = await _userModel.GetSpecificUserFromToken(); // Usa tu método personalizado en el modelo
+
+            if (apiResponse.Success)
             {
-                var apiResponse = await _userModel.GetSpecificUser(UserToken);
+                // Si se pudo obtener la información del usuario, pásala a la vista
                 var user = apiResponse.Data;
-                return View(user);
+
+                if (user != null)
+                {
+                    return View("GetProfile");
+                }
+                else
+                {
+                    return View("Error");
+                }
             }
-            catch (Exception)
+            else
             {
-                List<UserEnt> errors = new List<UserEnt>();
-                return View(errors);
+                // Maneja el caso en que no se pueda obtener la información del usuario
+                return View("Error"); // Puedes crear una vista "Error" personalizada
             }
         }
-    
-
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

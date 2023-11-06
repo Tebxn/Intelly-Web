@@ -66,19 +66,19 @@ namespace Intelly_Web.Controllers
             return RedirectToAction("Authentication", "Login");
         }
 
-        [HttpPost]
-        public async Task<IActionResult> PwdRecovery(UserEnt entity)
-        {
-            var resp = await _userModel.PwdRecovery(entity);
+        //[HttpPost]
+        //public async Task<IActionResult> PwdRecovery(UserEnt entity)
+        //{
+        //    var resp = await _userModel.PwdRecovery(entity);
 
-            if (resp.Success)
-                return RedirectToAction("EmailSent", "Authentication");
-            else
-            {
-                ViewBag.MensajePantalla = resp.ErrorMessage;
-                return View();
-            }
-        }
+        //    if (resp.Success)
+        //        return RedirectToAction("EmailSent", "Authentication");
+        //    else
+        //    {
+        //        ViewBag.MensajePantalla = resp.ErrorMessage;
+        //        return View();
+        //    }
+        //}
 
 
         public async Task<IActionResult> UpdateUserPassword()

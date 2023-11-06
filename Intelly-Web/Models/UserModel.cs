@@ -124,19 +124,17 @@ namespace Intelly_Web.Models
             }
         }
 
-        public async Task<ApiResponse<UserEnt>> GetSpecificUser(string UserToken)
+        public async Task<ApiResponse<UserEnt>> GetSpecificUser(long userId)
         {
-            // Implementa la lógica para obtener un usuario específico
             ApiResponse<UserEnt> response = new ApiResponse<UserEnt>();
             try
             {
-                // Encripta UserToken antes de pasarlo en la URL
-                string encryptedUserToken = _tools.Encrypt(UserToken);
+                // Encripta el userId antes de pasarlo en la URL
+                string encryptedUserId = _tools.Encrypt(userId.ToString());
 
-                string url = $"{_urlApi}/api/Users/GetSpecificUser/{encryptedUserToken}";
+                string url = $"{_urlApi}/api/Users/GetSpecificUser/{encryptedUserId}";
 
-                string token = _HttpContextAccessor.HttpContext.Session.GetString("UserToken");
-                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                // Agrega aquí la lógica para configurar el encabezado de autorización si es necesario
 
                 HttpResponseMessage httpResponse = await _httpClient.GetAsync(url);
 
@@ -228,32 +226,41 @@ namespace Intelly_Web.Models
             }
         }
 
-        public async Task<ApiResponse<UserEnt>> PwdRecovery(UserEnt entity)
+        public async Task<ApiResponse<string>> ActivateAccount(int userId)
         {
-            ApiResponse<UserEnt> response = new ApiResponse<UserEnt>();
+            ApiResponse<string> response = new ApiResponse<string>();
 
             try
             {
-                string url = _urlApi + "/api/Authentication/RecoverAccount";
+                string url = _urlApi + "/api/Authentication/ActivateAccount";
                 string token = _HttpContextAccessor.HttpContext.Session.GetString("UserToken");
                 _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-                JsonContent obj = JsonContent.Create(entity);
-                var httpResponse = await _httpClient.PostAsync(url, obj);
+                JsonContent obj = JsonContent.Create(new { User_Id = userId });
+
+                var httpResponse = await _httpClient.PutAsync(url, obj);
 
                 if (httpResponse.IsSuccessStatusCode)
                 {
                     response.Success = true;
-                    response.Data = await httpResponse.Content.ReadFromJsonAsync<UserEnt>();
+                    response.Data = "Account activated";
+                }
+                else if (httpResponse.StatusCode == HttpStatusCode.NotFound)
+                {
+                    response.ErrorMessage = "User not found";
+                    response.Code = 404;
                 }
                 else
                 {
-                    response.ErrorMessage = "Error al recuperar contraseña. Verifica su email.";
+                    response.ErrorMessage = "Error activating account: " + httpResponse.ReasonPhrase;
+
+                    response.Code = (int)httpResponse.StatusCode;
                 }
             }
             catch (Exception ex)
             {
-                response.ErrorMessage = "Error inesperado al recuperar contraseña: " + ex.Message;
+                response.ErrorMessage = "Unexpected Error: " + ex.Message;
+                response.Code = 500;
             }
 
             return response;
@@ -291,79 +298,6 @@ namespace Intelly_Web.Models
             }
         }
 
-        public async Task<ApiResponse<UserEnt>> GetUser(UserEnt entity)
-        {
-            ApiResponse<UserEnt> response = new ApiResponse<UserEnt>();
-
-            try
-            {
-                string url = _urlApi + "/api/User/GetUser";
-                string token = _HttpContextAccessor.HttpContext.Session.GetString("UserToken");
-                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-
-                var httpResponse = await _httpClient.GetAsync(url);
-
-                if (httpResponse.IsSuccessStatusCode)
-                {
-                    string json = await httpResponse.Content.ReadAsStringAsync();
-                    response = JsonConvert.DeserializeObject<ApiResponse<UserEnt>>(json);
-                    return response;
-                }
-                else
-                {
-                    response.ErrorMessage = "Error al Consultar Usuario. Verifique los datos.";
-                    return response;
-                }
-            }
-            catch (Exception ex)
-            {
-                response.ErrorMessage = "Error inesperado al consultar usuario: " + ex.Message;
-                return response;
-            }
-
-        }
-
-        public async Task<ApiResponse<string>> ActivateAccount(int userId)
-        {
-            ApiResponse<string> response = new ApiResponse<string>();
-
-            try
-            {
-                string url = _urlApi + "/api/Authentication/ActivateAccount";
-                string token = _HttpContextAccessor.HttpContext.Session.GetString("UserToken");
-                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-
-                JsonContent obj = JsonContent.Create(new { User_Id = userId });
-
-                var httpResponse = await _httpClient.PutAsync(url, obj);
-
-                if (httpResponse.IsSuccessStatusCode)
-                {
-                    response.Success = true;
-                    response.Data = "Account activated";
-                }
-                else if (httpResponse.StatusCode == HttpStatusCode.NotFound)
-                {
-                    response.ErrorMessage = "User not found";
-                    response.Code = 404;
-                }
-                else
-                {
-                    response.ErrorMessage = "Error activating account: " + httpResponse.ReasonPhrase;
-    
-                response.Code = (int)httpResponse.StatusCode;
-                }
-            }
-            catch (Exception ex)
-            {
-                response.ErrorMessage = "Unexpected Error: " + ex.Message;
-                response.Code = 500;
-            }
-
-            return response;
-        }
-
-
         public async Task<ApiResponse<UserEnt>> ChangePassword(UserEnt entity)
         {
             ApiResponse<UserEnt> response = new ApiResponse<UserEnt>();
@@ -396,6 +330,37 @@ namespace Intelly_Web.Models
             }
         }
 
-       
+        public async Task<ApiResponse<UserEnt>> GetSpecificUserFromToken()
+        {
+            ApiResponse<UserEnt> response = new ApiResponse<UserEnt>();
+            try
+            {
+
+                string url = _urlApi + "/api/Users/GetSpecificUserFromToken";
+                string token = _HttpContextAccessor.HttpContext.Session.GetString("UserToken");
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+                HttpResponseMessage httpResponse = await _httpClient.GetAsync(url);
+
+                if (httpResponse.IsSuccessStatusCode)
+                {
+                    string json = await httpResponse.Content.ReadAsStringAsync();
+                    response = JsonConvert.DeserializeObject<ApiResponse<UserEnt>>(json);
+                    return response;
+                }
+
+                response.ErrorMessage = "Error al obtener usuarios del API.";
+                response.Code = (int)httpResponse.StatusCode;
+                return response;
+            }
+            catch (Exception ex)
+            {
+                response.ErrorMessage = "Unexpected Error: " + ex.Message;
+                response.Code = 500;
+                return response;
+            }
+
+
+        }
     }
 }
