@@ -102,10 +102,10 @@ namespace Intelly_Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult ChangePassword(long id)
+        public IActionResult ChangePassword(string id)
         {
             UserEnt entity = new UserEnt();
-            entity.User_Id = id;
+            entity.User_Secure_Id = id;
             return View(entity);
         }
 

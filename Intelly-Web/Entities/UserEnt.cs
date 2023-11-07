@@ -11,6 +11,8 @@
         public int? User_Type { get; set; }
         public bool User_State { get; set; } = true;
         public bool? User_Password_IsTemp { get; set; }
+        public string User_PasswordTemp { get; set; } = string.Empty;
+        public string User_Secure_Id { get; set; } = string.Empty;
         public string UserToken { get; set; } = string.Empty;
     }
 
