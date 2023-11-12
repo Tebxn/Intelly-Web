@@ -42,6 +42,18 @@ namespace Intelly_Web.Controllers
             }
         }
 
+        [HttpGet]
+        public async Task<IActionResult> CreateCampaign()
+        {
+            try
+            {
+                return View();
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
+        }
 
         [HttpPost]
         public async Task<IActionResult> NewEmailCampaign(EmailEnt entity)
