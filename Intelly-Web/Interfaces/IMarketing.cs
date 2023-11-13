@@ -6,5 +6,7 @@ namespace Intelly_Web.Interfaces
     {
         Task<ApiResponse<EmailEnt>> EmailMarketingManual(EmailEnt entity);
         Task<ApiResponse<List<MarketingCampaignEnt>>> GetAllMarketingCampaigns(string companyId);
+        Task<ApiResponse<MarketingCampaignEnt>> CreateMarketingCampaign(MarketingCampaignEnt entity);
+        Task<ApiResponse<List<MembershipEnt>>> GetAllMembershipLevels();
     }
 }

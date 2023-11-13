@@ -33,59 +33,51 @@
                             <div class="card w-75 m-0 auto">
                                 <div class="card-body w-100 m-0 auto">
 
-                                <form asp-action="Login" asp-controller="Authentication" method="post" class="form-horizontal m-t-30">
+                                <form asp-action="CreateCampaign" asp-controller="Marketing" method="post" class="form-horizontal m-t-30">
                                     <p>Ingresa los datos para crear una nueva campaña</p>
                                     <div class="form-group">
                                         <div class="col-12">
                                             @ViewBag.MensajePantalla
                                             <br />
                                             <label>Codigo</label>
-                                            <input class="form-control form-control-lg" type="text" placeholder="Correo" name="User_Email">
+                                            <input class="form-control form-control-lg" type="text" placeholder="Codigo" name="MarketingCampaign_Internal_Code">
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <div class="col-12">
                                             <label>Nombre de campaña</label>
-                                            <input class="form-control form-control-lg" type="text" placeholder="Nombre campaña" name="User_Password">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <div class="col-12">
-                                            <label>Nombre de campaña</label>
-                                            <input class="form-control form-control-lg" type="text" placeholder="Contraseña" name="User_Password">
+                                            <input class="form-control form-control-lg" type="text" placeholder="Nombre campaña" name="MarketingCampaign_Name">
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <div class="col-12">
                                             <label>Fecha de Inicio</label>
-                                            <input class="form-control form-control-lg" type="date" placeholder="Fecha Inicio" name="User_Password">
+                                            <input class="form-control form-control-lg" type="date" placeholder="Fecha Inicio" name="MarketingCampaign_Start_Date">
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <div class="col-12">
                                             <label>Fecha de Cierre</label>
-                                            <input class="form-control form-control-lg" type="date" placeholder="Contraseña" name="User_Password">
+                                            <input class="form-control form-control-lg" type="date" placeholder="Contraseña" name="MarketingCampaign_End_Date">
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <div class="col-12">
-                                            <label for="nivelCliente">Nivel de cliente</label>
-                                            <select class="form-control form-control-lg" id="nivelCliente" name="nivelCliente">
-                                                <option value="opcion1">Bronze</option>
-                                                <option value="opcion2">Oro</option>
-                                                <option value="opcion3">Platino</option>
+                                            <label for="MarketingCampaign_MembershipLevel">Nivel de cliente</label>
+                                            <select asp-for="MarketingCampaign_MembershipLevel" asp-items="ViewBag.MembershipLevelList" class="form-control form-control-lg">
+                                                <option value="">Seleccionar para qué nivel de cliente será la campaña</option>
                                             </select>
                                         </div>
                                     </div>
 
+
                                     <div class="form-group text-center m-t-20">
                                         <div class="col-12">
-                                            <button type="submit" class="btn btn-primary btn-block btn-lg waves-effect waves-light">Iniciar Sesión</button>
+                                            <button type="submit" class="btn btn-primary btn-block btn-lg waves-effect waves-light">Crear nueva campaña</button>
                                         </div>
                                     </div>
                                 </form>

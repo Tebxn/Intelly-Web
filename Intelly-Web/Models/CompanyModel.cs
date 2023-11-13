@@ -76,8 +76,6 @@ namespace Intelly_Web.Models
                     return response;
                 }
             }
-
-
             catch (Exception ex)
             {
                 response.ErrorMessage = "Error inesperado al agregar compañía: " + ex.Message;

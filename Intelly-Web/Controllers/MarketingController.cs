@@ -3,6 +3,7 @@ using Intelly_Web.Interfaces;
 using Intelly_Web.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Intelly_Web.Controllers
 {
@@ -47,11 +48,31 @@ namespace Intelly_Web.Controllers
         {
             try
             {
+                var roleDropdownData = await _marketingModel.GetAllMembershipLevels();
+                ViewBag.MembershipLevelList = roleDropdownData.Data.Select(x => new SelectListItem
+                {
+                    Value = x.Membership_Id.ToString(),
+                    Text = x.Membership_Name
+                });
                 return View();
             }
             catch (Exception ex)
             {
                 return View();
+            }
+        }
+        [HttpPost]
+        public async Task<IActionResult> CreateCampaign(MarketingCampaignEnt entity)
+        {
+            var apiResponse = await _marketingModel.CreateMarketingCampaign(entity);
+
+            if (apiResponse.Success)
+            {
+                return RedirectToAction("CreateCampaign", "Marketing");
+            }
+            else
+            {
+                return RedirectToAction("CreateCampaign", "Marketing");
             }
         }
 

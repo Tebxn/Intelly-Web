@@ -66,7 +66,7 @@ namespace Intelly_Web.Models
 
             try
             {
-                entity.User_Company_Id = long.Parse(_HttpContextAccessor.HttpContext.Session.GetString("UserCompnayId"));
+                entity.User_Company_Id = long.Parse(_HttpContextAccessor.HttpContext.Session.GetString("UserCompanyId"));
 
                 string url = _urlApi + "/api/Authentication/RegisterAccount";
                 string token = _HttpContextAccessor.HttpContext.Session.GetString("UserToken");

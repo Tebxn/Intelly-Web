@@ -61,7 +61,7 @@ namespace Intelly_Web.Models
             }
         }
 
-        public async Task<ApiResponse<EmailEnt>> EmailMarketingManual(EmailEnt entity)
+        public async Task<ApiResponse<EmailEnt>> EmailMarketingManual(EmailEnt entity)//revisar
         {
             ApiResponse<EmailEnt> response = new ApiResponse<EmailEnt>();
 
@@ -86,6 +86,69 @@ namespace Intelly_Web.Models
             catch (Exception ex)
             {
                 response.ErrorMessage = "Error inesperado al registrar usuario: " + ex.Message;
+                return response;
+            }
+        }
+
+        public async Task<ApiResponse<MarketingCampaignEnt>> CreateMarketingCampaign(MarketingCampaignEnt entity)
+        {
+            ApiResponse<MarketingCampaignEnt> response = new ApiResponse<MarketingCampaignEnt>();
+
+            try
+            {
+                entity.MarketingCampaign_CompanyId = long.Parse(_HttpContextAccessor.HttpContext.Session.GetString("UserCompanyId"));
+
+                string url = _urlApi + "/api/EmailMarketing/CreateCampaign";
+                JsonContent obj = JsonContent.Create(entity);
+                var httpResponse = await _httpClient.PostAsync(url, obj);
+
+                if (httpResponse.IsSuccessStatusCode)
+                {
+                    response.Success = true;
+                    response.Data = await httpResponse.Content.ReadFromJsonAsync<MarketingCampaignEnt>();
+                    return response;
+                }
+                else
+                {
+                    response.ErrorMessage = "Error al crear campaña publicitaria. Verifique los datos.";
+                    return response;
+                }
+            }
+
+
+            catch (Exception ex)
+            {
+                response.ErrorMessage = "Error inesperado al crear campaña: " + ex.Message;
+                return response;
+            }
+        }
+
+        public async Task<ApiResponse<List<MembershipEnt>>> GetAllMembershipLevels()
+        {
+            ApiResponse<List<MembershipEnt>> response = new ApiResponse<List<MembershipEnt>>();
+            try
+            {
+                string url = $"{_urlApi}/api/EmailMarketing/GetAllMembershipLevels/";
+                string token = _HttpContextAccessor.HttpContext.Session.GetString("UserToken");
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+                HttpResponseMessage httpResponse = await _httpClient.GetAsync(url);
+
+                if (httpResponse.IsSuccessStatusCode)
+                {
+                    string json = await httpResponse.Content.ReadAsStringAsync();
+                    response = JsonConvert.DeserializeObject<ApiResponse<List<MembershipEnt>>>(json);
+                    return response;
+                }
+
+                response.ErrorMessage = "Error al obtener niveles de membresia del servidor.";
+                response.Code = (int)httpResponse.StatusCode;
+                return response;
+            }
+            catch (Exception ex)
+            {
+                response.ErrorMessage = "Unexpected Error: " + ex.Message;
+                response.Code = 500;
                 return response;
             }
         }
