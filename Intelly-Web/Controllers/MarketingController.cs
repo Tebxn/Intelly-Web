@@ -4,6 +4,7 @@ using Intelly_Web.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Reflection;
 
 namespace Intelly_Web.Controllers
 {
@@ -24,8 +25,7 @@ namespace Intelly_Web.Controllers
         {
             try
             {
-                string idCompany = _HttpContextAccessor.HttpContext.Session.GetString("UserCompanyId");
-                var apiResponse = await _marketingModel.GetAllMarketingCampaigns(idCompany);
+                var apiResponse = await _marketingModel.GetAllMarketingCampaigns();
 
                 if (apiResponse.Success)
                 {
@@ -41,7 +41,7 @@ namespace Intelly_Web.Controllers
             {
                 return View(new List<MarketingCampaignEnt>()); // O proporciona un valor predeterminado
             }
-        }
+        }//Principal Listado de campanias
 
         [HttpGet]
         public async Task<IActionResult> CreateCampaign()
@@ -76,22 +76,38 @@ namespace Intelly_Web.Controllers
             }
         }
 
-        [HttpPost]
-        public async Task<IActionResult> NewEmailCampaign(EmailEnt entity)
+        [HttpGet]
+        public async Task<IActionResult> CreateCampaignEmail()
         {
-            var apiResponse = await _marketingModel.EmailMarketingManual(entity);
+            try
+            {
+                var respMarketingCampaigns = await _marketingModel.GetAllMarketingCampaigns();
 
-            if (apiResponse.Success)
-            {
-                return View("EmailMarketingManual", "Marketing");
+                if (respMarketingCampaigns.Success)
+                {
+                    var listMarketingCampaign = new List<SelectListItem>();
+
+                    foreach (var item in respMarketingCampaigns.Data)
+                    {
+                        listMarketingCampaign.Add(new SelectListItem { Value = item.MarketingCampaign_Id.ToString(), Text = item.MarketingCampaign_Name ?? string.Empty });
+                    }
+
+                    ViewBag.ListMarketingCampaign = listMarketingCampaign;
+
+                    return View();
+                }
+                else
+                {
+                    ViewBag.ErrorMessage = "Error al obtener las campañas de marketing.";
+                    return View();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                ViewBag.MensajePantalla = "No se realizaron cambios";
+                ViewBag.ErrorMessage = "Error inesperado: " + ex.Message;
                 return View();
             }
         }
-
 
 
     }

@@ -1,0 +1,89 @@
+﻿@model Intelly_Web.Entities.MarketingCampaignEnt
+
+@{
+    ViewData["Title"] = "CreateCampaignEmail";
+}
+
+<!-- Start content -->
+<div class="content">
+    <div class="container-fluid">
+        <div class="page-title-box">
+            <div class="row align-items-center">
+                <div class="col-sm-6">
+                    <h4 class="page-title">Crear Campaña</h4>
+                </div>
+
+                <!-- end row -->
+            </div>
+            <!-- end page-title -->
+
+            <div class="row">
+                <div class="col-12">
+                    <!-- Left sidebar -->
+                    <div class="email-leftbar card">
+                        <a href="@Url.Action("EmailMarketing", "Marketing")" class="btn btn-secondary rounded btn-custom btn-block waves-effect waves-light">Ver Campañas</a>
+                        <a href="@Url.Action("CreateCampaign", "Marketing")" class="btn btn-secondary rounded btn-custom btn-block waves-effect waves-light">Crear campaña</a>
+                        <a href="@Url.Action("CreateCampaignEmail", "Marketing")" class="btn btn-danger rounded btn-custom btn-block waves-effect waves-light">Enviar correo de Campaña</a>
+                        <a href="@Url.Action("CampaignSuggestions", "Marketing")" class="btn btn-secondary rounded btn-custom btn-block waves-effect waves-light">Sugerencias de campañas</a>
+                    </div>
+                    <!-- End Left sidebar -->
+                    <!-- Right Sidebar -->
+                    <div class="table-rightbar mb-3">
+                        <div class="card w-75 m-0 auto">
+                            <div class="card-body w-100 m-0 auto">
+
+                                @using (Html.BeginForm("CreateCampaignEmail", "Marketing", FormMethod.Post))
+                                {
+                                    <form>
+
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label for="Cliente" class="form-label">Campaña</label>
+                                                @Html.DropDownListFor(m => m.MarketingCampaign_Name, ViewBag.ListMarketingCampaign as List<SelectListItem>, new
+                                            {
+                                            @class = "form-control",
+                                            @style = "background-color: white!important"
+                                            })
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label for="Nombre" class="form-label">Cuerpo de la publicidad</label>
+                                                @Html.TextBoxFor(m => m.Email.Body, new { @type = "text", @class = "form-control", @placeholder = "Cuerpo de la publicidad" })
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="Apellido1" class="form-label">Imagen</label>
+                                                @Html.TextBoxFor(m => m.Email.ImageUrl, new { @type = "text", @class = "form-control", @placeholder = "Url Imagen por utilizar" })
+                                            </div>
+                                        </div>
+
+                                        <div class="row justify-content-center">
+                                            <div class="col-6">
+                                                <button type="submit" class="btn btn-primary w-100 py-2 fs-4 rounded-2">Enviar Publicidad</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- end Col-9 -->
+
+                </div>
+
+            </div>
+            <!-- End row -->
+            <!-- content -->
+
+
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Right content here -->
+        <!-- ============================================================== -->
+
+    </div>
+</div>
+

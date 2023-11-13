@@ -31,11 +31,12 @@ namespace Intelly_Web.Models
 
         }
 
-        public async Task<ApiResponse<List<MarketingCampaignEnt>>> GetAllMarketingCampaigns(string MarketingCampaign_CompanyId)
+        public async Task<ApiResponse<List<MarketingCampaignEnt>>> GetAllMarketingCampaigns()
         {
             ApiResponse<List<MarketingCampaignEnt>> response = new ApiResponse<List<MarketingCampaignEnt>>();
             try
             {
+                string MarketingCampaign_CompanyId = _HttpContextAccessor.HttpContext.Session.GetString("UserCompanyId");
                 string url = $"{_urlApi}/api/EmailMarketing/GetAllMarketingCampaigns/{MarketingCampaign_CompanyId}";
                 string token = _HttpContextAccessor.HttpContext.Session.GetString("UserToken");
                 _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
