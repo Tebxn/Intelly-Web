@@ -39,7 +39,6 @@ namespace Intelly_Web.Models
                 {
                     string json = await httpResponse.Content.ReadAsStringAsync();
                     response = JsonConvert.DeserializeObject<ApiResponse<List<CompanyEnt>>>(json);
-                    List<UserEnt> listCompanies = new List<UserEnt>();
                     return response;
                 }
 
