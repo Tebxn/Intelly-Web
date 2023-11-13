@@ -154,5 +154,37 @@ namespace Intelly_Web.Models
             }
         }
 
+        public async Task<ApiResponse<MarketingCampaignEnt>> CreateCampaignEmail(MarketingCampaignEnt entity)
+        {
+            ApiResponse<MarketingCampaignEnt> response = new ApiResponse<MarketingCampaignEnt>();
+
+            try
+            {
+                entity.MarketingCampaign_CompanyId = long.Parse(_HttpContextAccessor.HttpContext.Session.GetString("UserCompanyId"));
+
+                string url = _urlApi + "/api/EmailMarketing/CreateCampaignEmail";
+                JsonContent obj = JsonContent.Create(entity);
+                var httpResponse = await _httpClient.PostAsync(url, obj);
+
+                if (httpResponse.IsSuccessStatusCode)
+                {
+                    response.Success = true;
+                    response.Data = await httpResponse.Content.ReadFromJsonAsync<MarketingCampaignEnt>();
+                    return response;
+                }
+                else
+                {
+                    response.ErrorMessage = "Error al enviar los emails publicitarios. Verifique los datos.";
+                    return response;
+                }
+            }
+
+
+            catch (Exception ex)
+            {
+                response.ErrorMessage = "Error con el servidor: " + ex.Message;
+                return response;
+            }
+        }
     }
 }

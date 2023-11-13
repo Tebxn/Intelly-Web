@@ -92,6 +92,7 @@ namespace Intelly_Web.Controllers
                         listMarketingCampaign.Add(new SelectListItem { Value = item.MarketingCampaign_Id.ToString(), Text = item.MarketingCampaign_Name ?? string.Empty });
                     }
 
+
                     ViewBag.ListMarketingCampaign = listMarketingCampaign;
 
                     return View();
@@ -106,6 +107,21 @@ namespace Intelly_Web.Controllers
             {
                 ViewBag.ErrorMessage = "Error inesperado: " + ex.Message;
                 return View();
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateCampaignEmail(MarketingCampaignEnt entity)
+        {
+            var apiResponse = await _marketingModel.CreateCampaignEmail(entity);
+
+            if (apiResponse.Success)
+            {
+                return RedirectToAction("CreateCampaign", "Marketing");
+            }
+            else
+            {
+                return RedirectToAction("CreateCampaign", "Marketing");
             }
         }
 
