@@ -88,6 +88,7 @@
                                                 <td>@user.User_Name</td>
                                                 <td>@user.User_LastName</td>
                                                 <td>@user.User_Email</td>
+
                                                 <td>@(user.User_State ? "Activo" : "Inactivo")</td>
                                                 <td>@user.User_Type</td>
                                                 <td>
@@ -96,26 +97,11 @@
                                                         <i class="fa fa-pencil"></i>
                                                        
                                                     </a>
+                                                    <a href="@Url.Action("UpdateUserState", "User", new { UserId = user.User_Id })" class="btn btn-warning">
+                                                        Editar Usuario
+                                                        <i class="fa fa-pencil"></i>
 
-
-                                                    @if (user.User_State)
-                                                    {
-                                                        <form method="post" asp-action="DisableSpecificUser" asp-controller="User">
-                                                            <input type="hidden" name="User_Id" value="@user.User_Id" />
-                                                            <br>
-                                                            <button type="submit" class="btn btn-danger">Desactivar Usuario</button>
-                                                        </form>
-                                                        <br>
-                                                    }
-                                                    else
-                                                    {
-                                                        <form method="post" asp-action="ActivateAccount" asp-controller="User">
-                                                            <input type="hidden" name="User_Id" value="@user.User_Id" />
-                                                            <br>
-                                                            <button type="submit" class="btn btn-success" >Activar Usuario</button>
-                                                        </form>
-                                                      
-                                                    }
+                                                    </a>
                                                 </td>
                                             </tr>
                                         }

@@ -1,0 +1,98 @@
+﻿@model IEnumerable<Intelly_Web.Entities.LocalEnt>
+@{
+    ViewData["Title"] = "GetAllLocals";
+}
+<body>
+    <!-- Start content -->
+    <div class="content">
+        <div class="container-fluid">
+            <div class="page-title-box">
+                <div class="row align-items-center">
+                    <div class="col-sm-6">
+                        <h4 class="page-title">Locales Registrados</h4>
+                    </div>
+
+                    <!-- end row -->
+                </div>
+                <!-- end page-title -->
+
+                <div class="row">
+                    <div class="col-12">
+                        <!-- Left sidebar -->
+                        <div class="email-leftbar card">
+                            <a href="@Url.Action("GetAllLocals", "Local")" class="btn btn-danger rounded btn-custom btn-block waves-effect waves-light">Locales Registrados</a>
+                        </div>
+                        <!-- End Left sidebar -->
+                        <!-- Right Sidebar -->
+                        <div class="table-rightbar mb-3">
+                            <div class="card w-75 m-0 auto">
+                                <div class="card-body w-100 m-0 auto">
+
+                                    <table id="localsDataTable" class="table table-striped" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Nombre Local</th>
+                                                <th>Id Interno</th>
+                                                <th>Dirección</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var x in Model)
+                                            {
+                                                <tr>
+                                                    <td>@x.Local_Name</td>
+                                                    <td>@x.Intern_Id</td>
+                                                    <td>@x.Location</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th>Nombre Local</th>
+                                                <th>Id Interno</th>
+                                                <th>Dirección</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- end Col-9 -->
+
+                    </div>
+
+                </div>
+                <!-- End row -->
+                <!-- content -->
+
+
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Right content here -->
+            <!-- ============================================================== -->
+
+        </div>
+    </div>
+
+
+
+
+    <script>
+        new DataTable('#localsDataTable');
+
+        jQuery(document).ready(function () {
+
+            $('.summernote').summernote({
+                height: 250,                 // set editor height
+                minHeight: null,             // set minimum height of editor
+                maxHeight: null,             // set maximum height of editor
+                focus: false                 // set focus to editable area after initializing summernote
+            });
+        });
+
+
+    </script>
+</body>
+

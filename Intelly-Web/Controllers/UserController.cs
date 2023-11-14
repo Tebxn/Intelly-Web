@@ -262,6 +262,15 @@ namespace Intelly_Web.Controllers
                 return View("Error"); // Muestra una vista de error
             }
         }
+        [HttpGet]
+        public IActionResult UpdateUserState(long id)
+        {
+            var entidad = new UserEnt();
+            entidad.User_Id = id;
+
+            _userModel.UpdateUserState(entidad);
+            return RedirectToAction("Employees", "User");
+        }
 
 
 

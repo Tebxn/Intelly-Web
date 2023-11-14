@@ -102,7 +102,7 @@ namespace Intelly_Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult ChangePassword(string id)
+        public async Task<IActionResult> ChangePassword(string id)
         {
             UserEnt entity = new UserEnt();
             entity.User_Secure_Id = id;
@@ -110,7 +110,7 @@ namespace Intelly_Web.Controllers
         }
 
         [HttpPut]
-        public IActionResult ChangePassword(UserEnt entity)
+        public async Task<IActionResult> ChangePassword(UserEnt entity)
         {
             var resp = _userModel.ChangePassword(entity);
             if (resp.IsCompletedSuccessfully)

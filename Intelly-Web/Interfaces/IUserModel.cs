@@ -26,6 +26,8 @@ namespace Intelly_Web.Interfaces
 
         Task<ApiResponse<UserEnt>> ChangePassword(UserEnt entity);
 
+     
+
 
     }
 }
