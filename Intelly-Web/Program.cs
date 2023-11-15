@@ -16,6 +16,7 @@ builder.Services.AddSingleton<IUserModel, UserModel>();
 builder.Services.AddSingleton<ICompanyModel, CompanyModel>();
 builder.Services.AddSingleton<IMarketing, MarketingModel>();
 builder.Services.AddSingleton<ICustomer, CustomerModel>();
+builder.Services.AddSingleton<ILocalModel, LocalModel>();
 builder.Services.AddSingleton<ITools, Tools>();
 
 var app = builder.Build();

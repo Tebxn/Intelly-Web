@@ -1,0 +1,55 @@
+﻿@model Intelly_Web.Entities.LocalEnt
+
+@{
+    ViewData["Title"] = "NewLocal";
+}
+<div class="wrapper-page w-75 h-75">
+    
+    <div class="card card-pages shadow-none">
+
+        <div class="card-body">
+            
+            <div class="text-center m-t-0 m-b-15">
+                <a href="index.html" class="logo logo-admin"><img src="~/images/logo-dark.png" alt="" height="70"></a>
+            </div>
+            <h5 class="font-18 text-center">Agregar nuevo local</h5>
+
+            <form asp-action="CreateLocal" asp-controller="Local" method="post" class="pt-3">
+
+                <div class="container">
+
+                    <div class="form-group">
+                        <div class="col-6 mx-auto">
+                            <label>Nombre del Local</label>
+                            <input asp-for="Local_Name" class="form-control form-control-lg" type="text" placeholder="Nombre del Local" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-6 mx-auto">
+                            <label>Id Interno</label>
+                            <input asp-for="Intern_Id" class="form-control form-control-lg" type="number" placeholder="Id Interno" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-6 mx-auto">
+                            <label>Domicilio</label>
+                            <input asp-for="Location" class="form-control form-control-lg" type="text" placeholder="Domicilio" />
+                        </div>
+                    </div>
+
+
+                    <div class="form-group text-center m-t-20">
+                        <div class="col-6 mx-auto">
+                            <button class="btn btn-primary btn-block btn-lg waves-effect waves-light" type="submit">Crear Local</button>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+</div>

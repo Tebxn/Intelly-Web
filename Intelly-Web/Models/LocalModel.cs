@@ -6,7 +6,7 @@ using System.Net.Http.Headers;
 
 namespace Intelly_Web.Models
 {
-    public class LocalModel
+    public class LocalModel : ILocalModel
     {
         private readonly HttpClient _httpClient;
         private readonly IConfiguration _configuration;
@@ -32,7 +32,7 @@ namespace Intelly_Web.Models
             {
                 string LocalId = _HttpContextAccessor.HttpContext.Session.GetString("LocalId");
 
-                string url = $"{_urlApi}/api/Local/GetSpecificLocal/{LocalId}";
+                string url = $"{_urlApi}/api/Local/GetAllLocals/{LocalId}";
                 string token = _HttpContextAccessor.HttpContext.Session.GetString("UserToken");
                 _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 

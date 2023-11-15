@@ -37,19 +37,27 @@ namespace Intelly_Web.Controllers
             }
         }
 
+       
         [HttpGet]
         public async Task<IActionResult> GetAllLocals()
         {
             try
             {
                 var apiResponse = await _localModel.GetAllLocals();
-                var listLocals = apiResponse.Data.ToList();
-                return View(listLocals);
+
+                if (apiResponse.Success)
+                {
+                    var listCostumers = apiResponse.Data.ToList();
+                    return View(listCostumers);
+                }
+                else
+                {
+                    return View(new List<LocalEnt>());
+                }
             }
             catch (Exception)
             {
-                List<LocalEnt> errors = new List<LocalEnt>();
-                return View(errors);
+                return View(new List<LocalEnt>());
             }
         }
 
