@@ -1,0 +1,155 @@
+﻿@model Intelly_Web.Entities.LocalEnt
+@{
+    ViewData["Title"] = "EditSpecificLocal";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <title>Stexo - Responsive Admin & Dashboard Template | Themesdesign</title>
+    <meta content="Responsive admin theme build on top of Bootstrap 4" name="description" />
+    <meta content="Themesdesign" name="author" />
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
+
+    <!-- DataTables -->
+    <link href="../plugins/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="../plugins/datatables/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Responsive datatable examples -->
+    <link href="../plugins/datatables/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/metismenu.min.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/icons.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/style.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+
+    <!-- Begin page -->
+    <div id="wrapper">
+        <!-- Left Sidebar End -->
+        <!-- ============================================================== -->
+        <!-- Start right Content here -->
+        <!-- ============================================================== -->
+        <div class="content-page ml-auto">
+            <!-- Start content -->
+
+            <div class="container-fluid">
+                <div class="page-title-box">
+                    <div class="row align-items-center">
+                        <div class="col-sm-6">
+                            <h4 class="page-title">Empleados</h4>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-right">
+                                <li class="breadcrumb-item"><a href="javascript:void(0);">Intelly</a></li>
+                                <li class="breadcrumb-item"><a href="javascript:void(0);">Administrativo</a></li>
+                                <li class="breadcrumb-item active">Locales Activos</li>
+                            </ol>
+                        </div>
+                    </div> <!-- end row -->
+                </div>
+                <!-- end page-title -->
+
+                <div class="card card-pages shadow-none">
+
+                    <div class="card-body w-50 h-50 p-3 mx-auto">
+
+                        <div class="text-center m-t-0 m-b-30">
+                            <a href="index.html" class="logo logo-admin"><img src="~/images/logo-dark.png" alt="" height="70"></a>
+                        </div>
+                        <h5 class="font-18 text-center">Editar Empresa</h5>
+
+                        <form asp-action="EditSpecificLocal" asp-controller="Local" method="post" class="pt-3">
+                            <div class="form-group" style="display: none;">
+                                <div class="col-6 mx-auto">
+                                    <label asp-for="Local_Id" class="control-label"></label>
+                                    <input asp-for="Local_Id" class="form-control" />
+                                </div>
+                            </div>
+
+                            <div class="form-horizontal m-t-30">
+                                <div class="form-group">
+                                    <div class="col-6 mx-auto">
+                                        <label>Nombre Local</label>
+                                        <input asp-for="Local_Name" class="form-control form-control-lg" type="text" placeholder="Nombre" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-6 mx-auto">
+                                        <label>Id Interno</label>
+                                        <input asp-for="Intern_Id" class="form-control form-control-lg" type="number"  />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-6 mx-auto">
+                                        <label>Domicilio</label>
+                                        <input asp-for="Location" class="form-control form-control-lg" type="text" placeholder="Domicilio" />
+                                    </div>
+                                </div>
+
+
+                               
+                                <div class="form-group text-center m-t-20">
+                                    <div class="col-md-6 mx-auto">
+                                        <button class="btn btn-primary btn-block btn-lg waves-effect waves-light" type="submit">Guardar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <p>@ViewBag.MensajePantalla</p>
+
+                    </div>
+
+                </div>
+                <!-- container-fluid -->
+
+            </div>
+            <!-- content -->
+            <!-- ============================================================== -->
+            <!-- End Right content here -->
+            <!-- ============================================================== -->
+
+        </div>
+    </div>
+    <!-- END wrapper -->
+    <!-- jQuery  -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/metismenu.min.js"></script>
+    <script src="assets/js/jquery.slimscroll.js"></script>
+    <script src="assets/js/waves.min.js"></script>
+
+    <!-- Required datatable js -->
+    <script src="../plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="../plugins/datatables/dataTables.bootstrap4.min.js"></script>
+    <!-- Buttons examples -->
+    <script src="../plugins/datatables/dataTables.buttons.min.js"></script>
+    <script src="../plugins/datatables/buttons.bootstrap4.min.js"></script>
+    <script src="../plugins/datatables/jszip.min.js"></script>
+    <script src="../plugins/datatables/pdfmake.min.js"></script>
+    <script src="../plugins/datatables/vfs_fonts.js"></script>
+    <script src="../plugins/datatables/buttons.html5.min.js"></script>
+    <script src="../plugins/datatables/buttons.print.min.js"></script>
+    <script src="../plugins/datatables/buttons.colVis.min.js"></script>
+    <!-- Responsive examples -->
+    <script src="../plugins/datatables/dataTables.responsive.min.js"></script>
+    <script src="../plugins/datatables/responsive.bootstrap4.min.js"></script>
+
+    <!-- Datatable init js -->
+    <script src="assets/pages/datatables.init.js"></script>
+
+    <!-- App js -->
+    <script src="assets/js/app.js"></script>
+
+</body>
+
+</html>

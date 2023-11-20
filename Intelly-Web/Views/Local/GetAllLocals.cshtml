@@ -22,6 +22,7 @@
                         <div class="email-leftbar card">
                             <a href="@Url.Action("GetAllLocals", "Local")" class="btn btn-danger rounded btn-custom btn-block waves-effect waves-light">Locales Registrados</a>
                             <a href="@Url.Action("CreateLocal", "Local")" class="btn btn-danger rounded btn-custom btn-block waves-effect waves-light">Agregar Local</a>
+                            <a href="@Url.Action("EditSpecificLocal", "Local")" class="btn btn-danger rounded btn-custom btn-block waves-effect waves-light">Agregar Local</a>
                         </div>
                         <!-- End Left sidebar -->
                         <!-- Right Sidebar -->
@@ -44,8 +45,10 @@
                                                     <td>@x.Local_Name</td>
                                                     <td>@x.Intern_Id</td>
                                                     <td>@x.Location</td>
+                                                    <td style="text-align:center"><a href="@Url.Action("EditSpecificLocal","Local", new { q = x.Local_Id })"><i class="fa-solid fa-user-pen"></i></a></td>
                                                 </tr>
                                             }
+                                         
                                         </tbody>
                                         <tfoot>
                                             <tr>

@@ -101,31 +101,33 @@ namespace Intelly_Web.Controllers
             }
         }
 
-        [HttpGet]
-        public async Task<IActionResult> ChangePassword(string id)
-        {
-            UserEnt entity = new UserEnt();
-            entity.User_Secure_Id = id;
-            return View(entity);
-        }
+       
+		[HttpGet]
+		public async Task<IActionResult> ChangePassword(string id)
+		{
+			UserEnt entity = new UserEnt();
+			entity.User_Secure_Id = id;
+			return View(entity);
+		}
 
-        [HttpPut]
-        public async Task<IActionResult> ChangePassword(UserEnt entity)
-        {
-            var resp = _userModel.ChangePassword(entity);
-            if (resp.IsCompletedSuccessfully)
-            {
-                return RedirectToAction("Login", "Authentication");
-            }
-            else
-            {
-                ViewBag.MensajePantalla = "Error al conectar con el servidor";
-                return View();
-            }
-        }
+		[HttpPost]
+		public async Task<IActionResult> ChangePassword(UserEnt entity)
+		{
+			var apiResponse = await _userModel.ChangePassword(entity);
 
+			if (apiResponse.Success)
+			{
+				return RedirectToAction("Index", "Home");
+			}
+			else
+			{
+				ViewBag.MensajePantalla = "No se realizaron cambios";
+				return View();
+			}
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+		}
+
+		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
