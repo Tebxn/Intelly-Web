@@ -47,6 +47,7 @@ namespace Intelly_Web.Controllers
                 HttpContext.Session.SetString("UserId", resp.Data.User_Id.ToString());
                 HttpContext.Session.SetString("UserName", resp.Data.User_Name);
                 HttpContext.Session.SetString("UserName", resp.Data.User_LastName);
+                HttpContext.Session.SetString("UserType", resp.Data.User_Type.ToString());
                 HttpContext.Session.SetString("UserCompanyId", resp.Data.User_Company_Id.ToString());
                 HttpContext.Session.SetString("UserToken", resp.Data.UserToken);
 
