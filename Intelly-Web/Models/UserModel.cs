@@ -155,36 +155,36 @@ namespace Intelly_Web.Models
             }
         }
 
-        public async Task<ApiResponse<UserEnt>> GetSpecificUserFromToken(string userToken)
-        {
-            ApiResponse<UserEnt> response = new ApiResponse<UserEnt>();
-            try
-            {
-                // Encripta el userToken antes de pasarlo en la URL
-                string encryptedUserToken = _tools.Encrypt(userToken);
+        //public async Task<ApiResponse<UserEnt>> GetSpecificUserFromToken(string userToken)
+        //{
+        //    ApiResponse<UserEnt> response = new ApiResponse<UserEnt>();
+        //    try
+        //    {
+        //        // Encripta el userToken antes de pasarlo en la URL
+        //        string encryptedUserToken = _tools.Encrypt(userToken);
 
-                string url = $"{_urlApi}/api/Users/GetSpecificUserFromToken/{encryptedUserToken}";
+        //        string url = $"{_urlApi}/api/Users/GetSpecificUserFromToken/{encryptedUserToken}";
 
-                HttpResponseMessage httpResponse = await _httpClient.GetAsync(url);
+        //        HttpResponseMessage httpResponse = await _httpClient.GetAsync(url);
 
-                if (httpResponse.IsSuccessStatusCode)
-                {
-                    string json = await httpResponse.Content.ReadAsStringAsync();
-                    response = JsonConvert.DeserializeObject<ApiResponse<UserEnt>>(json);
-                    return response;
-                }
+        //        if (httpResponse.IsSuccessStatusCode)
+        //        {
+        //            string json = await httpResponse.Content.ReadAsStringAsync();
+        //            response = JsonConvert.DeserializeObject<ApiResponse<UserEnt>>(json);
+        //            return response;
+        //        }
 
-                response.ErrorMessage = "Error al obtener el usuario del API.";
-                response.Code = (int)httpResponse.StatusCode;
-                return response;
-            }
-            catch (Exception ex)
-            {
-                response.ErrorMessage = "Unexpected Error: " + ex.Message;
-                response.Code = 500;
-                return response;
-            }
-        }
+        //        response.ErrorMessage = "Error al obtener el usuario del API.";
+        //        response.Code = (int)httpResponse.StatusCode;
+        //        return response;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        response.ErrorMessage = "Unexpected Error: " + ex.Message;
+        //        response.Code = 500;
+        //        return response;
+        //    }
+        //}
 
 
 
@@ -358,7 +358,41 @@ namespace Intelly_Web.Models
             }
         }
 
-       
+        public async Task<ApiResponse<UserEnt>> GetSpecificUserFromToken()
+        {
+            ApiResponse<UserEnt> response = new ApiResponse<UserEnt>();
+            try
+            {
+                // Encripta el userToken antes de pasarlo en la URL
+                //string encryptedUserToken = _tools.Encrypt(userToken);
+                string userToken = _HttpContextAccessor.HttpContext.Session.GetString("UserToken");
+
+                string url = _urlApi + "/api/User/GetSpecificUserFromToken?q=" + userToken;
+
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", userToken);
+                HttpResponseMessage httpResponse = await _httpClient.GetAsync(url);
+
+                if (httpResponse.IsSuccessStatusCode)
+                {
+                    string json = await httpResponse.Content.ReadAsStringAsync();
+                    response = JsonConvert.DeserializeObject<ApiResponse<UserEnt>>(json);
+                    return response;
+                }
+                else
+                {
+                    response.ErrorMessage = "No se pudo concretar la solicitud";
+                    response.Code = (int)httpResponse.StatusCode;
+                    return response;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                response.ErrorMessage = "Unexpected Error: " + ex.Message;
+                response.Code = 500;
+                return response;
+            }
+        }
 
     }
 }

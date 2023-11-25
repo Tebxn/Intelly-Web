@@ -117,7 +117,7 @@ namespace Intelly_Web.Controllers
 
 			if (apiResponse.Success)
 			{
-				return RedirectToAction("Index", "Home");
+				return RedirectToAction("Login", "Authentication");
 			}
 			else
 			{

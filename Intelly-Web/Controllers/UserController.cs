@@ -229,44 +229,77 @@ namespace Intelly_Web.Controllers
         //    }
         //}
 
+        //[HttpGet]
+        //public async Task<IActionResult> GetProfile(string userToken)
+        //{
+        //    try
+        //    {
+        //        var apiResponse = await _userModel.GetSpecificUserFromToken(userToken);
+
+        //        if (apiResponse.Success)
+        //        {
+        //            var user = apiResponse.Data;
+        //            if (user != null)
+        //            {
+        //                // Pasa userToken como un valor en el ViewBag
+        //                ViewBag.UserToken = userToken;
+        //                return View("GetProfile");
+        //            }
+        //            else
+        //            {
+        //                return View("Error");
+        //            }
+        //        }
+        //        else
+        //        {
+        //            // Maneja el caso en que la respuesta no sea exitosa
+        //            return View("Error"); // Muestra una vista de error
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // Maneja el caso en que se produjo una excepción
+        //        return View("Error"); // Muestra una vista de error
+        //    }
+        //}
+
         [HttpGet]
-        public async Task<IActionResult> GetProfile(string userToken)
+        [SecurityFilter]
+        public async Task<IActionResult> GetProfile()
         {
             try
             {
-                var apiResponse = await _userModel.GetSpecificUserFromToken(userToken);
+                var apiResponse = await _userModel.GetSpecificUserFromToken();
 
                 if (apiResponse.Success)
                 {
                     var user = apiResponse.Data;
                     if (user != null)
                     {
-                        // Pasa userToken como un valor en el ViewBag
-                        ViewBag.UserToken = userToken;
-                        return View("GetProfile");
+                        return View(user);
                     }
                     else
                     {
-                        return View("Error");
+                        ViewBag.MensajePantalla = "No se pudo desplegar el perfil";
+                        return View();
                     }
                 }
                 else
                 {
-                    // Maneja el caso en que la respuesta no sea exitosa
-                    return View("Error"); // Muestra una vista de error
+                    ViewBag.MensajePantalla = "No se logro conexion con el servidor";
+                    return View();
                 }
             }
             catch (Exception ex)
             {
-                // Maneja el caso en que se produjo una excepción
-                return View("Error"); // Muestra una vista de error
+                ViewBag.MensajePantalla = "Error al cargar los datos";
+                return View();
             }
         }
 
-		
 
 
-		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

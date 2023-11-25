@@ -36,6 +36,7 @@
                                                 <th>Nombre Local</th>
                                                 <th>Id Interno</th>
                                                 <th>Dirección</th>
+                                                <th>Editar Local</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -45,7 +46,11 @@
                                                     <td>@x.Local_Name</td>
                                                     <td>@x.Intern_Id</td>
                                                     <td>@x.Location</td>
-                                                    <td style="text-align:center"><a href="@Url.Action("EditSpecificLocal","Local", new { q = x.Local_Id })"><i class="fa-solid fa-user-pen"></i></a></td>
+                                                    <td>
+                                                        <a href="@Url.Action("EditSpecificLocal", "Local", new {LocalId = x.Local_Id })" class="btn btn-primary">
+                                                            Editar Local
+                                                        </a>
+                                                        </td>
                                                 </tr>
                                             }
                                          

@@ -14,7 +14,7 @@ namespace Intelly_Web.Interfaces
 
         Task<ApiResponse<UserEnt>> GetSpecificUser(long userId);
 
-        Task<ApiResponse<UserEnt>> GetSpecificUserFromToken(string userToken);
+        //Task<ApiResponse<UserEnt>> GetSpecificUserFromToken(string userToken);
 
         Task<ApiResponse<UserEnt>> EditSpecificUser(UserEnt entity);
 
@@ -26,7 +26,8 @@ namespace Intelly_Web.Interfaces
 
         Task<ApiResponse<UserEnt>> ChangePassword(UserEnt entity);
 
-     
+        Task<ApiResponse<UserEnt>> GetSpecificUserFromToken();
+
 
 
     }
