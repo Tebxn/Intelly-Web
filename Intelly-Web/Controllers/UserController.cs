@@ -264,7 +264,6 @@ namespace Intelly_Web.Controllers
         //}
 
         [HttpGet]
-        [SecurityFilter]
         public async Task<IActionResult> GetProfile()
         {
             try

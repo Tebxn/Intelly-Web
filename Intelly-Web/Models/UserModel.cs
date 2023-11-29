@@ -366,7 +366,6 @@ namespace Intelly_Web.Models
                 // Encripta el userToken antes de pasarlo en la URL
                 //string encryptedUserToken = _tools.Encrypt(userToken);
                 string userToken = _HttpContextAccessor.HttpContext.Session.GetString("UserToken");
-
                 string url = _urlApi + "/api/User/GetSpecificUserFromToken?q=" + userToken;
 
                 _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", userToken);
