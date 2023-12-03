@@ -81,33 +81,33 @@ namespace Intelly_Web.Models
                 return response;
             }
         }
-       public async Task<ApiResponse<CompanyEnt>> GetSpecificCompany(int CompanyId)
-          {
-        // Implementa la lógica para obtener una empresa en específico
-           ApiResponse<CompanyEnt> response = new ApiResponse<CompanyEnt>();
-          try
-          {
-           string url = $"{_urlApi}/api/Companies/GetSpecificCompany/{CompanyId}";
-           HttpResponseMessage httpResponse = await _httpClient.GetAsync(url);
-        
-          if (httpResponse.IsSuccessStatusCode)
-          {
-             string json = await httpResponse.Content.ReadAsStringAsync();
-             response = JsonConvert.DeserializeObject<ApiResponse<CompanyEnt>>(json);
-            return response;
-          }
+        public async Task<ApiResponse<CompanyEnt>> GetSpecificCompany(int CompanyId)
+        {
+            // Implementa la lógica para obtener una empresa en específico
+            ApiResponse<CompanyEnt> response = new ApiResponse<CompanyEnt>();
+            try
+            {
+                string url = $"{_urlApi}/api/Companies/GetSpecificCompany/{CompanyId}";
+                HttpResponseMessage httpResponse = await _httpClient.GetAsync(url);
 
-           response.ErrorMessage = "Error al obtener el usuario del API.";
-           response.Code = (int)httpResponse.StatusCode;
-          return response;
+                if (httpResponse.IsSuccessStatusCode)
+                {
+                    string json = await httpResponse.Content.ReadAsStringAsync();
+                    response = JsonConvert.DeserializeObject<ApiResponse<CompanyEnt>>(json);
+                    return response;
+                }
+
+                response.ErrorMessage = "Error al obtener el usuario del API.";
+                response.Code = (int)httpResponse.StatusCode;
+                return response;
+            }
+            catch (Exception ex)
+            {
+                response.ErrorMessage = "Unexpected Error: " + ex.Message;
+                response.Code = 500;
+                return response;
+            }
         }
-         catch (Exception ex)
-         {
-              response.ErrorMessage = "Unexpected Error: " + ex.Message;
-           response.Code = 500;
-             return response;
-         }
-          }
 
         public async Task<ApiResponse<CompanyEnt>> EditSpecificCompany(CompanyEnt entity)
         {
