@@ -20,6 +20,7 @@ builder.Services.AddSingleton<ICustomer, CustomerModel>();
 builder.Services.AddSingleton<ILocalModel, LocalModel>();
 builder.Services.AddSingleton<ITools, Tools>();
 builder.Services.AddSingleton<ICharts, Charts>();
+builder.Services.AddSingleton<IProductModel, ProductModel>();
 
 var app = builder.Build();
 
