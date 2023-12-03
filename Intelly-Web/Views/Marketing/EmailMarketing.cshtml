@@ -3,6 +3,8 @@
     ViewData["Title"] = "Marketing Campaigns";
 }
 <body>
+     @if (Context.Session.GetString("UserType") == "1" || Context.Session.GetString("UserType") == "2" || Context.Session.GetString("UserType") == "3")
+       {
         <!-- Start content -->
         <div class="content">
             <div class="container-fluid">
@@ -15,7 +17,7 @@
                         <!-- end row -->
                     </div>
                     <!-- end page-title -->
-
+               
                     <div class="row">
                         <div class="col-12">
                             <!-- Left sidebar -->
@@ -87,7 +89,7 @@
             </div>
         </div>
   
-
+ }
 
 
     <script>

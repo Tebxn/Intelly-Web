@@ -4,6 +4,7 @@ using Intelly_Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Diagnostics;
+using static Intelly_Web.Entities.SecurityFilter;
 
 namespace Intelly_Web.Controllers
 {
@@ -16,12 +17,16 @@ namespace Intelly_Web.Controllers
             _companyModel = companyModel;
         }
 
+        [SecurityFilter]
+
         public async Task<IActionResult> CreateCompany()
         {
             return View();
         }
 
         [HttpPost]
+        [SecurityFilter]
+
         public async Task<IActionResult> CreateCompany(CompanyEnt entity)
         {
             var apiResponse = await _companyModel.CreateCompany(entity);
@@ -38,6 +43,8 @@ namespace Intelly_Web.Controllers
         }
 
         [HttpGet]
+        [SecurityFilter]
+
         public async Task<IActionResult> GetAllCompanies()
         {
             try
@@ -54,6 +61,8 @@ namespace Intelly_Web.Controllers
         }
 
         [HttpGet]
+        [SecurityFilter]
+
         public async Task<IActionResult> GetSpecificCompany(int CompanyId)
         {
             try
@@ -85,6 +94,8 @@ namespace Intelly_Web.Controllers
         }
 
         [HttpGet]
+        [SecurityFilter]
+
         public async Task<IActionResult> EditSpecificCompany(int CompanyId)
         {
             try
@@ -116,6 +127,7 @@ namespace Intelly_Web.Controllers
         }
 
         [HttpPost]
+        [SecurityFilter]
         public async Task<IActionResult> EditSpecificCompany(CompanyEnt company)
         {
             var apiResponse = await _companyModel.EditSpecificCompany(company);

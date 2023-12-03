@@ -20,5 +20,27 @@ namespace Intelly_Web.Entities
 
             base.OnActionExecuting(context);
         }
+
+        public class SecurityFilterIsAdmin : ActionFilterAttribute
+        {
+
+            public override void OnActionExecuting(ActionExecutingContext context)
+            {
+                string var = context.HttpContext.Session.GetString("UserIsAdmin");
+                if (var != "True")
+                {
+                    context.Result = new RedirectToRouteResult(new RouteValueDictionary
+            {
+                {"controller", "Home" },
+                {"action", "Index" }
+            });
+                }
+
+                base.OnActionExecuting(context);
+            }
+
+
+        }
+
     }
 }

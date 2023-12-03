@@ -1,6 +1,7 @@
 using Intelly_Web.Interfaces;
 using Intelly_Web.Models;
 using Intelly_Web.Implementations;
+using Microsoft.Extensions.Caching.StackExchangeRedis;
 
 var builder = WebApplication.CreateBuilder(args);
 

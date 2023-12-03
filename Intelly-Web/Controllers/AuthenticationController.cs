@@ -63,6 +63,10 @@ namespace Intelly_Web.Controllers
         [HttpGet]
         public IActionResult EndSession()
         {
+
+            // Eliminar elementos específicos de la sesión si es necesario
+            HttpContext.Session.Remove("UserType");
+
             HttpContext.Session.Clear();
             return RedirectToAction("Authentication", "Login");
         }

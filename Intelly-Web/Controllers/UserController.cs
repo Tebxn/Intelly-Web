@@ -5,6 +5,7 @@ using Intelly_Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Diagnostics;
+using static Intelly_Web.Entities.SecurityFilter;
 
 namespace Intelly_Web.Controllers
 {
@@ -27,6 +28,7 @@ namespace Intelly_Web.Controllers
         }
 
         [HttpGet]
+        [SecurityFilter]
         public async Task<IActionResult> AddEmployee()
         {
             try
@@ -49,6 +51,7 @@ namespace Intelly_Web.Controllers
         }
 
         [HttpPost]
+        [SecurityFilter]
         public async Task<IActionResult> AddEmployee(UserEnt entity)
         {
             var apiResponse = await _userModel.AddEmployee(entity);
@@ -65,6 +68,7 @@ namespace Intelly_Web.Controllers
         }
 
         [HttpGet]
+        [SecurityFilter]
         public async Task<IActionResult> Employees()
         {
             try
@@ -80,8 +84,9 @@ namespace Intelly_Web.Controllers
             }
         }
 
-
+        
         [HttpGet]
+        [SecurityFilter]
         public async Task<IActionResult> GetSpecificUser(long userId)
         {
             try
@@ -113,6 +118,7 @@ namespace Intelly_Web.Controllers
         }
 
         [HttpGet]
+        [SecurityFilter]
         public async Task<IActionResult> EditSpecificUser(long userId)
         {
             try
@@ -171,6 +177,7 @@ namespace Intelly_Web.Controllers
 
 
         [HttpPost]
+        [SecurityFilter]
         public async Task<IActionResult> EditSpecificUser(UserEnt user)
         {
             var apiResponse = await _userModel.EditSpecificUser(user);
