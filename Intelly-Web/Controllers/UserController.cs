@@ -219,86 +219,49 @@ namespace Intelly_Web.Controllers
             }
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> GetProfile(string UserToken)
-        //{
-
-        //    try
-        //    {
-        //        var apiResponse = await _userModel.GetSpecificUser(UserToken);
-        //        var user = apiResponse.Data;
-        //        return View(user);
-        //    }
-        //    catch (Exception)
-        //    {
-        //        List<UserEnt> errors = new List<UserEnt>();
-        //        return View(errors);
-        //    }
-        //}
-
-        //[HttpGet]
-        //public async Task<IActionResult> GetProfile(string userToken)
-        //{
-        //    try
-        //    {
-        //        var apiResponse = await _userModel.GetSpecificUserFromToken(userToken);
-
-        //        if (apiResponse.Success)
-        //        {
-        //            var user = apiResponse.Data;
-        //            if (user != null)
-        //            {
-        //                // Pasa userToken como un valor en el ViewBag
-        //                ViewBag.UserToken = userToken;
-        //                return View("GetProfile");
-        //            }
-        //            else
-        //            {
-        //                return View("Error");
-        //            }
-        //        }
-        //        else
-        //        {
-        //            // Maneja el caso en que la respuesta no sea exitosa
-        //            return View("Error"); // Muestra una vista de error
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        // Maneja el caso en que se produjo una excepción
-        //        return View("Error"); // Muestra una vista de error
-        //    }
-        //}
-
+      
         [HttpGet]
         public async Task<IActionResult> GetProfile()
         {
             try
             {
-                var apiResponse = await _userModel.GetSpecificUserFromToken();
+                // Obtén el userId directamente de la sesión
+                long userId;
 
-                if (apiResponse.Success)
+                if (long.TryParse(HttpContext.Session.GetString("UserId"), out userId))
                 {
-                    var user = apiResponse.Data;
-                    if (user != null)
+                    // Llama al método GetSpecificUser del modelo web con el userId
+                    var apiResponse = await _userModel.GetSpecificUser(userId);
+
+                    if (apiResponse.Success)
                     {
-                        return View(user);
+                        var user = apiResponse.Data;
+                        if (user != null)
+                        {
+                            // Pasa el modelo de usuario a la vista
+                            return View(user);
+                        }
+                        else
+                        {
+                            ViewBag.MensajePantalla = "No se pudo desplegar el perfil";
+                            return View();
+                        }
                     }
                     else
                     {
-                        ViewBag.MensajePantalla = "No se pudo desplegar el perfil";
+                        ViewBag.MensajePantalla = "No se logró conexión con el servidor";
                         return View();
                     }
                 }
                 else
                 {
-                    ViewBag.MensajePantalla = "No se logro conexion con el servidor";
+                    ViewBag.MensajePantalla = "Error al obtener el UserId de la sesión";
                     return View();
                 }
             }
             catch (Exception ex)
             {
-                ViewBag.MensajePantalla = "Error al cargar los datos";
+                ViewBag.MensajePantalla = "Error al cargar los datos: " + ex.Message;
                 return View();
             }
         }
