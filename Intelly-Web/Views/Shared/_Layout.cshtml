@@ -130,12 +130,36 @@
                                     <li><a href="@Url.Action("GetProfile", "User")">Perfil</a></li>
                                 </ul>
                             </li>
+                        }
+
+                        @if (Context.Session.GetString("UserType") == "1" || Context.Session.GetString("UserType") == "2" || Context.Session.GetString("UserType") == "3")
+                        {
 
                             <li>
                                 <a href="javascript:void(0);" class="waves-effect"><i class="icon-paper-sheet"></i><span> Marketing y Correos <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
                                 <ul class="submenu">
                                     <li><a href="@Url.Action("EmailMarketing", "Marketing")">Envío de campañas</a></li>
+
                                 </ul>
+                            </li>
+
+                            <li>
+                                <a href="@Url.Action("GetAllProducts", "Product")" class="waves-effect">
+                                    <i class="icon-folder"></i>
+                                    <span>Productos</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="@Url.Action("GetAllLocals", "Local")" class="waves-effect">
+                                    <i class="icon-home"></i>
+                                    <span>Locales</span>
+                                </a>
+                            </li>
+
+
+                            <li>
+                                <a href="calendar.html" class="waves-effect"><i class="icon-calendar"></i><span> Agenda </span></a>
                             </li>
 
                             <li>
@@ -143,39 +167,11 @@
                                 <ul class="submenu">
                                     <li><a href="@Url.Action("Customers", "Customer")">Clientes Registrados</a></li>
                                     <li><a href="@Url.Action("BuyerPersonaMain", "TargetAnalysis")">Buyer Persona</a></li>
-                                    <li><a href="@Url.Action("GetAllLocals", "Local")">Locales</a></li>
                                     <li><a href=" Home/Correos.cshtml">Compras en comercios</a></li>
                                     <li><a href=" Home/Correos.cshtml">Análisis de ventas</a></li>
                                 </ul>
                             </li>
                         }
-
-
-                        <li>
-                            <a href="javascript:void(0);" class="waves-effect"><i class="icon-paper-sheet"></i><span> Marketing y Correos <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
-                            <ul class="submenu">
-                                <li><a href="@Url.Action("EmailMarketing", "Marketing")">Envío de campañas</a></li>
-
-                            </ul>
-                        </li>
-
-                        <li>
-                            <a href="javascript:void(0);" class="waves-effect"><i class="icon-profile"></i><span> Análisis de Clientes <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
-                            <ul class="submenu">
-                                <li><a href="@Url.Action("Customers", "Customer")">Clientes Registrados</a></li>
-                                <li><a href="@Url.Action("BuyerPersonaMain", "TargetAnalysis")">Buyer Persona</a></li>
-                                <li><a href="@Url.Action("GetAllLocals", "Local")">Locales</a></li>
-                                <li><a href=" Home/Correos.cshtml">Compras en comercios</a></li>
-                                <li><a href=" Home/Correos.cshtml">Análisis de ventas</a></li>
-                            </ul>
-                        </li>
-
-                        <li>
-                            <a href="calendar.html" class="waves-effect"><i class="icon-calendar"></i><span> Agenda </span></a>
-                        </li>
-
-                        }
-                      
                            
                     </ul>
 

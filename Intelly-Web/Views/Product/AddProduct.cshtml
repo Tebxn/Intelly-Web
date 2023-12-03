@@ -1,0 +1,65 @@
+﻿@model Intelly_Web.Entities.ProductEnt
+
+@{
+    ViewData["Title"] = "AddProduct";
+}
+
+<div class="wrapper-page w-75 h-75">
+
+    <div class="card card-pages shadow-none">
+
+        <div class="card-body">
+
+            <div class="text-center m-t-0 m-b-15">
+                <a href="index.html" class="logo logo-admin"><img src="~/images/logo-dark.png" alt="" height="70"></a>
+            </div>
+            <h5 class="font-18 text-center">Agregar nuevo producto</h5>
+
+            <form asp-action="AddProduct" asp-controller="Product" method="post" class="pt-3">
+
+                <div class="container">
+
+                    <div class="form-group">
+                        <div class="col-6 mx-auto">
+                            <label>Nombre</label>
+                            <input asp-for="Product_Name" class="form-control form-control-lg" type="text" placeholder="Nombre del producto" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-6 mx-auto">
+                            <label>Código</label>
+                            <input asp-for="Product_Internal_Code" class="form-control form-control-lg" type="text" placeholder="Código interno del producto" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-6 mx-auto">
+                            <label>Precio</label>
+                            <input asp-for="Product_Price" class="form-control form-control-lg" type="text" placeholder="Precio" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-6 mx-auto">
+                            <label for="Empresa">Empresa</label>
+                            <select asp-for="Product_CompanyId" asp-items="ViewBag.ListCompanies" class="form-control form-control-lg">
+                                <option value="">Seleccionar empresa</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group text-center m-t-20">
+                        <div class="col-6 mx-auto">
+                            <button class="btn btn-primary btn-block btn-lg waves-effect waves-light" type="submit">Crear producto</button>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+</div>
+
