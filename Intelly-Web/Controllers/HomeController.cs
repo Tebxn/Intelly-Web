@@ -9,15 +9,20 @@ namespace Intelly_Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly ICharts _charts;
 
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ICharts charts)
         {
             _logger = logger;
+            _charts = charts;
         }
 
-        public IActionResult Index()
-        {           
+        public async Task<IActionResult> IndexAsync()
+        {
+            var chartNewCustomersMonth = await _charts.ChartNewCustomersMonth();
+            ViewBag.chartNewCustomersMonth = chartNewCustomersMonth.Data;
+
             return View("Home");
         }
 
