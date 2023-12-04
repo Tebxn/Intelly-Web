@@ -1,6 +1,6 @@
 ﻿@model Intelly_Web.Entities.UserEnt
 @{
-    ViewData["Title"] = "Consultar Perfil";
+    ViewData["Title"] = "GetProfile";
 }
 
 <!DOCTYPE html>
@@ -62,29 +62,28 @@
 
                     <div class="row">
                         <div class="col-12">
-                            
-                                
-                                    <!-- AQUI EMPIEZA EL FORM -->
-                                   @*  <h4 class="mt-0 header-title">Información Personal</h4> *@
-                                    <div class="col-xl-8">
-                                        <!-- Account details card-->
-                                        <div class="card mb-4">
-                                            <div class="card-header">Detalles del Perfil</div>
-                                            <div class="card-body">
-                                                <ul class="list-group list-group-flush">
-                                                    <li class="list-group-item">
-                                                        <strong>Nombre:</strong> @Model.User_Name
-                                                    </li>
-                                                    <li class="list-group-item">
-                                                        <strong>Apellido:</strong> @Model.User_LastName
-                                                    </li>
-                                                    <li class="list-group-item">
-                                                        <strong>Correo Electrónico:</strong> @Model.User_Email
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
+
+
+                            <div class="col-xl-8">
+                                <!-- Account details card-->
+                                <div class="card mb-4">
+                                    <div class="card-header">Detalles del Perfil</div>
+                                    <div class="card-body">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item">
+                                                <strong>Nombre:</strong> @Model.User_Name
+                                            </li>
+                                            <li class="list-group-item">
+                                                <strong>Apellido:</strong> @Model.User_LastName
+                                            </li>
+                                            <li class="list-group-item">
+                                                <strong>Correo Electrónico:</strong> @Model.User_Email
+                                            </li>
+                                        </ul>
                                     </div>
+                                </div>
+                            </div>
+
 
                           
                             

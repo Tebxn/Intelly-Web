@@ -24,7 +24,6 @@ namespace Intelly_Web.Controllers
 
         }
         [HttpGet]
-        [SecurityFilter]
         public async Task<IActionResult> AddProduct()
         {
             try
@@ -45,7 +44,6 @@ namespace Intelly_Web.Controllers
         }
 
         [HttpPost]
-        [SecurityFilter]
         public async Task<IActionResult> AddProduct (ProductEnt entity)
         {
             var apiResponse = await _productModel.AddProduct(entity);
@@ -62,7 +60,6 @@ namespace Intelly_Web.Controllers
         }
 
         [HttpGet]
-        [SecurityFilter]
         public async Task<IActionResult> GetAllProducts()
         {
             try

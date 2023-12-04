@@ -29,6 +29,7 @@ namespace Intelly_Web.Controllers
 
         [HttpGet]
         [SecurityFilter]
+        [SecurityFilterIsAdmin]
         public async Task<IActionResult> AddEmployee()
         {
             try
@@ -52,6 +53,7 @@ namespace Intelly_Web.Controllers
 
         [HttpPost]
         [SecurityFilter]
+        [SecurityFilterIsAdmin]
         public async Task<IActionResult> AddEmployee(UserEnt entity)
         {
             var apiResponse = await _userModel.AddEmployee(entity);
@@ -68,7 +70,6 @@ namespace Intelly_Web.Controllers
         }
 
         [HttpGet]
-        [SecurityFilter]
         public async Task<IActionResult> Employees()
         {
             try
@@ -86,7 +87,6 @@ namespace Intelly_Web.Controllers
 
         
         [HttpGet]
-        [SecurityFilter]
         public async Task<IActionResult> GetSpecificUser(long userId)
         {
             try
@@ -119,6 +119,7 @@ namespace Intelly_Web.Controllers
 
         [HttpGet]
         [SecurityFilter]
+        [SecurityFilterIsAdmin]
         public async Task<IActionResult> EditSpecificUser(long userId)
         {
             try
@@ -178,6 +179,7 @@ namespace Intelly_Web.Controllers
 
         [HttpPost]
         [SecurityFilter]
+        [SecurityFilterIsAdmin]
         public async Task<IActionResult> EditSpecificUser(UserEnt user)
         {
             var apiResponse = await _userModel.EditSpecificUser(user);
@@ -219,52 +221,82 @@ namespace Intelly_Web.Controllers
             }
         }
 
-      
+
+        //[HttpGet]
+        //public async Task<IActionResult> GetProfile()
+        //{
+        //    try
+        //    {
+        //        // Obtén el userId directamente de la sesión
+        //        long userId;
+
+        //        if (long.TryParse(HttpContext.Session.GetString("UserId"), out userId))
+        //        {
+        //            // Llama al método GetSpecificUser del modelo web con el userId
+        //            var apiResponse = await _userModel.GetSpecificUser(userId);
+
+        //            if (apiResponse.Success)
+        //            {
+        //                var user = apiResponse.Data;
+        //                if (user != null)
+        //                {
+        //                    // Pasa el modelo de usuario a la vista
+        //                    return View(user);
+        //                }
+        //                else
+        //                {
+        //                    ViewBag.MensajePantalla = "No se pudo desplegar el perfil";
+        //                    return View();
+        //                }
+        //            }
+        //            else
+        //            {
+        //                ViewBag.MensajePantalla = "No se logró conexión con el servidor";
+        //                return View();
+        //            }
+        //        }
+        //        else
+        //        {
+        //            ViewBag.MensajePantalla = "Error al obtener el UserId de la sesión";
+        //            return View();
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        ViewBag.MensajePantalla = "Error al cargar los datos: " + ex.Message;
+        //        return View();
+        //    }
+        //}
+
         [HttpGet]
         public async Task<IActionResult> GetProfile()
         {
             try
             {
-                // Obtén el userId directamente de la sesión
-                long userId;
+                // Obtén los datos de la sesión
+                string userName = HttpContext.Session.GetString("UserName");
+                string userLastName = HttpContext.Session.GetString("UserLastName");
+                string userEmail = HttpContext.Session.GetString("UserEmail");
 
-                if (long.TryParse(HttpContext.Session.GetString("UserId"), out userId))
+                // Crea un modelo con los datos de la sesión
+                var viewModel = new UserEnt
                 {
-                    // Llama al método GetSpecificUser del modelo web con el userId
-                    var apiResponse = await _userModel.GetSpecificUser(userId);
+                    User_Name = userName,
+                    User_LastName = userLastName,
+                    User_Email = userEmail
+                };
 
-                    if (apiResponse.Success)
-                    {
-                        var user = apiResponse.Data;
-                        if (user != null)
-                        {
-                            // Pasa el modelo de usuario a la vista
-                            return View(user);
-                        }
-                        else
-                        {
-                            ViewBag.MensajePantalla = "No se pudo desplegar el perfil";
-                            return View();
-                        }
-                    }
-                    else
-                    {
-                        ViewBag.MensajePantalla = "No se logró conexión con el servidor";
-                        return View();
-                    }
-                }
-                else
-                {
-                    ViewBag.MensajePantalla = "Error al obtener el UserId de la sesión";
-                    return View();
-                }
+                return View(viewModel);
             }
             catch (Exception ex)
             {
+                // Manejar errores aquí
                 ViewBag.MensajePantalla = "Error al cargar los datos: " + ex.Message;
                 return View();
             }
         }
+
+
 
 
 
