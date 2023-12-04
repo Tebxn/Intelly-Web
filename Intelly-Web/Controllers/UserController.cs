@@ -297,8 +297,60 @@ namespace Intelly_Web.Controllers
         }
 
 
+        [HttpGet]
+        [SecurityFilter]
+        [SecurityFilterIsAdmin]
+        public async Task<IActionResult> UpdateUserState(long userId)
+        {
+            try
+            {
+                var apiResponse = await _userModel.GetSpecificUser(userId);
+                if (apiResponse.Success)
+                {
+                    var user = apiResponse.Data;
+                    if (user != null)
+                    {
+                        var Response = await _userModel.UpdateUserState(UserEnt entity);
+                        return View("Employees", user);
+                    }
+                    else
+                    {
+                        ViewBag.MensajePantalla = apiResponse.ErrorMessage;
+                        return View();
+                    }
+                   
+                }
+                else
+                {
+                    ViewBag.MensajePantalla = apiResponse.ErrorMessage;
+                    return View();
+                }
+            }
+            catch (Exception ex)
+            {
+                ViewBag.MensajePantalla = "Error: " + ex.Message;
+                return View("Error");
+            }
+        }
 
+        [HttpPost]
+        [SecurityFilter]
+        [SecurityFilterIsAdmin]
+        public async Task<IActionResult> UpdateUserState(UserEnt entity)
+        {
 
+            var apiResponse = await _userModel.UpdateUserState(entity);
+
+            if (apiResponse.Success)
+            {
+                return RedirectToAction("Employees", "User");
+            }
+            else
+            {
+                ViewBag.MensajePantalla = "No se realizaron cambios";
+                return View();
+            }
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
