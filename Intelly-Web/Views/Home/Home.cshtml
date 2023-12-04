@@ -1,4 +1,6 @@
-﻿@{
+﻿@model Intelly_Web.Models.HomeViewModel
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -32,11 +34,10 @@
                         <div>
                             <h5 class="font-16">Usuarios Nuevos Mensuales</h5>
                         </div>
-                        <h3 class="mt-4">43,225</h3>
+                        <h3 class="mt-4">@Model.NewCustomersMonth</h3>
                         <div class="progress mt-4" style="height: 4px;">
-                            <div class="progress-bar bg-primary" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar bg-primary" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
-                        <p class="text-muted mt-2 mb-0">Periodo Anterior<span class="float-right">75%</span></p>
                     </div>
                 </div>
             </div>
@@ -50,11 +51,10 @@
                         <div>
                             <h5 class="font-16">Ventas con promoción Mensuales</h5>
                         </div>
-                        <h3 class="mt-4">$73,265</h3>
+                        <h3 class="mt-4">@Model.SellsWithCampaign</h3>
                         <div class="progress mt-4" style="height: 4px;">
-                            <div class="progress-bar bg-success" role="progressbar" style="width: 88%" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
-                        <p class="text-muted mt-2 mb-0">Periodo anterior<span class="float-right">88%</span></p>
                     </div>
                 </div>
             </div>
@@ -68,11 +68,10 @@
                         <div>
                             <h5 class="font-16">Promociones con estado Activo</h5>
                         </div>
-                        <h3 class="mt-4">47</h3>
+                        <h3 class="mt-4">@Model.ActiveMarketingCampaigns</h3>
                         <div class="progress mt-4" style="height: 4px;">
-                            <div class="progress-bar bg-warning" role="progressbar" style="width: 68%" aria-valuenow="68" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar bg-warning" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
-                        <p class="text-muted mt-2 mb-0">Periodo anterior<span class="float-right">68%</span></p>
                     </div>
                 </div>
             </div>
@@ -86,11 +85,10 @@
                         <div>
                             <h5 class="font-16">Correos promocionales enviados (mes)</h5>
                         </div>
-                        <h3 class="mt-4">86%</h3>
+                        <h3 class="mt-4">@Model.EmailsSendedMonth</h3>
                         <div class="progress mt-4" style="height: 4px;">
-                            <div class="progress-bar bg-danger" role="progressbar" style="width: 82%" aria-valuenow="82" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
-                        <p class="text-muted mt-2 mb-0">Periodo Anterior<span class="float-right">82%</span></p>
                     </div>
                 </div>
             </div>
@@ -104,7 +102,27 @@
 
                         <h4 class="mt-0 header-title mb-4">Ventas Anuales</h4>
 
-                        <div id="morris-area-example" class="morris-charts morris-chart-height"></div>
+                        <div id="ventas-chart" class="morris-charts morris-chart-height"></div>
+
+                        <script>
+                            $(document).ready(function () {
+                                var ventasData = @Html.Raw(Json.Serialize(Model.SumTotalByMonthActualYear));
+
+                                Morris.Line({
+                                    element: 'ventas-chart',
+                                    data: ventasData.map(function (value, index) {
+                                        return { month: index + 1, total: value };
+                                    }),
+                                    xkey: 'month',
+                                    ykeys: ['total'],
+                                    labels: ['Ventas'],
+                                    barColors: ['#3498db'],
+                                    xLabelAngle: 60,
+                                    hideHover: 'auto'
+                                });
+                            });
+                        </script>
+
 
                     </div>
                 </div>
@@ -116,7 +134,28 @@
                     <div class="card-body">
                         <h4 class="mt-0 header-title mb-4">Top 3 promociones</h4>
 
-                        <div id="morris-donut-example" class="morris-charts morris-chart-height"></div>
+                        <div id="donut-topCampaigns" class="morris-charts morris-chart-height"></div>
+                        <script>
+                            var names = @Html.Raw(Json.Serialize(Model.TopCampaigns));
+                            var totals = @Html.Raw(Json.Serialize(Model.TopCampaignsSells));
+
+                            $(document).ready(function () {
+                                var data = [];
+
+                                for (var i = 0; i < names.length; i++) {
+                                    data.push({ label: names[i], value: totals[i] });
+                                }
+
+                                Morris.Donut({
+                                    element: 'donut-topCampaigns',
+                                    data: data,
+                                    colors: ['#3498db', '#2ecc71', '#e74c3c'],
+                                    formatter: function (y) {
+                                        return y;
+                                    }
+                                });
+                            });
+                        </script>
 
                     </div>
                 </div>

@@ -20,10 +20,39 @@ namespace Intelly_Web.Controllers
 
         public async Task<IActionResult> IndexAsync()
         {
-            var chartNewCustomersMonth = await _charts.ChartNewCustomersMonth();
-            ViewBag.chartNewCustomersMonth = chartNewCustomersMonth.Data;
+                var newCustomersMonth = await _charts.ChartNewCustomersMonth();
+                var activeMarketingCampaigns = await _charts.ChartActivesMarketingCampaigns();
+                var emailsSendedMonth = await _charts.ChartEmailsSendedMonth();
+                var sellsWithCampaign = await _charts.ChartSellsWithCampaignMonth();
+                var sumTotalByMonthActualYear = await _charts.ChartSumTotalByMonthActualYear();
+                var topCampaigns = await _charts.ChartTopCampaignsByTotal();
 
-            return View("Home");
+            List<float> sells = new List<float>();
+            List<string> topCampaignsName = new List<string>();
+            List<long> topCampaignsSells = new List<long>();
+
+            foreach (var item in sumTotalByMonthActualYear.Data)
+            {
+                sells.Add((float)item.Total);
+            }
+            foreach (var item in topCampaigns.Data)
+            {
+                topCampaignsName.Add((string)item.MarketingCampaign_Name);
+                topCampaignsSells.Add((long)item.Total);
+            }
+
+            var model = new HomeViewModel
+            {
+                NewCustomersMonth = newCustomersMonth.Data,
+                ActiveMarketingCampaigns = activeMarketingCampaigns.Data,
+                EmailsSendedMonth = emailsSendedMonth.Data,
+                SellsWithCampaign = sellsWithCampaign.Data,
+                SumTotalByMonthActualYear = sells,
+                TopCampaigns = topCampaignsName,
+                TopCampaignsSells = topCampaignsSells
+            };
+
+            return View("Home", model);
         }
 
         public IActionResult Privacy()
