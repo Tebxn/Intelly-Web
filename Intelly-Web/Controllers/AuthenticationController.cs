@@ -107,33 +107,55 @@ namespace Intelly_Web.Controllers
             }
         }
 
-       
-		[HttpGet]
-		public async Task<IActionResult> ChangePassword(string id)
-		{
-			UserEnt entity = new UserEnt();
-			entity.User_Secure_Id = id;
-			return View(entity);
-		}
 
-		[HttpPost]
-		public async Task<IActionResult> ChangePassword(UserEnt entity)
-		{
-			var apiResponse = await _userModel.ChangePassword(entity);
+        [HttpGet]
+        public async Task<IActionResult> ChangePassword(string q)
+        {
+        	UserEnt entity = new UserEnt();
+        	entity.User_Secure_Id = q;
+        	return View(entity);
+        }
 
-			if (apiResponse.Success)
-			{
-				return RedirectToAction("Login", "Authentication");
-			}
-			else
-			{
-				ViewBag.MensajePantalla = "No se realizaron cambios";
-				return View();
-			}
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(UserEnt entity)
+        {
+        	var apiResponse = await _userModel.ChangePassword(entity);
 
-		}
+        	if (apiResponse.Success)
+        	{
+        		return RedirectToAction("Login", "Authentication");
+        	}
+        	else
+        	{
+        		ViewBag.MensajePantalla = "No se realizaron cambios";
+        		return View();
+        	}
 
-		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        //}
+
+        //[HttpPost]
+        //public async Task<IActionResult> UpdateNewPassword(UserEnt entity)
+        //{
+        //    var resp = await _userModel.UpdateNewPassword(entity);
+
+        //    if (resp.Success)
+        //        return RedirectToAction("Login", "Authentication");
+
+        //    else
+        //    {
+        //        ViewBag.MensajePantalla = resp.ErrorMessage;
+        //        return View();
+        //    }
+        //}
+
+        //public IActionResult UpdateNewPassword(string q)
+        //{
+        //    UserEnt entity = new UserEnt();
+        //    entity.User_Secure_Id = q;
+        //    return View(entity);
+        //}
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
