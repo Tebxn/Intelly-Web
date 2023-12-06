@@ -112,7 +112,7 @@ namespace Intelly_Web.Controllers
         public async Task<IActionResult> ChangePassword(string q)
         {
         	UserEnt entity = new UserEnt();
-        	entity.User_Secure_Id = q;
+        	entity.UserToken = q;
         	return View(entity);
         }
 
@@ -131,7 +131,7 @@ namespace Intelly_Web.Controllers
         		return View();
         	}
 
-        //}
+        }
 
         //[HttpPost]
         //public async Task<IActionResult> UpdateNewPassword(UserEnt entity)
@@ -154,11 +154,11 @@ namespace Intelly_Web.Controllers
         //    entity.User_Secure_Id = q;
         //    return View(entity);
         //}
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
     }
 }
