@@ -109,10 +109,10 @@ namespace Intelly_Web.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> ChangePassword(string q)
+        public async Task<IActionResult> ChangePassword(long q)
         {
         	UserEnt entity = new UserEnt();
-        	entity.UserToken = q;
+        	entity.User_Id = q;
         	return View(entity);
         }
 
@@ -154,6 +154,26 @@ namespace Intelly_Web.Controllers
         //    entity.User_Secure_Id = q;
         //    return View(entity);
         //}
+
+        [HttpPost]
+        public async Task<IActionResult> PwdRecovery(UserEnt entity)
+        {
+            var resp = await _userModel.PwdRecovery(entity);
+
+            if (resp.Success)
+                return RedirectToAction("Index", "Home");
+
+            else
+            {
+                ViewBag.MensajePantalla = resp.ErrorMessage;
+                return View();
+            }
+        }
+
+        public IActionResult PwdRecovery()
+        {
+            return View();
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

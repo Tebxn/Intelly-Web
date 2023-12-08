@@ -412,5 +412,35 @@ namespace Intelly_Web.Models
 
         }
 
+        public async Task<ApiResponse<UserEnt>> PwdRecovery(UserEnt entity)
+        {
+            ApiResponse<UserEnt> response = new ApiResponse<UserEnt>();
+
+            try
+            {
+                string url = _urlApi + "/api/Authentication/PwdRecovery";
+                JsonContent obj = JsonContent.Create(entity);
+                var httpResponse = await _httpClient.PostAsync(url, obj);
+
+                if (httpResponse.IsSuccessStatusCode)
+                {
+                    response.Success = true;
+                    response = await httpResponse.Content.ReadFromJsonAsync<ApiResponse<UserEnt>>();
+                    return response;
+                }
+                else
+                {
+                    response.ErrorMessage = "Error al restablecer contraseña.";
+                    return response;
+                }
+            }
+            catch (Exception ex)
+            {
+                response.ErrorMessage = "Error inesperado al restablecer contraseña: " + ex.Message;
+                return response;
+            }
+
+        }
+
     }
 }
