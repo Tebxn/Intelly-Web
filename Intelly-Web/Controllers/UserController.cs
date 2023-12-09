@@ -297,8 +297,66 @@ namespace Intelly_Web.Controllers
         }
 
 
+        [HttpGet]
+        [SecurityFilter]
+        [SecurityFilterIsAdmin]
+        [HttpGet]
+        public async Task<IActionResult> UpdateUserState(long userId)
+        {
+            try
+            {
+                // Obtener el usuario por su ID
+                var apiResponse = await _userModel.GetSpecificUser(userId);
 
+                if (apiResponse.Success)
+                {
+                    var user = apiResponse.Data;
 
+                    // Llamar al método en el modelo para actualizar el estado del usuario
+                    var updateResponse = await _userModel.UpdateUserState(user);
+
+                    if (updateResponse.Success)
+                    {
+                        // Éxito al actualizar el estado del usuario
+                        return RedirectToAction("Employees", "User"); // Redirigir a la vista deseada después de la actualización
+                    }
+                    else
+                    {
+                        ViewBag.ErrorMessage = updateResponse.ErrorMessage;
+                        return View(); // Algo salió mal al cambiar el estado del usuario
+                    }
+                }
+                else
+                {
+                    ViewBag.ErrorMessage = apiResponse.ErrorMessage;
+                    return View();
+                }
+            }
+            catch (Exception ex)
+            {
+                ViewBag.ErrorMessage = "Error al cambiar el estado del usuario: " + ex.Message;
+                return View("Error");
+            }
+        }
+
+        [HttpPost]
+        [SecurityFilter]
+        [SecurityFilterIsAdmin]
+        public async Task<IActionResult> UpdateUserState(UserEnt entity)
+        {
+
+            var apiResponse = await _userModel.UpdateUserState(entity);
+
+            if (apiResponse.Success)
+            {
+                return RedirectToAction("Employees", "User");
+            }
+            else
+            {
+                ViewBag.MensajePantalla = "No se realizaron cambios";
+                return View();
+            }
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
