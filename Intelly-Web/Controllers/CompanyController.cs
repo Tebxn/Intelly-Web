@@ -18,7 +18,6 @@ namespace Intelly_Web.Controllers
         }
 
         [SecurityFilter]
-
         public async Task<IActionResult> CreateCompany()
         {
             return View();
@@ -26,7 +25,6 @@ namespace Intelly_Web.Controllers
 
         [HttpPost]
         [SecurityFilter]
-
         public async Task<IActionResult> CreateCompany(CompanyEnt entity)
         {
             var apiResponse = await _companyModel.CreateCompany(entity);
@@ -43,8 +41,6 @@ namespace Intelly_Web.Controllers
         }
 
         [HttpGet]
-        [SecurityFilter]
-
         public async Task<IActionResult> GetAllCompanies()
         {
             try
@@ -61,8 +57,6 @@ namespace Intelly_Web.Controllers
         }
 
         [HttpGet]
-        [SecurityFilter]
-
         public async Task<IActionResult> GetSpecificCompany(int CompanyId)
         {
             try
@@ -82,20 +76,17 @@ namespace Intelly_Web.Controllers
                 }
                 else
                 {
-                    // Maneja el caso en que la respuesta no sea exitosa
-                    return View("Error"); // Muestra una vista de error
+                    return View("Error"); 
                 }
             }
             catch (Exception ex)
             {
-                // Maneja el caso en que se produjo una excepción
-                return View("Error"); // Muestra una vista de error
+                return View("Error"); 
             }
         }
 
         [HttpGet]
         [SecurityFilter]
-
         public async Task<IActionResult> EditSpecificCompany(int CompanyId)
         {
             try

@@ -23,18 +23,41 @@ namespace Intelly_Web.Controllers
 
 
         }
+        //[HttpGet]
+        //public async Task<IActionResult> AddProduct()
+        //{
+        //    try
+        //    {
+        //        return View();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        ViewBag.MensajePantalla = "Error al cargar los datos";
+        //        return View();
+        //    }
+        //}
+
+
+
         [HttpGet]
         public async Task<IActionResult> AddProduct()
         {
             try
             {
-                var companyDropdownData = await _companyModel.GetAllCompanies();
-                ViewBag.ListCompanies = companyDropdownData.Data.Select(company => new SelectListItem
+                // Obtén los datos de la sesión
+                string company = HttpContext.Session.GetString("UserCompanyId");
+
+                // Convierte el string a long
+                long companyId = Convert.ToInt64(company);
+
+                // Crea un modelo con los datos de la sesión
+                var viewModel = new ProductEnt
                 {
-                    Value = company.Company_Id.ToString(),
-                    Text = company.Company_Name
-                });
-                return View();
+                    Product_CompanyId = companyId
+
+                };
+
+                return View(viewModel);
             }
             catch (Exception ex)
             {
@@ -44,12 +67,20 @@ namespace Intelly_Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddProduct (ProductEnt entity)
+        public async Task<IActionResult> AddProduct(ProductEnt entity)
         {
+
+            string company = HttpContext.Session.GetString("UserCompanyId");
+
+            long companyId = Convert.ToInt64(company);
+
+            entity.Product_CompanyId = companyId;
+
             var apiResponse = await _productModel.AddProduct(entity);
 
             if (apiResponse.Success)
             {
+
                 return RedirectToAction("GetAllProducts", "Product");
             }
             else
@@ -58,6 +89,7 @@ namespace Intelly_Web.Controllers
                 return View();
             }
         }
+
 
         [HttpGet]
         public async Task<IActionResult> GetAllProducts()
