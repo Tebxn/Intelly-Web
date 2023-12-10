@@ -70,7 +70,7 @@ namespace Intelly_Web.Models
 
                 string url = _urlApi + "/api/Authentication/RegisterAccount";
                 string token = _HttpContextAccessor.HttpContext.Session.GetString("UserToken");
-                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                //_httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
                 JsonContent obj = JsonContent.Create(entity);
                 var httpResponse = await _httpClient.PostAsync(url, obj);
