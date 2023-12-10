@@ -86,7 +86,7 @@ namespace Intelly_Web.Models
 
         public async Task<ApiResponse<ProductEnt>> GetSpecificProduct(int ProductId)
         {
-            // Implementa la lógica para obtener una empresa en específico
+         
             ApiResponse<ProductEnt> response = new ApiResponse<ProductEnt>();
             try
             {

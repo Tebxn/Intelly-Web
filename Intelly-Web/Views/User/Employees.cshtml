@@ -102,10 +102,9 @@
                                                             <i class="fa fa-pencil"></i>
 
                                                         </a>
-                                                        <a href="@Url.Action("UpdateUserState", "User", new { UserId = user.User_Id })" class="btn btn-danger">
-                                                            Desactivar Usuario
+                                                        <a href="@Url.Action("UpdateUserState", "User", new { UserId = user.User_Id })" class="btn @(user.User_State ? "btn-danger" : "btn-success")">
+                                                            @(user.User_State ? "Desactivar Usuario" : "Activar Usuario")
                                                             <i class="fa fa-pencil"></i>
-
                                                         </a>
                                                     }
                                                 </td>
