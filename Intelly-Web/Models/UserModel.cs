@@ -10,6 +10,7 @@ using System.Net.Http.Headers;
 using System.Data;
 using Microsoft.AspNetCore.Http;
 using Intelly_Web.Implementations;
+using System.Xml;
 
 namespace Intelly_Web.Models
 {
@@ -294,63 +295,6 @@ namespace Intelly_Web.Models
             }
         }
 
-        public async Task<ApiResponse<UserEnt>> ChangePassword(UserEnt entity)
-        {
-            ApiResponse<UserEnt> response = new ApiResponse<UserEnt>();
-
-            try
-            {
-                string url = _urlApi + "/api/Authentication/ChangePassword";
-                JsonContent obj = JsonContent.Create(entity);
-                var httpResponse = await _httpClient.PutAsync(url, obj);
-
-                if (httpResponse.IsSuccessStatusCode)
-                {
-                    response.Success = true;
-                    response.Data = await httpResponse.Content.ReadFromJsonAsync<UserEnt>();
-                    return response;
-                }
-                else
-                {
-                    response.ErrorMessage = "Error al conectar con el servidor. Contacte con soporte.";
-                    return response;
-                }
-            }
-            catch (Exception ex)
-            {
-                response.ErrorMessage = "Error inesperado al actualizar usuario: " + ex.Message;
-                return response;
-            }
-        }
-        //public async Task<ApiResponse<UserEnt>> DisableSpecificUser(UserEnt entity)
-        //{
-        //    ApiResponse<UserEnt> response = new ApiResponse<UserEnt>();
-
-        //    try
-        //    {
-        //        string url = _urlApi + "/api/Authentication/DisableSpecificUser";
-        //        JsonContent obj = JsonContent.Create(entity);
-        //        var httpResponse = await _httpClient.PutAsync(url, obj);
-
-        //        if (httpResponse.IsSuccessStatusCode)
-        //        {
-        //            response.Success = true;
-        //            response.Data = await httpResponse.Content.ReadFromJsonAsync<UserEnt>();
-        //            return response;
-        //        }
-        //        else
-        //        {
-        //            response.ErrorMessage = "Error al conectar con el servidor. Contacte con soporte.";
-        //            return response;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        response.ErrorMessage = "Error inesperado al actualizar usuario: " + ex.Message;
-        //        return response;
-        //    }
-        //}
-
         public async Task<ApiResponse<UserEnt>> UpdateUserState(UserEnt entity)
         {
             ApiResponse<UserEnt> response = new ApiResponse<UserEnt>();
@@ -380,36 +324,35 @@ namespace Intelly_Web.Models
             }
         }
 
-        public async Task<ApiResponse<UserEnt>> UpdateNewPassword(UserEnt entity)
+        public async Task<ApiResponse<UserEnt>> ChangePassword(UserEnt entity)
         {
             ApiResponse<UserEnt> response = new ApiResponse<UserEnt>();
 
             try
             {
-                string url = _urlApi + "/api/Authentication/UpdateNewPassword";
+                entity.User_Id = long.Parse(_HttpContextAccessor.HttpContext.Session.GetString("UserId"));
+                string url = _urlApi + "/api/Authentication/ChangePassword";
                 JsonContent obj = JsonContent.Create(entity);
                 var httpResponse = await _httpClient.PutAsync(url, obj);
 
                 if (httpResponse.IsSuccessStatusCode)
                 {
                     response.Success = true;
-                    response = await httpResponse.Content.ReadFromJsonAsync<ApiResponse<UserEnt>>();
+                    response.Data = await httpResponse.Content.ReadFromJsonAsync<UserEnt>();
                     return response;
                 }
                 else
                 {
-                    response.ErrorMessage = "Error al actualizar la contraseña.";
+                    response.ErrorMessage = "Error al conectar con el servidor. Contacte con soporte.";
                     return response;
                 }
             }
             catch (Exception ex)
             {
-                response.ErrorMessage = "Error inesperado al actualizar la contraseña: " + ex.Message;
+                response.ErrorMessage = "Error inesperado al actualizar usuario: " + ex.Message;
                 return response;
             }
-
         }
-
         public async Task<ApiResponse<UserEnt>> PwdRecovery(UserEnt entity)
         {
             ApiResponse<UserEnt> response = new ApiResponse<UserEnt>();
@@ -437,7 +380,6 @@ namespace Intelly_Web.Models
                 response.ErrorMessage = "Error inesperado al restablecer contraseña: " + ex.Message;
                 return response;
             }
-
         }
 
     }

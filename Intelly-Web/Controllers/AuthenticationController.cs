@@ -72,48 +72,10 @@ namespace Intelly_Web.Controllers
             return RedirectToAction("Authentication", "Login");
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> PwdRecovery(UserEnt entity)
-        //{
-        //    var resp = await _userModel.PwdRecovery(entity);
-
-        //    if (resp.Success)
-        //        return RedirectToAction("EmailSent", "Authentication");
-        //    else
-        //    {
-        //        ViewBag.MensajePantalla = resp.ErrorMessage;
-        //        return View();
-        //    }
-        //}
-
-
-        public async Task<IActionResult> UpdateUserPassword()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> UpdateUserPassword(UserEnt entity)
-        {
-            var resp = _userModel.UpdateUserPassword(entity);
-            if (resp.IsCompletedSuccessfully)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            else
-            {
-                ViewBag.MensajePantalla = "No se realizaron cambios";
-                return View();
-            }
-        }
-
-
         [HttpGet]
-        public async Task<IActionResult> ChangePassword(long q)
+        public async Task<IActionResult> ChangePassword()
         {
-        	UserEnt entity = new UserEnt();
-        	entity.User_Id = q;
-        	return View(entity);
+        	return View();
         }
 
         [HttpPost]
@@ -123,7 +85,7 @@ namespace Intelly_Web.Controllers
 
         	if (apiResponse.Success)
         	{
-        		return RedirectToAction("Login", "Authentication");
+        		return RedirectToAction("Index", "Home");
         	}
         	else
         	{
@@ -133,27 +95,11 @@ namespace Intelly_Web.Controllers
 
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> UpdateNewPassword(UserEnt entity)
-        //{
-        //    var resp = await _userModel.UpdateNewPassword(entity);
-
-        //    if (resp.Success)
-        //        return RedirectToAction("Login", "Authentication");
-
-        //    else
-        //    {
-        //        ViewBag.MensajePantalla = resp.ErrorMessage;
-        //        return View();
-        //    }
-        //}
-
-        //public IActionResult UpdateNewPassword(string q)
-        //{
-        //    UserEnt entity = new UserEnt();
-        //    entity.User_Secure_Id = q;
-        //    return View(entity);
-        //}
+        [HttpGet]
+        public IActionResult PwdRecovery()
+        {
+            return View();
+        }
 
         [HttpPost]
         public async Task<IActionResult> PwdRecovery(UserEnt entity)
@@ -161,8 +107,9 @@ namespace Intelly_Web.Controllers
             var resp = await _userModel.PwdRecovery(entity);
 
             if (resp.Success)
-                return RedirectToAction("Index", "Home");
-
+            {
+                return RedirectToAction("Login", "Authentication");
+            }
             else
             {
                 ViewBag.MensajePantalla = resp.ErrorMessage;
@@ -170,10 +117,6 @@ namespace Intelly_Web.Controllers
             }
         }
 
-        public IActionResult PwdRecovery()
-        {
-            return View();
-        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

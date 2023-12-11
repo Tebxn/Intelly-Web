@@ -221,53 +221,6 @@ namespace Intelly_Web.Controllers
             }
         }
 
-
-        //[HttpGet]
-        //public async Task<IActionResult> GetProfile()
-        //{
-        //    try
-        //    {
-        //        // Obtén el userId directamente de la sesión
-        //        long userId;
-
-        //        if (long.TryParse(HttpContext.Session.GetString("UserId"), out userId))
-        //        {
-        //            // Llama al método GetSpecificUser del modelo web con el userId
-        //            var apiResponse = await _userModel.GetSpecificUser(userId);
-
-        //            if (apiResponse.Success)
-        //            {
-        //                var user = apiResponse.Data;
-        //                if (user != null)
-        //                {
-        //                    // Pasa el modelo de usuario a la vista
-        //                    return View(user);
-        //                }
-        //                else
-        //                {
-        //                    ViewBag.MensajePantalla = "No se pudo desplegar el perfil";
-        //                    return View();
-        //                }
-        //            }
-        //            else
-        //            {
-        //                ViewBag.MensajePantalla = "No se logró conexión con el servidor";
-        //                return View();
-        //            }
-        //        }
-        //        else
-        //        {
-        //            ViewBag.MensajePantalla = "Error al obtener el UserId de la sesión";
-        //            return View();
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        ViewBag.MensajePantalla = "Error al cargar los datos: " + ex.Message;
-        //        return View();
-        //    }
-        //}
-
         [HttpGet]
         public async Task<IActionResult> GetProfile()
         {

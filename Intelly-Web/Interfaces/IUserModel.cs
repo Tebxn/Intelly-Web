@@ -24,10 +24,7 @@ namespace Intelly_Web.Interfaces
 
         Task<ApiResponse<UserEnt>> ChangePassword(UserEnt entity);
 
-        //Task<ApiResponse<UserEnt>> DisableSpecificUser(UserEnt entity);
         Task<ApiResponse<UserEnt>> UpdateUserState(UserEnt entity);
-
-        Task<ApiResponse<UserEnt>> UpdateNewPassword(UserEnt entity);
 
         Task<ApiResponse<UserEnt>> PwdRecovery(UserEnt entity);
 

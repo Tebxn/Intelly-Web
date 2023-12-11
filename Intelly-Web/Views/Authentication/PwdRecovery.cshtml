@@ -16,13 +16,13 @@
                 <div class="form-group">
                     <div class="col-12">
                         <label>Correo Electrónico</label>
-                        <input class="form-control" name="User_Email" id="User_Email" type="email" required="" placeholder="Correo Electrónico">
+                        <input class="form-control" name="User_Email" id="email" type="email" onkeyup="validMail()" required placeholder="Correo Electrónico">
                     </div>
                 </div>
 
                 <div class="form-group text-center m-t-20">
                     <div class="col-12">
-                        <button class="btn btn-primary btn-block btn-lg waves-effect waves-light">Recuperar Contraseña </button>
+                        <button class="btn btn-primary btn-block btn-lg waves-effect waves-light" id="btnConfirm" disable>Recuperar Contraseña </button>
                     </div>
                 </div>
                 
@@ -31,5 +31,20 @@
 
     </div>
 </div>
+
+<script>
+    function validMail() {
+        var pass = document.getElementById("email").value;
+        var btnConfirm = document.getElementById("btnConfirm");
+
+        if (pass !== "") {
+            btnConfirm.disabled = false; // Habilitar el botón
+        } else {
+            btnConfirm.disabled = true; // Deshabilitar el botón
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", validMail);
+</script>
 
 
