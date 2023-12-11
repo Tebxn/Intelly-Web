@@ -92,27 +92,6 @@
                                                             <i class="fa fa-pencil"></i>
 
                                                         </a>
-
-
-
-                                                        @* @if (company.Company_State)
-                                                        {
-                                                            <form method="post" asp-action="DeactivateCompany" asp-controller="Company">
-                                                                <input type="hidden" name="User_Id" value="@company.Company_Id" />
-                                                                <br>
-                                                                <button type="submit" class="btn btn-danger">Desactivar Empresa</button>
-                                                            </form>
-                                                            <br>
-                                                        }
-                                                        else
-                                                        {
-                                                            <form method="post" asp-action="ActivateAccount" asp-controller="User">
-                                                                <input type="hidden" name="Company_Id" value="@company.Company_Id" />
-                                                                <br>
-                                                                <button type="submit" class="btn btn-success">Activar Empresa</button>
-                                                            </form>
-
-                                                        } *@
                                                     </td>
                                                 </tr>
                                             }
@@ -125,12 +104,6 @@
                                 <a href="@Url.Action("CreateCompany", "Company")" class="btn btn-primary">Agregar Empresa</a>
                             </div> 
                     </div> <!-- end row -->
-
-
-
-
-                   
-
 
                 </div>
                 <!-- container-fluid -->

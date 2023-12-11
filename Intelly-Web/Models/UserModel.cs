@@ -129,10 +129,7 @@ namespace Intelly_Web.Models
             ApiResponse<UserEnt> response = new ApiResponse<UserEnt>();
             try
             {
-                // Encripta el userId antes de pasarlo en la URL
-                string encryptedUserId = _tools.Encrypt(userId.ToString());
-
-                string url = $"{_urlApi}/api/Users/GetSpecificUser/{encryptedUserId}";
+                string url = $"{_urlApi}/api/Users/GetSpecificUser/{userId}";
 
                 HttpResponseMessage httpResponse = await _httpClient.GetAsync(url);
 
@@ -149,11 +146,12 @@ namespace Intelly_Web.Models
             }
             catch (Exception ex)
             {
-                response.ErrorMessage = "Unexpected Error: " + ex.Message;
+                response.ErrorMessage = "Error inesperado: " + ex.Message;
                 response.Code = 500;
                 return response;
             }
         }
+
 
         public async Task<ApiResponse<UserEnt>> EditSpecificUser(UserEnt entity)
         {

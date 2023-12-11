@@ -1,6 +1,6 @@
-﻿@model Intelly_Web.Entities.UserEnt
+﻿@model Intelly_Web.Entities.ProductEnt
 @{
-    ViewData["Title"] = "EditSpecificUser";
+    ViewData["Title"] = "EditSpecificProduct";
 }
 
 <!DOCTYPE html>
@@ -50,7 +50,7 @@
                             <ol class="breadcrumb float-right">
                                 <li class="breadcrumb-item"><a href="javascript:void(0);">Intelly</a></li>
                                 <li class="breadcrumb-item"><a href="javascript:void(0);">Administrativo</a></li>
-                                <li class="breadcrumb-item active">Empleados Activos</li>
+                                <li class="breadcrumb-item active">Productos Activos</li>
                             </ol>
                         </div>
                     </div> <!-- end row -->
@@ -64,55 +64,39 @@
                         <div class="text-center m-t-0 m-b-30">
                             <a href="index.html" class="logo logo-admin"><img src="~/images/logo-dark.png" alt="" height="70"></a>
                         </div>
-                        <h5 class="font-18 text-center">Editar usuario</h5>
+                        <h5 class="font-18 text-center">Editar producto</h5>
 
-                        <form asp-action="EditSpecificUser" asp-controller="User" method="post" class="pt-3">
+                        <form asp-action="EditSpecificProduct" asp-controller="Product" method="post" class="pt-3">
+
                             <div class="form-group" style="display: none;">
                                 <div class="col-6 mx-auto">
-                                    <label asp-for="User_Id" class="control-label"></label>
-                                    <input asp-for="User_Id" class="form-control" />
+                                    <label asp-for="Product_Id" class="control-label"></label>
+                                    <input asp-for="Product_Id" class="form-control" />
                                 </div>
                             </div>
 
                             <div class="form-horizontal m-t-30">
                                 <div class="form-group">
                                     <div class="col-6 mx-auto">
-                                        <label>Nombre</label>
-                                        <input asp-for="User_Name" class="form-control form-control-lg" />
+                                        <label>Nombre producto</label>
+                                        <input asp-for="Product_Name" class="form-control form-control-lg" type="text" placeholder="Nombre producto" />
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <div class="col-6 mx-auto">
-                                        <label>Apellido</label>
-                                        <input asp-for="User_LastName" class="form-control form-control-lg" type="text" placeholder="Apellido" />
+                                        <label>Id Interno</label>
+                                        <input asp-for="Product_Internal_Code" class="form-control form-control-lg" type="text" placeholder="Id Interno" />
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <div class="col-6 mx-auto">
-                                        <label>Correo Electrónico</label>
-                                        <input asp-for="User_Email" class="form-control form-control-lg" type="email" maxlength="30" placeholder="Correo" />
+                                        <label>Precio</label>
+                                        <input asp-for="Product_Price" class="form-control form-control-lg" type="number" placeholder="Precio" />
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <div class="col-6 mx-auto">
-                                        <label for="Empresa">Empresa</label>
-                                        <select asp-for="User_Company_Id" asp-items="ViewBag.ComboCompanies" class="form-control form-control-lg">
-                                            <option value="">Seleccionar Empresa</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="col-6 mx-auto">
-                                        <label for="TipoUsuario">Tipo Usuario</label>
-                                        <select asp-for="User_Type" asp-items="ViewBag.ComboRoles" class="form-control form-control-lg">
-                                            <option value="">Seleccionar Tipo de Usuario</option>
-                                        </select>
-                                    </div>
-                                </div>
 
 
                                 <div class="form-group text-center m-t-20">
@@ -170,3 +154,4 @@
 </body>
 
 </html>
+

@@ -87,7 +87,6 @@ namespace Intelly_Web.Models
         }
         public async Task<ApiResponse<LocalEnt>> GetSpecificLocal(int LocalId)
         {
-            // Implementa la lógica para obtener una empresa en específico
             ApiResponse<LocalEnt> response = new ApiResponse<LocalEnt>();
             try
             {
@@ -101,7 +100,7 @@ namespace Intelly_Web.Models
                     return response;
                 }
 
-                response.ErrorMessage = "Error al obtener el usuario del API.";
+                response.ErrorMessage = "Error al obtener el local del API.";
                 response.Code = (int)httpResponse.StatusCode;
                 return response;
             }

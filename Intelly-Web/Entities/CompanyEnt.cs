@@ -10,9 +10,3 @@
         //public bool Company_State { get; set; }
     }
 }
-//    public class CompanyeEntAnswer
-//    {
-//        public CompanyEnt? Object { get; set; } = null;
-//        public List<CompanyEnt> Objects { get; set; } = new List<CompanyEnt>();
-//    }
-//}

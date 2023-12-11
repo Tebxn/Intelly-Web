@@ -86,7 +86,6 @@ namespace Intelly_Web.Models
 
         public async Task<ApiResponse<ProductEnt>> GetSpecificProduct(int ProductId)
         {
-         
             ApiResponse<ProductEnt> response = new ApiResponse<ProductEnt>();
             try
             {
@@ -100,7 +99,7 @@ namespace Intelly_Web.Models
                     return response;
                 }
 
-                response.ErrorMessage = "Error al obtener el usuario del API.";
+                response.ErrorMessage = "Error al obtener el producto del API.";
                 response.Code = (int)httpResponse.StatusCode;
                 return response;
             }
@@ -111,6 +110,7 @@ namespace Intelly_Web.Models
                 return response;
             }
         }
+
 
         public async Task<ApiResponse<ProductEnt>> EditSpecificProduct(ProductEnt entity)
         {
@@ -130,7 +130,7 @@ namespace Intelly_Web.Models
                 }
                 else if (httpResponse.StatusCode == HttpStatusCode.NotFound)
                 {
-                    response.ErrorMessage = "User not found";
+                    response.ErrorMessage = "Product not found";
                     response.Code = 404;
                 }
                 else

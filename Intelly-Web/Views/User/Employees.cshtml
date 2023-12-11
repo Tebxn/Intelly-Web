@@ -91,12 +91,11 @@
                                                 <td>@user.User_Name</td>
                                                 <td>@user.User_LastName</td>
                                                 <td>@user.User_Email</td>
-
                                                 <td>@(user.User_State ? "Activo" : "Inactivo")</td>
-                                                @* <td>@user.User_Type</td> *@
-                                                <td>
-                                                    @if (Context.Session.GetString("UserType") == "1" || Context.Session.GetString("UserType") == "2")
-                                                    {
+                                                @if (Context.Session.GetString("UserType") == "1" || Context.Session.GetString("UserType") == "2")
+                                                {
+                                                    <td>
+                                                    
                                                         <a href="@Url.Action("EditSpecificUser", "User", new { UserId = user.User_Id })" class="btn btn-primary">
                                                             Editar Usuario
                                                             <i class="fa fa-pencil"></i>
@@ -106,8 +105,9 @@
                                                             @(user.User_State ? "Desactivar Usuario" : "Activar Usuario")
                                                             <i class="fa fa-pencil"></i>
                                                         </a>
-                                                    }
-                                                </td>
+                                                   
+                                                    </td>
+                                                }
                                             </tr>
                                         }
                                     </tbody>

@@ -68,24 +68,30 @@
                             <div style="max-height: 400px; overflow-y: auto;">
                                 <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
-                                        <tr>
+                                        <tr class="text-center">
                                             <th>Nombre</th>
                                             <th>Código</th>
                                             <th>Precio</th>
+                                            <th>Acciones</th>
                                         </tr>
                                     </thead>
-
 
                                     <tbody>
                                         @foreach (var product in Model)
                                         {
-                                            <tr>
+                                            <tr class="text-center">
                                                 <td>@product.Product_Name</td>
                                                 <td>@product.Product_Internal_Code</td>
-                                                <td>@product.Product_Price</td>                                           
+                                                <td>@product.Product_Price</td>
+                                                <td>
+                                                    <a href="@Url.Action("EditSpecificProduct", "Product", new {ProductId = product.Product_Id })" class="btn btn-primary">
+                                                        Editar Producto
+                                                    </a>
+                                                </td>
                                             </tr>
                                         }
                                     </tbody>
+                                </table>
 
 
 

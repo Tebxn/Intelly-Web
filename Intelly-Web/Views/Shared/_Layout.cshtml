@@ -125,11 +125,21 @@
                                 <a href="javascript:void(0);" class="waves-effect"><i class="icon-paper-sheet"></i><span> Administrativo <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
                                 <ul class="submenu">
                                     <li><a href="@Url.Action("Employees", "User")">Empleados</a></li>
-                                    <li><a href="@Url.Action("GetAllCompanies", "Company")">Empresas</a></li>
                                     <li><a href="@Url.Action("ChangePassword", "Authentication")">Cambiar Contraseña</a></li>
                                     
                                 </ul>
                             </li>
+                        }
+
+                        @if (Context.Session.GetString("UserType") == "1")
+                        {
+                            <li>
+                                <a href="@Url.Action("GetAllCompanies", "Company")" class="waves-effect">
+                                    <i class="icon-home"></i>
+                                    <span>Compañías</span>
+                                </a>
+                            </li>
+
                         }
 
                         @if (Context.Session.GetString("UserType") == "1" || Context.Session.GetString("UserType") == "2" || Context.Session.GetString("UserType") == "3")
@@ -164,17 +174,11 @@
                                 </a>
                             </li>
 
-                           @*  <li>
-                                <a href="calendar.html" class="waves-effect"><i class="icon-calendar"></i><span> Agenda </span></a>
-                            </li> *@
 
                             <li>
                                 <a href="javascript:void(0);" class="waves-effect"><i class="icon-profile"></i><span> Análisis de Clientes <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
                                 <ul class="submenu">
                                     <li><a href="@Url.Action("Customers", "Customer")">Clientes Registrados</a></li>
-                                   @*  <li><a href="@Url.Action("BuyerPersonaMain", "TargetAnalysis")">Buyer Persona</a></li> *@
-                                   @*  <li><a href=" Home/Correos.cshtml">Compras en comercios</a></li>
-                                    <li><a href=" Home/Correos.cshtml">Análisis de ventas</a></li> *@
                                 </ul>
                             </li>
                         }
@@ -189,6 +193,7 @@
                             </li>
 
                         }
+
                            
                     </ul>
 

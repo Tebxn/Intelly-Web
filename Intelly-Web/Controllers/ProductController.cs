@@ -23,21 +23,7 @@ namespace Intelly_Web.Controllers
 
 
         }
-        //[HttpGet]
-        //public async Task<IActionResult> AddProduct()
-        //{
-        //    try
-        //    {
-        //        return View();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        ViewBag.MensajePantalla = "Error al cargar los datos";
-        //        return View();
-        //    }
-        //}
-
-
+ 
 
         [HttpGet]
         public async Task<IActionResult> AddProduct()
@@ -104,6 +90,97 @@ namespace Intelly_Web.Controllers
             {
                 List<ProductEnt> errors = new List<ProductEnt>();
                 return View(errors);
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetSpecificProduct(int ProductId)
+        {
+            try
+            {
+                var apiResponse = await _productModel.GetSpecificProduct(ProductId);
+                if (apiResponse.Success)
+                {
+                    var product = apiResponse.Data;
+                    if (product != null)
+                    {
+                        return RedirectToAction("EditSpecificProduct", new { ProductId = ProductId });
+                    }
+                    else
+                    {
+                        return View("Error");
+                    }
+                }
+                else
+                {
+                    return View("Error"); 
+                }
+            }
+            catch (Exception ex)
+            {
+                return View("Error");
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EditSpecificProduct(int ProductId)
+        {
+            try
+            {
+                var apiResponse = await _productModel.GetSpecificProduct(ProductId);
+                if (apiResponse.Success)
+                {
+                    var product = apiResponse.Data;
+                    if (product != null)
+                    {
+                        return View("EditSpecificProduct", product);
+                    }
+                    else
+                    {
+                        ViewBag.MensajePantalla = apiResponse.ErrorMessage;
+                        return View("GetAllProducts");
+                    }
+                }
+                else
+                {
+                    ViewBag.MensajePantalla = apiResponse.ErrorMessage;
+                    return View();
+                }
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditSpecificProduct(ProductEnt product)
+        {
+            string company = HttpContext.Session.GetString("UserCompanyId");
+
+            long companyId = Convert.ToInt64(company);
+
+            product.Product_CompanyId = companyId;
+
+            try
+            {
+                var apiResponse = await _productModel.EditSpecificProduct(product);
+
+                if (apiResponse.Success)
+                {
+                    var editedCompany = apiResponse.Data;
+                    return RedirectToAction("GetAllProducts", "Product");
+                }
+                else
+                {
+                    ViewBag.MensajePantalla = apiResponse.ErrorMessage;
+                    return View();
+                }
+            }
+            catch (Exception ex)
+            {
+                ViewBag.MensajePantalla = "Unexpected Error: " + ex.Message;
+                return View();
             }
         }
 
