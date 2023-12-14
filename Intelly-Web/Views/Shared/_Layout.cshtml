@@ -37,7 +37,7 @@
 
             <!-- LOGO -->
             <div class="topbar-left">
-                <a href="index.html" class="logo">
+                <a href="@Url.Action("Home", "Home")" class="logo">
                     <span class="logo-light">
                         <i class=""></i> Intelly
                     </span>
@@ -124,8 +124,6 @@
                                 <a href="javascript:void(0);" class="waves-effect"><i class="icon-paper-sheet"></i><span> Administrativo <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
                                 <ul class="submenu">
                                     <li><a href="@Url.Action("Employees", "User")">Empleados</a></li>
-                                    <li><a href="@Url.Action("ChangePassword", "Authentication")">Cambiar Contraseña</a></li>
-                                    
                                 </ul>
                             </li>
                         }
