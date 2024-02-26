@@ -49,11 +49,11 @@
                                         <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <label for="Nombre" class="form-label">Cuerpo de la publicidad</label>
-                                                @Html.TextBoxFor(m => m.Email.Body, new { @type = "text", @class = "form-control", @placeholder = "Cuerpo de la publicidad" })
+                                                @Html.TextBoxFor(m => m.Email.Body, new { @type = "text", @class = "form-control", @placeholder = "Cuerpo de la publicidad", @required = "required" })
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="Apellido1" class="form-label">Imagen</label>
-                                                @Html.TextBoxFor(m => m.Email.ImageUrl, new { @type = "text", @class = "form-control", @placeholder = "Url Imagen por utilizar" })
+                                                @Html.TextBoxFor(m => m.Email.ImageUrl, new { @type = "text", @class = "form-control", @placeholder = "Url Imagen por utilizar" ,@required = "required" })
                                             </div>
                                         </div>
 

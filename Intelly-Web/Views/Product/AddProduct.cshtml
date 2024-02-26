@@ -16,7 +16,7 @@
             <h5 class="font-18 text-center">Agregar nuevo producto</h5>
 
             <form asp-action="AddProduct" asp-controller="Product" method="post" class="pt-3">
-
+ 
                 <div class="container">
 
                     <div class="form-group">
@@ -36,7 +36,7 @@
                     <div class="form-group">
                         <div class="col-6 mx-auto">
                             <label>Precio</label>
-                            <input asp-for="Product_Price" class="form-control form-control-lg" type="text" placeholder="Precio" required />
+                            <input asp-for="Product_Price" class="form-control form-control-lg" type="number" min="0.01" step="0.01" placeholder="Ingrese el precio" required />
                         </div>
                     </div>
 
@@ -53,4 +53,7 @@
 
     </div>
 </div>
+
+
+
 
