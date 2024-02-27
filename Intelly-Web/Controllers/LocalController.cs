@@ -4,6 +4,7 @@ using Intelly_Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Diagnostics;
+using static Intelly_Web.Entities.SecurityFilter;
 
 namespace Intelly_Web.Controllers
 {
@@ -37,7 +38,7 @@ namespace Intelly_Web.Controllers
             }
         }
 
-       
+
         [HttpGet]
         public async Task<IActionResult> GetAllLocals()
         {
@@ -140,10 +141,29 @@ namespace Intelly_Web.Controllers
             }
         }
 
+        [HttpPut]
+        public async Task<IActionResult> UpdateLocalState(LocalEnt entity)
+        {
+
+            var apiResponse = await _localModel.UpdateLocalState(entity);
+
+            if (apiResponse.Success)
+            {
+                return RedirectToAction("Employees", "User");
+            }
+            else
+            {
+                ViewBag.MensajePantalla = "No se realizaron cambios";
+                return View();
+            }
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+
     }
 }

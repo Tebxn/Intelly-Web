@@ -147,6 +147,40 @@ namespace Intelly_Web.Models
 
             return response;
         }
+        public async Task<ApiResponse<LocalEnt>> UpdateLocalState(LocalEnt entity)
+        {
+            ApiResponse<LocalEnt> response = new ApiResponse<LocalEnt>();
 
+            try
+            {
+                string url = $"{_urlApi}/api/Local/UpdateLocalState";
+                JsonContent obj = JsonContent.Create(entity);
+
+                var httpResponse = await _httpClient.PutAsync(url, obj);
+
+                if (httpResponse.IsSuccessStatusCode)
+                {
+                    response.Success = true;
+                    response.Data = await httpResponse.Content.ReadFromJsonAsync<LocalEnt>();
+                }
+                else if (httpResponse.StatusCode == HttpStatusCode.NotFound)
+                {
+                    response.ErrorMessage = "User not found";
+                    response.Code = 404;
+                }
+                else
+                {
+                    response.ErrorMessage = "Unexpected Error: " + httpResponse.ReasonPhrase;
+                    response.Code = (int)httpResponse.StatusCode;
+                }
+            }
+            catch (Exception ex)
+            {
+                response.ErrorMessage = "Unexpected Error: " + ex.Message;
+                response.Code = 500;
+            }
+
+            return response;
+        }
     }
 }

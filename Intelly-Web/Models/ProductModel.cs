@@ -147,5 +147,41 @@ namespace Intelly_Web.Models
 
             return response;
         }
+
+        public async Task<ApiResponse<ProductEnt>> UpdateProductState(ProductEnt entity)
+        {
+            ApiResponse<ProductEnt> response = new ApiResponse<ProductEnt>();
+
+            try
+            {
+                string url = $"{_urlApi}/api/Product/UpdateProductState";
+                JsonContent obj = JsonContent.Create(entity);
+
+                var httpResponse = await _httpClient.PutAsync(url, obj);
+
+                if (httpResponse.IsSuccessStatusCode)
+                {
+                    response.Success = true;
+                    response.Data = await httpResponse.Content.ReadFromJsonAsync<ProductEnt>();
+                }
+                else if (httpResponse.StatusCode == HttpStatusCode.NotFound)
+                {
+                    response.ErrorMessage = "Product not found";
+                    response.Code = 404;
+                }
+                else
+                {
+                    response.ErrorMessage = "Unexpected Error: " + httpResponse.ReasonPhrase;
+                    response.Code = (int)httpResponse.StatusCode;
+                }
+            }
+            catch (Exception ex)
+            {
+                response.ErrorMessage = "Unexpected Error: " + ex.Message;
+                response.Code = 500;
+            }
+
+            return response;
+        }
     }
 }

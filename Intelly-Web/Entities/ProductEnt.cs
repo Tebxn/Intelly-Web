@@ -8,6 +8,7 @@
         public string? Product_Name { get; set; } = string.Empty;
         public float Product_Price { get; set; }
         public string? Product_ImageUrl { get; set; } = string.Empty;
+        public bool Product_State { get; set; }
 
     }
 }

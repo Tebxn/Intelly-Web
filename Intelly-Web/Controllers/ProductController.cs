@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Intelly_Web.Controllers
 {
-    public class ProductController : Controller 
+    public class ProductController : Controller
     {
 
         private readonly IProductModel _productModel;
@@ -23,7 +23,7 @@ namespace Intelly_Web.Controllers
 
 
         }
- 
+
 
         [HttpGet]
         public async Task<IActionResult> AddProduct()
@@ -113,7 +113,7 @@ namespace Intelly_Web.Controllers
                 }
                 else
                 {
-                    return View("Error"); 
+                    return View("Error");
                 }
             }
             catch (Exception ex)
@@ -155,6 +155,37 @@ namespace Intelly_Web.Controllers
 
         [HttpPost]
         public async Task<IActionResult> EditSpecificProduct(ProductEnt product)
+        {
+            string company = HttpContext.Session.GetString("UserCompanyId");
+
+            long companyId = Convert.ToInt64(company);
+
+            product.Product_CompanyId = companyId;
+
+            try
+            {
+                var apiResponse = await _productModel.EditSpecificProduct(product);
+
+                if (apiResponse.Success)
+                {
+                    var editedCompany = apiResponse.Data;
+                    return RedirectToAction("GetAllProducts", "Product");
+                }
+                else
+                {
+                    ViewBag.MensajePantalla = apiResponse.ErrorMessage;
+                    return View();
+                }
+            }
+            catch (Exception ex)
+            {
+                ViewBag.MensajePantalla = "Unexpected Error: " + ex.Message;
+                return View();
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateProductState(ProductEnt product)
         {
             string company = HttpContext.Session.GetString("UserCompanyId");
 

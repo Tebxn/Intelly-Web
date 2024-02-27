@@ -8,5 +8,6 @@ namespace Intelly_Web.Interfaces
         Task<ApiResponse<LocalEnt>> CreateLocal(LocalEnt entity);
         Task<ApiResponse<LocalEnt>> GetSpecificLocal(int LocalId);
         Task<ApiResponse<LocalEnt>> EditSpecificLocal(LocalEnt entity);
+        Task<ApiResponse<LocalEnt>> UpdateLocalState(LocalEnt entity);
     }
 }

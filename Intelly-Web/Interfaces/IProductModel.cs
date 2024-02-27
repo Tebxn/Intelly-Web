@@ -9,5 +9,6 @@ namespace Intelly_Web.Interfaces
         Task<ApiResponse<ProductEnt>> AddProduct(ProductEnt entity);
         Task<ApiResponse<ProductEnt>> GetSpecificProduct(int ProductId);
         Task<ApiResponse<ProductEnt>> EditSpecificProduct(ProductEnt entity);
+        Task<ApiResponse<ProductEnt>> UpdateProductState(ProductEnt entity);
     }
 }

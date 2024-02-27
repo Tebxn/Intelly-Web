@@ -6,5 +6,6 @@
         public long? Intern_Id { get; set; }
         public string? Local_Name { get; set; }
         public string? Location { get; set; }
+        public bool Local_State { get; set; }
     }
 }
