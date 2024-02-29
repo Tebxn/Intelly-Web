@@ -149,7 +149,7 @@ namespace Intelly_Web.Controllers
 
             if (apiResponse.Success)
             {
-                return RedirectToAction("Employees", "User");
+                return RedirectToAction("GetAllLocals", "Local");
             }
             else
             {

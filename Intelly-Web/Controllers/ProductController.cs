@@ -3,6 +3,7 @@ using Intelly_Web.Interfaces;
 using Intelly_Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Diagnostics;
 
 namespace Intelly_Web.Controllers
 {
@@ -184,36 +185,29 @@ namespace Intelly_Web.Controllers
             }
         }
 
-        [HttpPost]
-        public async Task<IActionResult> UpdateProductState(ProductEnt product)
+        [HttpPut]
+        public async Task<IActionResult> UpdateProductState(ProductEnt entity)
         {
-            string company = HttpContext.Session.GetString("UserCompanyId");
 
-            long companyId = Convert.ToInt64(company);
+            var apiResponse = await _productModel.UpdateProductState(entity);
 
-            product.Product_CompanyId = companyId;
-
-            try
+            if (apiResponse.Success)
             {
-                var apiResponse = await _productModel.EditSpecificProduct(product);
-
-                if (apiResponse.Success)
-                {
-                    var editedCompany = apiResponse.Data;
-                    return RedirectToAction("GetAllProducts", "Product");
-                }
-                else
-                {
-                    ViewBag.MensajePantalla = apiResponse.ErrorMessage;
-                    return View();
-                }
+                return RedirectToAction("GetAllProducts", "Product");
             }
-            catch (Exception ex)
+            else
             {
-                ViewBag.MensajePantalla = "Unexpected Error: " + ex.Message;
+                ViewBag.MensajePantalla = "No se realizaron cambios";
                 return View();
             }
         }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
 
 
     }

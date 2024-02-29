@@ -153,25 +153,20 @@ namespace Intelly_Web.Models
 
             try
             {
-                string url = $"{_urlApi}/api/Local/UpdateLocalState";
+                string url = _urlApi  +"/api/Local/UpdateLocalState";
                 JsonContent obj = JsonContent.Create(entity);
-
                 var httpResponse = await _httpClient.PutAsync(url, obj);
 
                 if (httpResponse.IsSuccessStatusCode)
                 {
                     response.Success = true;
                     response.Data = await httpResponse.Content.ReadFromJsonAsync<LocalEnt>();
-                }
-                else if (httpResponse.StatusCode == HttpStatusCode.NotFound)
-                {
-                    response.ErrorMessage = "User not found";
-                    response.Code = 404;
+                    return response;
                 }
                 else
                 {
-                    response.ErrorMessage = "Unexpected Error: " + httpResponse.ReasonPhrase;
-                    response.Code = (int)httpResponse.StatusCode;
+                    response.ErrorMessage = "Error al conectar con el servidor. Contacte con soporte.";
+                    return response;
                 }
             }
             catch (Exception ex)
