@@ -52,10 +52,9 @@
                                                                 Editar Local
                                                             </a>
                                                         <a href="@Url.Action("UpdateLocalState", "Local", new { LocalId = x.Local_Id })" class="btn @(x.Local_State ? "btn-success" : "btn-danger")">
-                                                                @(x.Local_State ? "Activar Local" : "Desactivar Local")
-                                                                <i class="fa fa-pencil"></i>
-                                                            </a>
-                                                        </td>
+                                                            @(x.Local_State ? "Activar Local" : "Desactivar Local")
+                                                            <i class="fa fa-pencil"></i>
+                                                        </a>
                                                 </tr>
                                             }
                                          

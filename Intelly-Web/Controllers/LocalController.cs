@@ -141,7 +141,7 @@ namespace Intelly_Web.Controllers
             }
         }
 
-        [HttpPut]
+        [HttpPost]
         public async Task<IActionResult> UpdateLocalState(LocalEnt entity)
         {
 
