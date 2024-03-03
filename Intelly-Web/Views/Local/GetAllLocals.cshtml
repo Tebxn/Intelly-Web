@@ -46,13 +46,13 @@
                                                     <td>@x.Local_Name</td>
                                                     <td>@x.Intern_Id</td>
                                                     <td>@x.Location</td>
-                                                    <td>@(x.Local_State ? "Inactivo" : "Activo")</td>
+                                                    <td>@(x.Local_State ? "Activo" : "Inactivo")</td>
                                                         <td>
                                                             <a href="@Url.Action("EditSpecificLocal", "Local", new {LocalId = x.Local_Id })" class="btn btn-primary">
                                                                 Editar Local
                                                             </a>
-                                                        <a href="@Url.Action("UpdateLocalState", "Local", new { LocalId = x.Local_Id })" class="btn @(x.Local_State ? "btn-success" : "btn-danger")">
-                                                            @(x.Local_State ? "Activar Local" : "Desactivar Local")
+                                                        <a href="@Url.Action("UpdateLocalState", "Local", new { LocalId = x.Local_Id })" class="btn @(x.Local_State ? "btn-danger" : "btn-success")">
+                                                            @(x.Local_State ? "Desactivar Local" : "Activar Local")
                                                             <i class="fa fa-pencil"></i>
                                                         </a>
                                                 </tr>

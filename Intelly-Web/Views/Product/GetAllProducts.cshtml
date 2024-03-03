@@ -87,8 +87,8 @@
                                                     <a href="@Url.Action("EditSpecificProduct", "Product", new {ProductId = product.Product_Id })" class="btn btn-primary">
                                                         Editar Producto
                                                     </a>
-                                                    <a href="@Url.Action("UpdateProductState", "Product", new { ProductId = product.Product_Id })" class="btn @(product.Product_State ? "btn-success" : "btn-danger")">
-                                                        @(product.Product_State ? "Activar Producto" : "Desactivar Producto")
+                                                    <a href="@Url.Action("UpdateProductState", "Product", new { ProductId = product.Product_Id })" class="btn @(product.Product_State ? "btn-danger" : "btn-success")">
+                                                        @(product.Product_State ? "Desactivar Producto" : "Activar Producto")
                                                         <i class="fa fa-pencil"></i>
                                                     </a>
                                                 </td>

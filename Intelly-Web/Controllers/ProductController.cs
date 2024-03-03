@@ -3,7 +3,9 @@ using Intelly_Web.Interfaces;
 using Intelly_Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis;
 using System.Diagnostics;
+using static Intelly_Web.Entities.SecurityFilter;
 
 namespace Intelly_Web.Controllers
 {
@@ -185,7 +187,64 @@ namespace Intelly_Web.Controllers
             }
         }
 
-        [HttpPut]
+        //[HttpPut]
+        //public async Task<IActionResult> UpdateProductState(ProductEnt entity)
+        //{
+
+        //    var apiResponse = await _productModel.UpdateProductState(entity);
+
+        //    if (apiResponse.Success)
+        //    {
+        //        return RedirectToAction("GetAllProducts", "Product");
+        //    }
+        //    else
+        //    {
+        //        ViewBag.MensajePantalla = "No se realizaron cambios";
+        //        return View();
+        //    }
+        //}
+
+
+        [HttpGet]
+        public async Task<IActionResult> UpdateProductState(int ProductId)
+        {
+            try
+            {
+                // Obtener el producto por su ID
+                var apiResponse = await _productModel.GetSpecificProduct(ProductId);
+
+                if (apiResponse.Success)
+                {
+                    var product = apiResponse.Data;
+
+                    // Llamar al método en el modelo para actualizar el estado del producto
+                    var updateResponse = await _productModel.UpdateProductState(product);
+
+                    if (updateResponse.Success)
+                    {
+                        // Éxito al actualizar el estado del usuario
+                        return RedirectToAction("GetAllProducts", "Product"); // Redirigir a la vista deseada después de la actualización
+                    }
+                    else
+                    {
+                        ViewBag.ErrorMessage = updateResponse.ErrorMessage;
+                        return View(); // Algo salió mal al cambiar el estado del usuario
+                    }
+                }
+                else
+                {
+                    ViewBag.ErrorMessage = apiResponse.ErrorMessage;
+                    return View();
+                }
+            }
+            catch (Exception ex)
+            {
+                ViewBag.ErrorMessage = "Error al cambiar el estado del usuario: " + ex.Message;
+                return View("Error");
+            }
+        }
+
+        [HttpPost]
         public async Task<IActionResult> UpdateProductState(ProductEnt entity)
         {
 

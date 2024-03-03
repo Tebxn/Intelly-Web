@@ -141,6 +141,45 @@ namespace Intelly_Web.Controllers
             }
         }
 
+        [HttpGet]
+        public async Task<IActionResult> UpdateLocalState(int LocalId)
+        {
+            try
+            {
+                // Obtener del local por su ID
+                var apiResponse = await _localModel.GetSpecificLocal(LocalId);
+
+                if (apiResponse.Success)
+                {
+                    var product = apiResponse.Data;
+
+                    // Llamar al método en el modelo para actualizar el estado del local
+                    var updateResponse = await _localModel.UpdateLocalState(product);
+
+                    if (updateResponse.Success)
+                    {
+                        // Éxito al actualizar el estado del local
+                        return RedirectToAction("GetAllLocals", "Local"); // Redirigir a la vista deseada después de la actualización
+                    }
+                    else
+                    {
+                        ViewBag.ErrorMessage = updateResponse.ErrorMessage;
+                        return View(); // Algo salió mal al cambiar el estado del usuario
+                    }
+                }
+                else
+                {
+                    ViewBag.ErrorMessage = apiResponse.ErrorMessage;
+                    return View();
+                }
+            }
+            catch (Exception ex)
+            {
+                ViewBag.ErrorMessage = "Error al cambiar el estado del usuario: " + ex.Message;
+                return View("Error");
+            }
+        }
+
         [HttpPost]
         public async Task<IActionResult> UpdateLocalState(LocalEnt entity)
         {
